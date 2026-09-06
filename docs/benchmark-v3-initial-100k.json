@@ -1,0 +1,190 @@
+{
+  "environment": {
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "binary_bytes": 3838880
+  },
+  "method": "release binary; synthetic text-heavy JSONL; warm filesystem caches; CLI includes process startup; MCP uses one process; no model calls",
+  "events": 100000,
+  "samples_per_query": 50,
+  "history_bytes": 95536698,
+  "initial_import_ms": 6367.358,
+  "import_records_per_second": 15705,
+  "import_mib_per_second": 14.309,
+  "unchanged_reimport_ms": 45.327,
+  "append_one_record_ms": 52.852,
+  "git_index_20_commits_ms": 120.485,
+  "queries": {
+    "tasks": {
+      "p50_ms": 3.188,
+      "p95_ms": 3.999,
+      "p99_ms": 7.815,
+      "mean_ms": 3.375,
+      "output_bytes": 138,
+      "first_process_ms": 3.285
+    },
+    "resume": {
+      "p50_ms": 3.696,
+      "p95_ms": 4.199,
+      "p99_ms": 5.519,
+      "mean_ms": 3.781,
+      "output_bytes": 2302,
+      "first_process_ms": 3.612
+    },
+    "search_selective": {
+      "p50_ms": 7.142,
+      "p95_ms": 7.9,
+      "p99_ms": 8.222,
+      "mean_ms": 7.211,
+      "output_bytes": 10488,
+      "first_process_ms": 7.089
+    },
+    "search_common": {
+      "p50_ms": 69.68,
+      "p95_ms": 75.713,
+      "p99_ms": 103.375,
+      "mean_ms": 71.361,
+      "output_bytes": 10724,
+      "first_process_ms": 67.288
+    },
+    "search_missing": {
+      "p50_ms": 4.059,
+      "p95_ms": 4.654,
+      "p99_ms": 6.488,
+      "mean_ms": 4.143,
+      "output_bytes": 39,
+      "first_process_ms": 4.224
+    },
+    "history": {
+      "p50_ms": 3.825,
+      "p95_ms": 4.287,
+      "p99_ms": 4.552,
+      "mean_ms": 3.891,
+      "output_bytes": 15567,
+      "first_process_ms": 4.022
+    },
+    "read": {
+      "p50_ms": 4.019,
+      "p95_ms": 5.643,
+      "p99_ms": 7.732,
+      "mean_ms": 4.202,
+      "output_bytes": 1282,
+      "first_process_ms": 4.115
+    },
+    "notes": {
+      "p50_ms": 4.511,
+      "p95_ms": 6.135,
+      "p99_ms": 7.967,
+      "mean_ms": 4.747,
+      "output_bytes": 205,
+      "first_process_ms": 4.426
+    },
+    "commits": {
+      "p50_ms": 4.306,
+      "p95_ms": 5.703,
+      "p99_ms": 7.477,
+      "mean_ms": 4.467,
+      "output_bytes": 3901,
+      "first_process_ms": 6.929
+    },
+    "commit": {
+      "p50_ms": 4.89,
+      "p95_ms": 15.828,
+      "p99_ms": 19.33,
+      "mean_ms": 6.49,
+      "output_bytes": 428,
+      "first_process_ms": 3.45
+    },
+    "commit_diff": {
+      "p50_ms": 15.356,
+      "p95_ms": 34.607,
+      "p99_ms": 71.824,
+      "mean_ms": 17.962,
+      "output_bytes": 572,
+      "first_process_ms": 10.959
+    },
+    "stats": {
+      "p50_ms": 4.379,
+      "p95_ms": 9.599,
+      "p99_ms": 31.628,
+      "mean_ms": 5.636,
+      "output_bytes": 109,
+      "first_process_ms": 4.598
+    }
+  },
+  "note_update": {
+    "p50_ms": 4.886,
+    "p95_ms": 7.144,
+    "p99_ms": 7.721,
+    "mean_ms": 5.011
+  },
+  "persistent_mcp": {
+    "tasks": {
+      "p50_ms": 0.071,
+      "p95_ms": 0.114,
+      "p99_ms": 0.132,
+      "mean_ms": 0.077
+    },
+    "resume": {
+      "p50_ms": 0.158,
+      "p95_ms": 0.205,
+      "p99_ms": 0.329,
+      "mean_ms": 0.166
+    },
+    "search": {
+      "p50_ms": 3.629,
+      "p95_ms": 4.373,
+      "p99_ms": 46.535,
+      "mean_ms": 4.562
+    },
+    "history": {
+      "p50_ms": 0.21,
+      "p95_ms": 0.28,
+      "p99_ms": 0.803,
+      "mean_ms": 0.226
+    },
+    "read": {
+      "p50_ms": 0.099,
+      "p95_ms": 0.203,
+      "p99_ms": 0.404,
+      "mean_ms": 0.117
+    },
+    "notes": {
+      "p50_ms": 0.15,
+      "p95_ms": 0.192,
+      "p99_ms": 0.236,
+      "mean_ms": 0.155
+    },
+    "commits": {
+      "p50_ms": 0.119,
+      "p95_ms": 0.148,
+      "p99_ms": 0.172,
+      "mean_ms": 0.125
+    },
+    "commit": {
+      "p50_ms": 0.096,
+      "p95_ms": 0.147,
+      "p99_ms": 0.254,
+      "mean_ms": 0.104
+    },
+    "stats": {
+      "p50_ms": 0.081,
+      "p95_ms": 0.11,
+      "p99_ms": 0.13,
+      "mean_ms": 0.085
+    }
+  },
+  "stats": {
+    "commits": 20,
+    "database_logical_bytes_all_tasks": 239906816,
+    "events": 100073,
+    "raw_bytes": 95546974,
+    "sources": 1
+  },
+  "query_peak_rss_bytes": {
+    "resume": 4128768,
+    "search_common": 9175040
+  },
+  "brief_vs_history_byte_reduction_percent": 99.998,
+  "limits": "byte reduction measures excerpts, not equivalent information or model quality; p99 uses limited samples; no claim about cold disk caches or other devices"
+}

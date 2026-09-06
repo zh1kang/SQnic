@@ -1,0 +1,9 @@
+/target
+
+# local context and private verification artifacts
+.artifacts/
+*.sqlite
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+__pycache__/

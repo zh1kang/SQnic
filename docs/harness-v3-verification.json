@@ -1,0 +1,2096 @@
+{
+  "method": "sequential disposable synthetic factual handoffs; two directions; unpinned harness defaults; CLI versions and binary hashes retained; model/network/cache variation is uncontrolled",
+  "catalog": {
+    "full": {
+      "tools": 21,
+      "json_bytes": 8809
+    },
+    "handoff": {
+      "tools": 6,
+      "json_bytes": 3040
+    }
+  },
+  "summary": {
+    "legacy": {
+      "claude": {
+        "runs": 2,
+        "strict_passes": 2,
+        "factual_passes": 2,
+        "elapsed_seconds": {
+          "median": 26.491999999999997,
+          "min": 20.571,
+          "max": 32.413
+        },
+        "tool_call_count": {
+          "median": 10.5,
+          "min": 10,
+          "max": 11
+        },
+        "input_tokens_including_cache": {
+          "median": 56686.0,
+          "min": 49891,
+          "max": 63481
+        }
+      },
+      "codex": {
+        "runs": 2,
+        "strict_passes": 2,
+        "factual_passes": 2,
+        "elapsed_seconds": {
+          "median": 39.345,
+          "min": 36.348,
+          "max": 42.342
+        },
+        "tool_call_count": {
+          "median": 11.0,
+          "min": 11,
+          "max": 11
+        },
+        "input_tokens_including_cache": {
+          "median": 149889.0,
+          "min": 129723,
+          "max": 170055
+        }
+      }
+    },
+    "full_profile_bundle": {
+      "claude": {
+        "runs": 5,
+        "strict_passes": 4,
+        "factual_passes": 5,
+        "elapsed_seconds": {
+          "median": 23.359,
+          "min": 18.429,
+          "max": 33.814
+        },
+        "tool_call_count": {
+          "median": 7,
+          "min": 7,
+          "max": 10
+        },
+        "input_tokens_including_cache": {
+          "median": 58517,
+          "min": 52114,
+          "max": 95365
+        }
+      },
+      "codex": {
+        "runs": 5,
+        "strict_passes": 5,
+        "factual_passes": 5,
+        "elapsed_seconds": {
+          "median": 37.822,
+          "min": 32.109,
+          "max": 42.927
+        },
+        "tool_call_count": {
+          "median": 6,
+          "min": 5,
+          "max": 7
+        },
+        "input_tokens_including_cache": {
+          "median": 146507,
+          "min": 117271,
+          "max": 151311
+        }
+      }
+    },
+    "handoff_profile": {
+      "claude": {
+        "runs": 6,
+        "strict_passes": 6,
+        "factual_passes": 6,
+        "elapsed_seconds": {
+          "median": 18.8475,
+          "min": 17.021,
+          "max": 21.539
+        },
+        "tool_call_count": {
+          "median": 7.0,
+          "min": 5,
+          "max": 7
+        },
+        "input_tokens_including_cache": {
+          "median": 39572.5,
+          "min": 38435,
+          "max": 53966
+        }
+      },
+      "codex": {
+        "runs": 6,
+        "strict_passes": 6,
+        "factual_passes": 6,
+        "elapsed_seconds": {
+          "median": 37.4825,
+          "min": 33.522,
+          "max": 44.627
+        },
+        "tool_call_count": {
+          "median": 5.5,
+          "min": 5,
+          "max": 6
+        },
+        "input_tokens_including_cache": {
+          "median": 137424.0,
+          "min": 116466,
+          "max": 149432
+        }
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "binary_sha256": "7607f2053bd8f3a735f3b2d48e0742529584fb9afbe8b42109f731644971465d",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "be5e514c1eb00bc030f6adbc20a4e7b5ca9b9bb6",
+        "expected_verification_marker": "verified-3e1831bea240",
+        "expected_handoff_marker": "handoff-adf986ed9ffa"
+      },
+      "mode": "legacy",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 30,
+      "codex_live_records_imported": 27,
+      "name": "baseline-forward",
+      "group": "legacy",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 20.571,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-3e1831bea240\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"be5e514c1eb00bc030f6adbc20a4e7b5ca9b9bb6\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-adf986ed9ffa\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 12,
+            "cache_creation_input_tokens": 10080,
+            "cache_read_input_tokens": 39799,
+            "output_tokens": 1347,
+            "output_tokens_details": {
+              "thinking_tokens": 128
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 10080
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 203,
+                "cache_read_input_tokens": 9886,
+                "cache_creation_input_tokens": 194,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 194,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 49891,
+          "tool_call_count": 10
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 36.348,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-3e1831bea240\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"be5e514c1eb00bc030f6adbc20a4e7b5ca9b9bb6\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-adf986ed9ffa\"}",
+          "tool_calls": [
+            "sqnic_resume",
+            "sqnic_search",
+            "sqnic_search",
+            "sqnic_notes",
+            "sqnic_commits",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 129723,
+            "cached_input_tokens": 97920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 442,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 129723,
+          "tool_call_count": 11
+        }
+      ]
+    },
+    {
+      "binary_sha256": "7607f2053bd8f3a735f3b2d48e0742529584fb9afbe8b42109f731644971465d",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "156eb68a3ab74523c475b842e34180c03e19abbb",
+        "expected_verification_marker": "verified-1a1d7e5141bd",
+        "expected_handoff_marker": "handoff-f19beea26698"
+      },
+      "mode": "legacy",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 27,
+      "claude_live_records_imported": 43,
+      "name": "baseline-reverse",
+      "group": "legacy",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 42.342,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-1a1d7e5141bd\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"156eb68a3ab74523c475b842e34180c03e19abbb\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-f19beea26698\"}",
+          "tool_calls": [
+            "sqnic_resume",
+            "sqnic_search",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_search",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_read",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 170055,
+            "cached_input_tokens": 143232,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 500,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 170055,
+          "tool_call_count": 11
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 32.413,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-1a1d7e5141bd\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"156eb68a3ab74523c475b842e34180c03e19abbb\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-f19beea26698\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_commits",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 17578,
+            "cache_read_input_tokens": 45893,
+            "output_tokens": 1987,
+            "output_tokens_details": {
+              "thinking_tokens": 741
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 17578
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 386,
+                "cache_read_input_tokens": 17604,
+                "cache_creation_input_tokens": 2748,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 2748,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 63481,
+          "tool_call_count": 11
+        }
+      ]
+    },
+    {
+      "binary_sha256": "f41392f16b8232cb49c82b242fd601e5a511e15448bf655aac0298d8581f7730",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "d2e6f49b6c64bd5bc10f11dd0c6304cd9218bb48",
+        "expected_verification_marker": "verified-ebe84b8879d7",
+        "expected_handoff_marker": "handoff-6765a055c64e"
+      },
+      "mode": "bundle",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 27,
+      "codex_live_records_imported": 16,
+      "name": "bundle-forward-1",
+      "group": "full_profile_bundle",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 21.405,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-ebe84b8879d7\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"d2e6f49b6c64bd5bc10f11dd0c6304cd9218bb48\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-6765a055c64e\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 12274,
+            "cache_read_input_tokens": 39830,
+            "output_tokens": 1178,
+            "output_tokens_details": {
+              "thinking_tokens": 123
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 12274
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 202,
+                "cache_read_input_tokens": 12059,
+                "cache_creation_input_tokens": 215,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 215,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 52114,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 32.109,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-ebe84b8879d7\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"d2e6f49b6c64bd5bc10f11dd0c6304cd9218bb48\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-6765a055c64e\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_search",
+            "sqnic_search",
+            "sqnic_commits",
+            "sqnic_read_many",
+            "sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 135808,
+            "cached_input_tokens": 114560,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 402,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 135808,
+          "tool_call_count": 6
+        }
+      ]
+    },
+    {
+      "binary_sha256": "dbf1deefa869a405061de21d3c75218bda970109903049e3a0a944f790199502",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "7ed0cf4becf3e553475ef8b572e04107533e7465",
+        "expected_verification_marker": "verified-3e653331a3a4",
+        "expected_handoff_marker": "handoff-4218e46ea3ea"
+      },
+      "mode": "bundle",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 35,
+      "codex_live_records_imported": 15,
+      "name": "bundle-forward-2",
+      "group": "full_profile_bundle",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 23.359,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-3e653331a3a4\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"7ed0cf4becf3e553475ef8b572e04107533e7465\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-4218e46ea3ea\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 14,
+            "cache_creation_input_tokens": 10067,
+            "cache_read_input_tokens": 71890,
+            "output_tokens": 1622,
+            "output_tokens_details": {
+              "thinking_tokens": 280
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 10067
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 197,
+                "cache_read_input_tokens": 13822,
+                "cache_creation_input_tokens": 216,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 216,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 81971,
+          "tool_call_count": 10
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 42.927,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-3e653331a3a4\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"7ed0cf4becf3e553475ef8b572e04107533e7465\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-4218e46ea3ea\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_read_many",
+            "sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 151311,
+            "cached_input_tokens": 121088,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 481,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 151311,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "dbf1deefa869a405061de21d3c75218bda970109903049e3a0a944f790199502",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "d935e87e648e2a8ab8fe784e8c7e6835a7625d93",
+        "expected_verification_marker": "verified-233bba44c607",
+        "expected_handoff_marker": "handoff-768ae0bf6545"
+      },
+      "mode": "bundle",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 27,
+      "codex_live_records_imported": 14,
+      "name": "bundle-forward-3",
+      "group": "full_profile_bundle",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 18.429,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-233bba44c607\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"d935e87e648e2a8ab8fe784e8c7e6835a7625d93\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-768ae0bf6545\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_read",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 8831,
+            "cache_read_input_tokens": 44860,
+            "output_tokens": 1181,
+            "output_tokens_details": {
+              "thinking_tokens": 126
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 8831
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 197,
+                "cache_read_input_tokens": 12587,
+                "cache_creation_input_tokens": 215,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 215,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 53701,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 40.278,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-233bba44c607\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"d935e87e648e2a8ab8fe784e8c7e6835a7625d93\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-768ae0bf6545\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_search",
+            "sqnic_read_many",
+            "sqnic_read_many",
+            "sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 148877,
+            "cached_input_tokens": 92672,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 461,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 148877,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "dbf1deefa869a405061de21d3c75218bda970109903049e3a0a944f790199502",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "ac6a08d6200a72a3f510e55614778b6a1b1fffe5",
+        "expected_verification_marker": "verified-42e1ac7b04a5",
+        "expected_handoff_marker": "handoff-446897cb84a2"
+      },
+      "mode": "bundle",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 18,
+      "claude_live_records_imported": 41,
+      "name": "bundle-reverse-1",
+      "group": "full_profile_bundle",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 37.822,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-42e1ac7b04a5\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"ac6a08d6200a72a3f510e55614778b6a1b1fffe5\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-446897cb84a2\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commits",
+            "sqnic_read_many",
+            "sqnic_commit",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 146507,
+            "cached_input_tokens": 131072,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 448,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 146507,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 33.814,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-42e1ac7b04a5\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"ac6a08d6200a72a3f510e55614778b6a1b1fffe5\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-446897cb84a2\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_history",
+            "mcp__sqnic__sqnic_history"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 32498,
+            "cache_read_input_tokens": 62857,
+            "output_tokens": 2137,
+            "output_tokens_details": {
+              "thinking_tokens": 968
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 32498
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 278,
+                "cache_read_input_tokens": 21008,
+                "cache_creation_input_tokens": 15461,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 15461,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 95365,
+          "tool_call_count": 9
+        }
+      ]
+    },
+    {
+      "binary_sha256": "dbf1deefa869a405061de21d3c75218bda970109903049e3a0a944f790199502",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "991511bd8d1f84e163ac432a43dd40fc7ea68c08",
+        "expected_verification_marker": "verified-e5573438c9eb",
+        "expected_handoff_marker": "handoff-5c6276158e17"
+      },
+      "mode": "bundle",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 16,
+      "claude_live_records_imported": 32,
+      "name": "bundle-reverse-2",
+      "group": "full_profile_bundle",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 37.762,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-e5573438c9eb\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"991511bd8d1f84e163ac432a43dd40fc7ea68c08\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-5c6276158e17\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 117271,
+            "cached_input_tokens": 90624,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 424,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 117271,
+          "tool_call_count": 6
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 25.013,
+          "final": "```json\n{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-e5573438c9eb\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"991511bd8d1f84e163ac432a43dd40fc7ea68c08\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-5c6276158e17\"}\n```",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_resume",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search"
+          ],
+          "usage": {
+            "input_tokens": 8,
+            "cache_creation_input_tokens": 16542,
+            "cache_read_input_tokens": 41967,
+            "output_tokens": 1643,
+            "output_tokens_details": {
+              "thinking_tokens": 671
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 16542
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 364,
+                "cache_read_input_tokens": 16464,
+                "cache_creation_input_tokens": 4049,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 4049,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": false,
+            "verification_marker_value": false,
+            "commit_value": false,
+            "transfer_value": false,
+            "file_value": false,
+            "rejected_value": false,
+            "structured_answer": false,
+            "current_value": false,
+            "superseded_value": false,
+            "state_evidence": false,
+            "verification_evidence": false,
+            "reason_supported": false,
+            "diff_values": false,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": false,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": true,
+          "input_tokens_including_cache": 58517,
+          "tool_call_count": 7
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "b4027c528ce8edcf632d10d78d6f9442489e1503",
+        "expected_verification_marker": "verified-0c58f63b4c1b",
+        "expected_handoff_marker": "handoff-a14b38cc4795"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 21,
+      "codex_live_records_imported": 14,
+      "name": "profile-forward-1",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 19.988,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-0c58f63b4c1b\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"b4027c528ce8edcf632d10d78d6f9442489e1503\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-a14b38cc4795\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 9321,
+            "cache_read_input_tokens": 29104,
+            "output_tokens": 1006,
+            "output_tokens_details": {
+              "thinking_tokens": 50
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 9321
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 198,
+                "cache_read_input_tokens": 9117,
+                "cache_creation_input_tokens": 204,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 204,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 38435,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 33.522,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-0c58f63b4c1b\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"b4027c528ce8edcf632d10d78d6f9442489e1503\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-a14b38cc4795\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many"
+          ],
+          "usage": {
+            "input_tokens": 124653,
+            "cached_input_tokens": 95744,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 356,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 124653,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "2bd9b01929e5274ee2829628803ffb5489c3befe",
+        "expected_verification_marker": "verified-856927cb59a2",
+        "expected_handoff_marker": "handoff-d720b7ca9104"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 23,
+      "codex_live_records_imported": 14,
+      "name": "profile-forward-2",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 17.761,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-856927cb59a2\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"2bd9b01929e5274ee2829628803ffb5489c3befe\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-d720b7ca9104\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 7699,
+            "cache_read_input_tokens": 31372,
+            "output_tokens": 1115,
+            "output_tokens_details": {
+              "thinking_tokens": 158
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 7699
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 195,
+                "cache_read_input_tokens": 9330,
+                "cache_creation_input_tokens": 219,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 219,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 39081,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 38.128,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-856927cb59a2\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"2bd9b01929e5274ee2829628803ffb5489c3befe\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-d720b7ca9104\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_read_many",
+            "sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 149432,
+            "cached_input_tokens": 120064,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 448,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 149432,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "0a167dcb6eddef057d0f26c9fe5859b54a150cdf",
+        "expected_verification_marker": "verified-5587bd377ce7",
+        "expected_handoff_marker": "handoff-432eff14710b"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "claude",
+        "codex"
+      ],
+      "claude_live_records_imported": 20,
+      "codex_live_records_imported": 14,
+      "name": "profile-forward-3",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 17.563,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-5587bd377ce7\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"0a167dcb6eddef057d0f26c9fe5859b54a150cdf\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-432eff14710b\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 7492,
+            "cache_read_input_tokens": 31222,
+            "output_tokens": 998,
+            "output_tokens_details": {
+              "thinking_tokens": 59
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 7492
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 197,
+                "cache_read_input_tokens": 9150,
+                "cache_creation_input_tokens": 192,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 192,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 38724,
+          "tool_call_count": 7
+        },
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 37.55,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-5587bd377ce7\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"0a167dcb6eddef057d0f26c9fe5859b54a150cdf\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-432eff14710b\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many"
+          ],
+          "usage": {
+            "input_tokens": 145873,
+            "cached_input_tokens": 117248,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 408,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 145873,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "bb3d6edc5ef87fb1c00b15a90902065207f6cfe7",
+        "expected_verification_marker": "verified-3e3c58ec7be1",
+        "expected_handoff_marker": "handoff-d3016a049b6f"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 16,
+      "claude_live_records_imported": 20,
+      "name": "profile-reverse-1",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 44.627,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-3e3c58ec7be1\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"bb3d6edc5ef87fb1c00b15a90902065207f6cfe7\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-d3016a049b6f\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 137553,
+            "cached_input_tokens": 128384,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 510,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 137553,
+          "tool_call_count": 6
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 17.021,
+          "final": "{\"retry_limit\": 7, \"superseded_retry_limit\": 3, \"rejected_approach\": \"unlimited retries\", \"rejected_reason\": \"It can hide persistent failures.\", \"verification_result\": \"23 tests passed\", \"verification_marker\": \"verified-3e3c58ec7be1\", \"verification_event\": 32, \"state_event\": 122, \"commit_hash\": \"bb3d6edc5ef87fb1c00b15a90902065207f6cfe7\", \"changed_file\": \"retry.conf\", \"before\": 3, \"after\": 7, \"transfer_marker\": \"handoff-d3016a049b6f\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_commit"
+          ],
+          "usage": {
+            "input_tokens": 8,
+            "cache_creation_input_tokens": 11096,
+            "cache_read_input_tokens": 28960,
+            "output_tokens": 1003,
+            "output_tokens_details": {
+              "thinking_tokens": 174
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 11096
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 220,
+                "cache_read_input_tokens": 12411,
+                "cache_creation_input_tokens": 535,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 535,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 40064,
+          "tool_call_count": 5
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "33859ea41c7de99788b26e59744ce450ff048019",
+        "expected_verification_marker": "verified-3e217078d876",
+        "expected_handoff_marker": "handoff-65748e095cf4"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 17,
+      "claude_live_records_imported": 26,
+      "name": "profile-reverse-2",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 36.194,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-3e217078d876\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"33859ea41c7de99788b26e59744ce450ff048019\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-65748e095cf4\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 116466,
+            "cached_input_tokens": 107776,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 422,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 116466,
+          "tool_call_count": 6
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 19.934,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-3e217078d876\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"33859ea41c7de99788b26e59744ce450ff048019\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-65748e095cf4\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search"
+          ],
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 12928,
+            "cache_read_input_tokens": 41028,
+            "output_tokens": 1206,
+            "output_tokens_details": {
+              "thinking_tokens": 337
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 12928
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 178,
+                "cache_read_input_tokens": 13605,
+                "cache_creation_input_tokens": 1173,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 1173,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 53966,
+          "tool_call_count": 6
+        }
+      ]
+    },
+    {
+      "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+      "versions": {
+        "claude": "2.1.259 (Claude Code)",
+        "codex": "codex-cli 0.153.4"
+      },
+      "fixture": {
+        "expected_head": "a265e2219379f3574e5edd8a168f0d0b7f786268",
+        "expected_verification_marker": "verified-723fb381bc45",
+        "expected_handoff_marker": "handoff-0880a6626043"
+      },
+      "mode": "bundle",
+      "profile": "handoff",
+      "order": [
+        "codex",
+        "claude"
+      ],
+      "codex_live_records_imported": 16,
+      "claude_live_records_imported": 29,
+      "name": "profile-reverse-3",
+      "group": "handoff_profile",
+      "runs": [
+        {
+          "harness": "codex",
+          "exit_code": 0,
+          "elapsed_seconds": 37.415,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-723fb381bc45\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"a265e2219379f3574e5edd8a168f0d0b7f786268\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-0880a6626043\"}",
+          "tool_calls": [
+            "sqnic_evidence",
+            "sqnic_read_many",
+            "sqnic_search",
+            "sqnic_commit",
+            "sqnic_read_many",
+            "sqnic_update"
+          ],
+          "usage": {
+            "input_tokens": 137295,
+            "cached_input_tokens": 112000,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 442,
+            "reasoning_output_tokens": 0
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 137295,
+          "tool_call_count": 6
+        },
+        {
+          "harness": "claude",
+          "exit_code": 0,
+          "elapsed_seconds": 21.539,
+          "final": "{\"retry_limit\":7,\"superseded_retry_limit\":3,\"rejected_approach\":\"unlimited retries\",\"rejected_reason\":\"It can hide persistent failures.\",\"verification_result\":\"23 tests passed\",\"verification_marker\":\"verified-723fb381bc45\",\"verification_event\":32,\"state_event\":122,\"commit_hash\":\"a265e2219379f3574e5edd8a168f0d0b7f786268\",\"changed_file\":\"retry.conf\",\"before\":3,\"after\":7,\"transfer_marker\":\"handoff-0880a6626043\"}",
+          "tool_calls": [
+            "mcp__sqnic__sqnic_evidence",
+            "mcp__sqnic__sqnic_notes",
+            "mcp__sqnic__sqnic_read_many",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_commit",
+            "mcp__sqnic__sqnic_search",
+            "mcp__sqnic__sqnic_search"
+          ],
+          "usage": {
+            "input_tokens": 8,
+            "cache_creation_input_tokens": 15311,
+            "cache_read_input_tokens": 29914,
+            "output_tokens": 1317,
+            "output_tokens_details": {
+              "thinking_tokens": 284
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 15311
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 270,
+                "cache_read_input_tokens": 13644,
+                "cache_creation_input_tokens": 3517,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 3517,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard"
+          },
+          "checks": {
+            "verification_value": true,
+            "verification_marker_value": true,
+            "commit_value": true,
+            "transfer_value": true,
+            "file_value": true,
+            "rejected_value": true,
+            "structured_answer": true,
+            "current_value": true,
+            "superseded_value": true,
+            "state_evidence": true,
+            "verification_evidence": true,
+            "reason_supported": true,
+            "diff_values": true,
+            "verification_marker_in_final": true,
+            "commit_hash_in_final": true,
+            "handoff_marker_in_final": true,
+            "verification_result_in_final": true,
+            "rejected_approach_in_final": true,
+            "changed_file_in_final": true,
+            "mcp_calls_observed": true,
+            "no_shell_calls": true
+          },
+          "strict_contract_pass": true,
+          "factual_values_pass_after_optional_fence_removal": true,
+          "markdown_fence_present": false,
+          "input_tokens_including_cache": 45233,
+          "tool_call_count": 7
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "not a real coding-continuation benchmark or automatic skill-discovery test",
+    "baseline has one run per direction; full-profile bundle has three forward and two reverse runs; its last reverse run failed strict JSON formatting and stopped that batch",
+    "the failed strict run is retained; optional fence removal is a separately labeled factual diagnostic, not a strict pass",
+    "first full-profile forward run precedes the final zero-progress paging guard; per-run binary hashes identify this difference",
+    "Claude input accounting adds input, cache-creation and cache-read counters; Codex input already includes cached input; counters are not directly comparable between harnesses or equivalent to billed cost",
+    "raw logs remain in ignored .artifacts; no personal conversation histories used"
+  ]
+}

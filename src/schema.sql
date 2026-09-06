@@ -1,0 +1,11 @@
+CREATE TABLE tasks(id TEXT PRIMARY KEY, repo TEXT NOT NULL, created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, snapshot TEXT);
+CREATE TABLE sources(id INTEGER PRIMARY KEY, task TEXT NOT NULL REFERENCES tasks(id), path TEXT NOT NULL, format TEXT NOT NULL, offset INTEGER NOT NULL DEFAULT 0, line INTEGER NOT NULL DEFAULT 0, digest TEXT NOT NULL, updated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, UNIQUE(task,path));
+CREATE TABLE events(id INTEGER PRIMARY KEY, task TEXT NOT NULL REFERENCES tasks(id), source INTEGER REFERENCES sources(id), line INTEGER, kind TEXT NOT NULL, body TEXT NOT NULL, raw TEXT NOT NULL, UNIQUE(source,line));
+CREATE INDEX events_task_id ON events(task,id);
+CREATE VIRTUAL TABLE event_fts USING fts5(body, content='events', content_rowid='id');
+CREATE TRIGGER events_ai AFTER INSERT ON events BEGIN INSERT INTO event_fts(rowid,body) VALUES(new.id,new.body); END;
+CREATE TABLE notes(id INTEGER PRIMARY KEY, task TEXT NOT NULL REFERENCES tasks(id), kind TEXT NOT NULL, key TEXT NOT NULL, text TEXT NOT NULL, previous INTEGER REFERENCES notes(id), created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX notes_current ON notes(task,kind,key,id DESC);
+CREATE TABLE commits(task TEXT NOT NULL REFERENCES tasks(id), hash TEXT NOT NULL, metadata TEXT NOT NULL, summary TEXT NOT NULL, event INTEGER NOT NULL REFERENCES events(id), PRIMARY KEY(task,hash));
+CREATE TABLE annotations(id INTEGER PRIMARY KEY, task TEXT NOT NULL, hash TEXT NOT NULL, text TEXT NOT NULL, author TEXT NOT NULL, created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(task,hash) REFERENCES commits(task,hash));
+PRAGMA user_version=1;

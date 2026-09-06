@@ -1,0 +1,113 @@
+{
+  "fixture": {
+    "expected_head": "f510e5c00685d8626f09424e7decea4d55ddfd0d",
+    "expected_verification_marker": "verified-c6c86527ad37",
+    "expected_handoff_marker": "handoff-77de34c66db6"
+  },
+  "claude_live_records_imported": 34,
+  "codex_live_records_imported": 31,
+  "checks": {
+    "claude": {
+      "verification_marker_in_final": true,
+      "commit_hash_in_final": true,
+      "handoff_marker_in_final": true,
+      "verification_result_in_final": true,
+      "rejected_approach_in_final": true,
+      "changed_file_in_final": true,
+      "mcp_calls_observed": true,
+      "no_shell_calls": true
+    },
+    "codex": {
+      "verification_marker_in_final": true,
+      "commit_hash_in_final": true,
+      "handoff_marker_in_final": true,
+      "verification_result_in_final": true,
+      "rejected_approach_in_final": true,
+      "changed_file_in_final": true,
+      "mcp_calls_observed": true,
+      "no_shell_calls": true
+    }
+  },
+  "limits": "Checks inspect final answers and observed tool calls. Review the current-value field and explanations before claiming semantic success. No real personal history was used.",
+  "runs": [
+    {
+      "harness": "claude",
+      "exit_code": 0,
+      "elapsed_seconds": 22.307,
+      "final": "Recovered facts, each verified against the original record rather than the resume excerpt:\n\n```json\n{\n  \"retry_limit\": {\n    \"current\": 7,\n    \"superseded\": 3,\n    \"source\": \"constraint note key=retry, revision 2 (event 122); revision 1 (event 121) said 3\",\n    \"event_ids\": [122, 121]\n  },\n  \"rejected_approach\": {\n    \"approach\": \"unlimited retries\",\n    \"reason\": \"It can hide persistent failures.\",\n    \"event_id\": 16\n  },\n  \"verification\": {\n    \"result\": \"23 tests passed\",\n    \"evidence_marker\": \"verified-c6c86527ad37\",\n    \"tool_use_id\": \"validation-1\",\n    \"event_id\": 32\n  },\n  \"latest_commit\": {\n    \"hash\": \"f510e5c00685d8626f09424e7decea4d55ddfd0d\",\n    \"message\": \"increase retry limit after controlled verification\",\n    \"changed_file\": \"retry.conf\",\n    \"changed_value\": \"retry_limit=3 -> retry_limit=7\",\n    \"parent\": \"ae5addeec8142df7a54cfad2f3caa389cd3337af\",\n    \"event_id\": 124\n  }\n}\n```\n\nNotes on provenance:\n\n- The retry limit had two note revisions under the same key; revision 2 (`current retry limit is 7`) supersedes revision 1 (`retry limit is 3`). The commit diff independently corroborates this \u2014 `retry.conf` moved from `retry_limit=3` to `retry_limit=7`.\n- The rejected approach and verification result came from older tool history (events 16 and 32), read in full from `source.jsonl` rather than from search excerpts, which had bracket-annotated match terms.\n\nThe progress note was saved: key `transfer`, text `handoff-77de34c66db6`, stored at revision 3.\n\nEvidence marker: **handoff-77de34c66db6**",
+      "tool_calls": [
+        "mcp__sqnic__sqnic_resume",
+        "mcp__sqnic__sqnic_search",
+        "mcp__sqnic__sqnic_search",
+        "mcp__sqnic__sqnic_search",
+        "mcp__sqnic__sqnic_notes",
+        "mcp__sqnic__sqnic_read",
+        "mcp__sqnic__sqnic_read",
+        "mcp__sqnic__sqnic_commit",
+        "mcp__sqnic__sqnic_update"
+      ],
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 9702,
+        "cache_read_input_tokens": 30690,
+        "output_tokens": 1709,
+        "output_tokens_details": {
+          "thinking_tokens": 114
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 9702
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 626,
+            "cache_read_input_tokens": 9436,
+            "cache_creation_input_tokens": 266,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 266,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      }
+    },
+    {
+      "harness": "codex",
+      "exit_code": 0,
+      "elapsed_seconds": 41.304,
+      "final": "{\n  \"retry_limit\": {\n    \"current\": 7,\n    \"revision\": 2,\n    \"event_id\": 122\n  },\n  \"rejected_approach\": {\n    \"approach\": \"unlimited retries\",\n    \"reason\": \"It can hide persistent failures.\",\n    \"event_id\": 16\n  },\n  \"verification\": {\n    \"result\": \"23 tests passed\",\n    \"evidence_marker\": \"verified-c6c86527ad37\",\n    \"tool_use_id\": \"validation-1\",\n    \"event_id\": 32\n  },\n  \"latest_commit\": {\n    \"hash\": \"f510e5c00685d8626f09424e7decea4d55ddfd0d\",\n    \"changed_file\": \"retry.conf\",\n    \"diff\": {\n      \"removed\": \"retry_limit=3\",\n      \"added\": \"retry_limit=7\"\n    },\n    \"event_id\": 124\n  },\n  \"transfer_progress\": {\n    \"marker\": \"handoff-77de34c66db6\",\n    \"revision\": 3,\n    \"event_id\": 125\n  }\n}",
+      "tool_calls": [
+        "sqnic_resume",
+        "sqnic_search",
+        "sqnic_commits",
+        "sqnic_search",
+        "sqnic_search",
+        "sqnic_notes",
+        "sqnic_search",
+        "sqnic_read",
+        "sqnic_read",
+        "sqnic_read",
+        "sqnic_read",
+        "sqnic_commit",
+        "sqnic_read"
+      ],
+      "usage": {
+        "input_tokens": 133396,
+        "cached_input_tokens": 99968,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 622,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "method": "synthetic source transcript removed after import; Claude builtin tools disabled; Codex trace verified to contain only SQnic MCP tool calls; random evidence markers; existing auth; no global config edits"
+}

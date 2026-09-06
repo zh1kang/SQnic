@@ -1,0 +1,143 @@
+mod capture;
+mod evidence;
+mod git;
+mod import;
+mod mcp;
+mod model;
+mod normalize;
+mod store;
+
+use anyhow::Result;
+use clap::Parser;
+use model::Command;
+use serde_json::Value;
+use std::{io::Write, path::PathBuf};
+use store::Store;
+
+#[derive(Parser)]
+#[command(version, about = "Local, portable context for coding agents")]
+struct Cli {
+    /// Database path. Defaults to SQNIC_DB or ~/.local/share/sqnic/context.sqlite3.
+    #[arg(long, global = true)]
+    db: Option<PathBuf>,
+    #[command(subcommand)]
+    command: Command,
+}
+fn main() {
+    if let Err(e) = run() {
+        eprintln!("sqnic: {e:#}");
+        std::process::exit(1);
+    }
+}
+fn run() -> Result<()> {
+    let cli = Cli::parse();
+    let path = cli.db.map(Ok).unwrap_or_else(store::default_db)?;
+    let mut store = Store::open(&path)?;
+    if let Command::Serve { profile } = cli.command {
+        return mcp::serve(&mut store, profile);
+    }
+    let result = execute(&mut store, cli.command)?;
+    let mut out = std::io::stdout().lock();
+    serde_json::to_writer(&mut out, &result)?;
+    writeln!(out)?;
+    Ok(())
+}
+fn execute(store: &mut Store, command: Command) -> Result<Value> {
+    match command {
+        Command::Create { task, repo } => store.create(&task, &repo),
+        Command::Tasks => store.tasks(),
+        Command::Import { task, path, format } => import::import(store, &task, &path, format),
+        Command::Sync {
+            task,
+            repo,
+            histories,
+            format,
+        } => {
+            anyhow::ensure!(
+                histories.len() <= 128,
+                "supply at most 128 history files per sync"
+            );
+            anyhow::ensure!(
+                !histories.is_empty() || format == model::Format::Auto,
+                "--format requires --history"
+            );
+            if let Some(repo) = repo {
+                store.create(&task, &repo)?;
+            }
+            let sources = import::refresh_sources(store, &task, &histories, format)?;
+            let git = git::sync(store, &task).map_err(|e| e.context(format!("sync Git failed after {} completed sources; registration and imports remain saved; rerun is safe", sources.len())))?;
+            Ok(serde_json::json!({"sources":sources,"git":git}))
+        }
+        Command::Resume { task, max_chars } => store.resume(&task, max_chars),
+        Command::Search {
+            task,
+            query,
+            limit,
+            exact,
+        } => store.search(&task, &query, limit, exact),
+        Command::History { task, after, limit } => store.history(&task, after, limit),
+        Command::Read {
+            task,
+            id,
+            offset,
+            max_chars,
+        } => store.read(&task, id, offset, max_chars),
+        Command::Update {
+            task,
+            kind,
+            key,
+            text,
+            expected_revision,
+            scope,
+        } => store.update(&task, kind, &key, &text, expected_revision, &scope),
+        Command::Notes { task, after, limit } => store.notes(&task, after, limit),
+        Command::GitSync { task } => git::sync(store, &task),
+        Command::Commits {
+            task,
+            offset,
+            limit,
+        } => git::commits(store, &task, offset, limit),
+        Command::Commit {
+            task,
+            hash,
+            diff,
+            max_chars,
+        } => git::commit(store, &task, &hash, diff, max_chars),
+        Command::Annotate {
+            task,
+            hash,
+            text,
+            author,
+        } => git::annotate(store, &task, &hash, &text, &author),
+        Command::Evidence {
+            task,
+            query,
+            scope,
+            as_of,
+            max_bytes,
+        } => evidence::bundle(store, &task, query.as_deref(), &scope, as_of, max_bytes),
+        Command::ReadMany {
+            task,
+            refs,
+            max_bytes,
+            as_of,
+        } => evidence::read_many(store, &task, &refs, max_bytes, as_of),
+        Command::Capture { task, key, record } => capture::append(store, &task, &key, &record),
+        Command::Enrich {
+            task,
+            id,
+            text,
+            author,
+        } => evidence::enrich(store, &task, id, &text, &author),
+        Command::Link {
+            task,
+            id,
+            hash,
+            relation,
+            author,
+        } => evidence::link(store, &task, id, &hash, &relation, &author),
+        Command::Checkpoints { task, after } => evidence::checkpoints(store, &task, after),
+        Command::Stats { task } => store.stats(&task),
+        Command::Serve { .. } => anyhow::bail!("serve cannot be nested"),
+    }
+}

@@ -1,0 +1,257 @@
+{
+  "environment": {
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "binary_sha256": "4f810943e8c495032afa4fe987695deff18c4ec0f6bdc2f173d23f299bd4d7a3",
+    "binary_bytes": 3862704
+  },
+  "method": "release binary; synthetic text-heavy JSONL; warm filesystem caches; CLI includes process startup; MCP uses one process; no model calls",
+  "events": 100000,
+  "samples_per_query": 50,
+  "history_bytes": 95536698,
+  "initial_import_ms": 6629.525,
+  "import_records_per_second": 15084,
+  "import_mib_per_second": 13.743,
+  "unchanged_reimport_ms": 45.396,
+  "append_one_record_ms": 49.619,
+  "git_index_20_commits_ms": 120.615,
+  "queries": {
+    "tasks": {
+      "p50_ms": 3.219,
+      "p95_ms": 4.022,
+      "p99_ms": 6.629,
+      "mean_ms": 3.392,
+      "output_bytes": 138,
+      "first_process_ms": 3.038
+    },
+    "resume": {
+      "p50_ms": 3.353,
+      "p95_ms": 3.958,
+      "p99_ms": 4.414,
+      "mean_ms": 3.43,
+      "output_bytes": 2302,
+      "first_process_ms": 3.462
+    },
+    "search_selective": {
+      "p50_ms": 4.508,
+      "p95_ms": 5.384,
+      "p99_ms": 5.938,
+      "mean_ms": 4.61,
+      "output_bytes": 10502,
+      "first_process_ms": 4.437
+    },
+    "search_common": {
+      "p50_ms": 61.047,
+      "p95_ms": 66.755,
+      "p99_ms": 67.169,
+      "mean_ms": 61.531,
+      "output_bytes": 10738,
+      "first_process_ms": 61.004
+    },
+    "search_missing": {
+      "p50_ms": 3.425,
+      "p95_ms": 4.288,
+      "p99_ms": 4.423,
+      "mean_ms": 3.531,
+      "output_bytes": 53,
+      "first_process_ms": 4.622
+    },
+    "history": {
+      "p50_ms": 3.551,
+      "p95_ms": 6.157,
+      "p99_ms": 10.162,
+      "mean_ms": 4.076,
+      "output_bytes": 15567,
+      "first_process_ms": 3.677
+    },
+    "read": {
+      "p50_ms": 4.017,
+      "p95_ms": 6.24,
+      "p99_ms": 8.871,
+      "mean_ms": 4.285,
+      "output_bytes": 1295,
+      "first_process_ms": 3.588
+    },
+    "notes": {
+      "p50_ms": 4.007,
+      "p95_ms": 7.466,
+      "p99_ms": 8.96,
+      "mean_ms": 4.423,
+      "output_bytes": 205,
+      "first_process_ms": 3.484
+    },
+    "commits": {
+      "p50_ms": 4.751,
+      "p95_ms": 8.741,
+      "p99_ms": 11.691,
+      "mean_ms": 5.297,
+      "output_bytes": 3901,
+      "first_process_ms": 5.658
+    },
+    "commit": {
+      "p50_ms": 5.857,
+      "p95_ms": 14.147,
+      "p99_ms": 18.78,
+      "mean_ms": 6.704,
+      "output_bytes": 428,
+      "first_process_ms": 4.549
+    },
+    "commit_diff": {
+      "p50_ms": 10.362,
+      "p95_ms": 18.634,
+      "p99_ms": 23.01,
+      "mean_ms": 11.49,
+      "output_bytes": 572,
+      "first_process_ms": 10.383
+    },
+    "stats": {
+      "p50_ms": 4.271,
+      "p95_ms": 4.993,
+      "p99_ms": 8.698,
+      "mean_ms": 4.457,
+      "output_bytes": 109,
+      "first_process_ms": 4.854
+    },
+    "evidence": {
+      "p50_ms": 8.904,
+      "p95_ms": 15.214,
+      "p99_ms": 19.769,
+      "mean_ms": 10.014,
+      "output_bytes": 8000,
+      "first_process_ms": 50.199
+    },
+    "read_many": {
+      "p50_ms": 4.023,
+      "p95_ms": 5.353,
+      "p99_ms": 7.125,
+      "mean_ms": 4.198,
+      "output_bytes": 4069,
+      "first_process_ms": 4.227
+    },
+    "checkpoints": {
+      "p50_ms": 3.578,
+      "p95_ms": 3.964,
+      "p99_ms": 4.386,
+      "mean_ms": 3.59,
+      "output_bytes": 157,
+      "first_process_ms": 3.648
+    }
+  },
+  "note_update": {
+    "p50_ms": 4.377,
+    "p95_ms": 5.338,
+    "p99_ms": 7.032,
+    "mean_ms": 4.493
+  },
+  "persistent_mcp": {
+    "tasks": {
+      "p50_ms": 0.062,
+      "p95_ms": 0.093,
+      "p99_ms": 0.13,
+      "mean_ms": 0.066
+    },
+    "resume": {
+      "p50_ms": 0.149,
+      "p95_ms": 0.198,
+      "p99_ms": 0.275,
+      "mean_ms": 0.155
+    },
+    "search": {
+      "p50_ms": 0.736,
+      "p95_ms": 0.823,
+      "p99_ms": 1.36,
+      "mean_ms": 0.751
+    },
+    "history": {
+      "p50_ms": 0.185,
+      "p95_ms": 0.216,
+      "p99_ms": 2.793,
+      "mean_ms": 0.238
+    },
+    "read": {
+      "p50_ms": 0.11,
+      "p95_ms": 0.167,
+      "p99_ms": 0.202,
+      "mean_ms": 0.116
+    },
+    "notes": {
+      "p50_ms": 0.151,
+      "p95_ms": 0.18,
+      "p99_ms": 0.201,
+      "mean_ms": 0.155
+    },
+    "commits": {
+      "p50_ms": 0.119,
+      "p95_ms": 0.142,
+      "p99_ms": 0.156,
+      "mean_ms": 0.12
+    },
+    "commit": {
+      "p50_ms": 0.091,
+      "p95_ms": 0.115,
+      "p99_ms": 0.13,
+      "mean_ms": 0.095
+    },
+    "stats": {
+      "p50_ms": 0.077,
+      "p95_ms": 0.093,
+      "p99_ms": 0.11,
+      "mean_ms": 0.08
+    },
+    "evidence": {
+      "p50_ms": 3.087,
+      "p95_ms": 3.275,
+      "p99_ms": 3.594,
+      "mean_ms": 3.118
+    },
+    "read_many": {
+      "p50_ms": 0.217,
+      "p95_ms": 0.254,
+      "p99_ms": 0.271,
+      "mean_ms": 0.217
+    },
+    "checkpoints": {
+      "p50_ms": 0.075,
+      "p95_ms": 0.099,
+      "p99_ms": 0.134,
+      "mean_ms": 0.079
+    },
+    "capture": {
+      "p50_ms": 0.067,
+      "p95_ms": 0.095,
+      "p99_ms": 1.658,
+      "mean_ms": 0.102
+    },
+    "enrich": {
+      "p50_ms": 0.066,
+      "p95_ms": 0.084,
+      "p99_ms": 0.244,
+      "mean_ms": 0.071
+    },
+    "link": {
+      "p50_ms": 0.069,
+      "p95_ms": 0.083,
+      "p99_ms": 0.212,
+      "mean_ms": 0.073
+    },
+    "capture_new_record": {
+      "p50_ms": 0.243,
+      "p95_ms": 0.572,
+      "p99_ms": 2.016,
+      "mean_ms": 0.318
+    }
+  },
+  "stats": {
+    "commits": 20,
+    "database_logical_bytes_all_tasks": 239919104,
+    "events": 100124,
+    "raw_bytes": 95548288,
+    "sources": 1
+  },
+  "query_peak_rss_bytes": {
+    "resume": 4063232,
+    "search_common": 9207808
+  },
+  "brief_vs_history_byte_reduction_percent": 99.998,
+  "limits": "byte reduction measures excerpts, not equivalent information or model quality; p99 uses limited samples; no claim about cold disk caches or other devices"
+}
