@@ -120,3 +120,9 @@ There is no guarantee that a model will use all context correctly, even when the
 A bounded brief can omit detail; source pointers and omission/freshness indicators are part of the contract.
 Automatic Git snapshots represent observed Git state, not proof that the associated model performed the changes.
 No automatic lesson application, `AGENTS.md` rewriting, remote sync or raw-history deletion is included in this feature.
+
+## follow-up implementation
+
+The [two-harness project trial](two-harness-project-verification.md) added sandbox-safe read-only retrieval, request-only search, Cursor hook observations, local storage controls, and release preparation.
+Available source history remains authoritative evidence; agent-generated summaries and tests can be wrong.
+Cursor native transcript imports remain explicit, and live Cursor model delivery remains unverified for the installed account.

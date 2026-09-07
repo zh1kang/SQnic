@@ -1171,3 +1171,78 @@ fn mcp_sync_accepts_existing_project_and_typed_history_list() {
     assert_eq!(values[3]["error"]["code"], -32602);
     assert_eq!(f.run(&["stats", "onboard"])["sources"], 1);
 }
+
+#[test]
+fn read_only_mcp_hides_and_rejects_writes() {
+    let f = Fixture::new();
+    let mut child = Command::new(env!("CARGO_BIN_EXE_sqnic"))
+        .arg("--db")
+        .arg(f.dir.path().join("db.sqlite"))
+        .args(["--read-only", "serve"])
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap();
+    let mut input = child.stdin.take().unwrap();
+    for request in [
+        json!({"jsonrpc":"2.0","id":1,"method":"initialize"}),
+        json!({"jsonrpc":"2.0","id":2,"method":"tools/list"}),
+        json!({"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"sqnic_update","arguments":{"task":"alpha","kind":"goal","text":"must not write"}}}),
+        json!({"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"sqnic_stats","arguments":{"task":"alpha"}}}),
+    ] {
+        writeln!(input, "{request}").unwrap();
+    }
+    drop(input);
+    let output = child.wait_with_output().unwrap();
+    assert!(output.status.success());
+    let values: Vec<Value> = String::from_utf8(output.stdout)
+        .unwrap()
+        .lines()
+        .map(|line| serde_json::from_str(line).unwrap())
+        .collect();
+    let tools = values[1]["result"]["tools"].as_array().unwrap();
+    assert!(
+        tools
+            .iter()
+            .all(|tool| tool["annotations"]["readOnlyHint"] == true)
+    );
+    assert!(tools.iter().any(|tool| tool["name"] == "sqnic_restore"));
+    assert!(!tools.iter().any(|tool| tool["name"] == "sqnic_update"));
+    assert_eq!(values[2]["error"]["code"], -32602);
+    assert_eq!(values[3]["result"]["isError"], false);
+    assert!(
+        f.run(&["notes", "alpha"])["notes"]
+            .as_array()
+            .unwrap()
+            .is_empty()
+    );
+}
+
+#[test]
+fn request_search_excludes_assistant_and_tool_result_copies() {
+    let f = Fixture::new();
+    let path = f.file("requests.jsonl", &[
+        json!({"type":"user","message":{"role":"user","content":"parcel original requirement 37"}}),
+        json!({"type":"assistant","message":{"role":"assistant","content":"parcel original requirement 39"}}),
+        json!({"type":"user","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"t1","content":"parcel original requirement 41"}]}}),
+    ].iter().map(|r| format!("{r}\n")).collect::<String>());
+    f.run(&["import", "alpha", &path]);
+    assert_eq!(
+        f.run(&["search", "alpha", "parcel"])["matches"]
+            .as_array()
+            .unwrap()
+            .len(),
+        3
+    );
+    let result = f.run(&[
+        "--read-only",
+        "search",
+        "alpha",
+        "parcel",
+        "--requests-only",
+    ]);
+    let matches = result["matches"].as_array().unwrap();
+    assert_eq!(matches.len(), 1);
+    assert_eq!(matches[0]["id"], 1);
+    assert_eq!(result["requests_only"], true);
+}

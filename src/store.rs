@@ -12,6 +12,17 @@ pub struct Store {
     pub conn: Connection,
 }
 impl Store {
+    pub fn open_read_only(path: &Path) -> Result<Self> {
+        let conn = Connection::open_with_flags(path, rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY)
+            .context("open existing context database read-only")?;
+        conn.busy_timeout(Duration::from_secs(5))?;
+        let version: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
+        ensure!(
+            version == 4,
+            "read-only retrieval requires schema 4; migrate with a writable SQnic command first"
+        );
+        Ok(Self { conn })
+    }
     pub fn open(path: &Path) -> Result<Self> {
         if let Some(parent) = path.parent().filter(|p| !p.as_os_str().is_empty())
             && !parent.exists()
@@ -181,7 +192,14 @@ impl Store {
             json!({"id":id,"kind":row.2,"source":row.3,"line":row.4,"text":row.0,"total_chars":row.1,"next_offset":if next<row.1 {Some(next)}else{None},"historical_data":true,"metadata":crate::normalize::metadata_at(&self.conn,task,id,watermark.unwrap_or(i64::MAX))?,"derived":if watermark.is_none(){crate::evidence::enrichments(self,task,id)?}else{json!([])}}),
         )
     }
-    pub fn search(&self, task: &str, query: &str, limit: usize, exact: bool) -> Result<Value> {
+    pub fn search(
+        &self,
+        task: &str,
+        query: &str,
+        limit: usize,
+        exact: bool,
+        requests_only: bool,
+    ) -> Result<Value> {
         self.repo(task)?;
         validate_limit(limit)?;
         ensure!(query.len() <= 4000, "query too long");
@@ -190,7 +208,7 @@ impl Store {
             .map(|s| format!("\"{}\"", s.replace('"', "\"\"")))
             .collect();
         ensure!(!terms.is_empty(), "query cannot be empty");
-        let mut q=self.conn.prepare("SELECT e.id,e.kind,snippet(event_fts,0,'[',']',' … ',48),s.path,e.line,length(e.raw) FROM event_fts JOIN events e ON e.id=event_fts.rowid LEFT JOIN sources s ON s.id=e.source WHERE event_fts MATCH ? AND e.task=? AND (?=0 OR instr(e.body,?)>0) ORDER BY rank LIMIT ?")?;
+        let mut q=self.conn.prepare("SELECT e.id,e.kind,snippet(event_fts,0,'[',']',' … ',48),s.path,e.line,length(e.raw) FROM event_fts JOIN events e ON e.id=event_fts.rowid LEFT JOIN sources s ON s.id=e.source WHERE event_fts MATCH ? AND e.task=? AND (?=0 OR instr(e.body,?)>0) AND (?=0 OR (EXISTS(SELECT 1 FROM event_meta m WHERE m.event=e.id AND m.role='user') AND NOT EXISTS(SELECT 1 FROM tool_refs t WHERE t.event=e.id AND t.direction='result'))) ORDER BY rank LIMIT ?")?;
         let rows = q
             .query_map(
                 params![
@@ -198,12 +216,13 @@ impl Store {
                     task,
                     exact,
                     query,
+                    requests_only,
                     limit as i64
                 ],
                 event_row,
             )?
             .collect::<rusqlite::Result<Vec<_>>>()?;
-        Ok(json!({"matches":rows,"query":query,"exact":exact}))
+        Ok(json!({"matches":rows,"query":query,"exact":exact,"requests_only":requests_only}))
     }
     pub fn notes(&self, task: &str, after: i64, limit: usize) -> Result<Value> {
         self.repo(task)?;

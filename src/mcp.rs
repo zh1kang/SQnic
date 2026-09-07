@@ -46,6 +46,16 @@ fn handle(
     }
     let method = r["method"].as_str()?;
     let id = id?;
+    let read_only = match store.conn.is_readonly("main") {
+        Ok(value) => value,
+        Err(e) => {
+            return Some(error(
+                id,
+                -32603,
+                &format!("database access mode unavailable: {e}"),
+            ));
+        }
+    };
     let result = match method {
         "initialize" => {
             *initialized = true;
@@ -53,7 +63,7 @@ fn handle(
         }
         "ping" => json!({}),
         _ if !*initialized => return Some(error(id, -32000, "initialize first")),
-        "tools/list" => json!({"tools":tools(profile)}),
+        "tools/list" => json!({"tools":tools(profile, read_only)}),
         "tools/call" => {
             let Some(name) = r.pointer("/params/name").and_then(Value::as_str) else {
                 return Some(error(id, -32602, "tool name required"));
@@ -61,7 +71,7 @@ fn handle(
             let Some(op) = name.strip_prefix("sqnic_") else {
                 return Some(error(id, -32602, "unknown tool"));
             };
-            if !tools(profile).iter().any(|t| t["name"] == name) {
+            if !tools(profile, read_only).iter().any(|t| t["name"] == name) {
                 return Some(error(id, -32602, "unknown tool"));
             }
             let mut args = r
@@ -90,7 +100,7 @@ fn handle(
     };
     Some(json!({"jsonrpc":"2.0","id":id,"result":result}))
 }
-fn tools(profile: ToolProfile) -> Vec<Value> {
+fn tools(profile: ToolProfile, read_only: bool) -> Vec<Value> {
     let specs = [
         (
             "restore",
@@ -172,9 +182,9 @@ fn tools(profile: ToolProfile) -> Vec<Value> {
         ),
         (
             "search",
-            "Search literal terms in task history, notes, and commits.",
+            "Search literal terms in task history, notes, and commits. Set requests_only to find native user requests without tool-result copies.",
             "task query",
-            "limit exact",
+            "limit exact requests_only",
             true,
         ),
         (
@@ -241,7 +251,7 @@ fn tools(profile: ToolProfile) -> Vec<Value> {
             true,
         ),
     ];
-    specs.into_iter().filter(|(name,_,_,_,_)|matches!(profile,ToolProfile::Full)||matches!(*name,"restore"|"evidence"|"read_many"|"search"|"commit"|"notes"|"update")).map(|(name,description,required,optional,read)|{
+    specs.into_iter().filter(|(name,_,_,_,read)|!read_only || *read || *name=="restore").filter(|(name,_,_,_,_)|matches!(profile,ToolProfile::Full)||matches!(*name,"restore"|"evidence"|"read_many"|"search"|"commit"|"notes"|"update")).map(|(name,description,required,optional,read)|{
         let mut properties=serde_json::Map::new();
         for field in required.split_whitespace().chain(optional.split_whitespace()) {
             let schema=match field {
@@ -254,12 +264,12 @@ fn tools(profile: ToolProfile) -> Vec<Value> {
                 "limit"=>json!({"type":"integer","minimum":1,"maximum":100,"default":20}),
                 "max_chars"=>json!({"type":"integer","minimum":256,"maximum":100000,"default":8000}),
                 "id"|"after"|"offset"|"expected_revision"=>json!({"type":"integer","minimum":0}),
-                "diff"|"exact"=>json!({"type":"boolean","default":false}),
+                "diff"|"exact"|"requests_only"=>json!({"type":"boolean","default":false}),
                 "format"=>json!({"type":"string","enum":["auto","jsonl","claude","codex","pi","text"],"default":"auto"}),
                 "kind"=>json!({"type":"string","enum":["goal","constraint","decision","progress","blocker","next"]}),
                 _=>json!({"type":"string"}),
             }; properties.insert(field.into(),schema);
         }
-        json!({"name":format!("sqnic_{name}"),"description":description,"inputSchema":{"type":"object","properties":properties,"required":required.split_whitespace().collect::<Vec<_>>(),"additionalProperties":false},"annotations":{"readOnlyHint":read,"destructiveHint":false,"openWorldHint":false}})
+        json!({"name":format!("sqnic_{name}"),"description":description,"inputSchema":{"type":"object","properties":properties,"required":required.split_whitespace().collect::<Vec<_>>(),"additionalProperties":false},"annotations":{"readOnlyHint":read || read_only,"destructiveHint":false,"openWorldHint":false}})
     }).collect()
 }

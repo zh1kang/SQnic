@@ -20,6 +20,7 @@ sqnic --help
 
 The installed executable does not require Rust, Python, a separate SQLite installation, or a network connection.
 Build separately for each target platform; prebuilt release downloads are not published yet.
+Versioned archive packaging and a gated four-platform release workflow are ready; see [release preparation](docs/releases.md).
 
 ## automatic handoff
 
@@ -29,6 +30,7 @@ Install the executable in a stable location, then enable each harness in the pro
 sqnic setup --repo /absolute/path/to/project --harness claude
 sqnic setup --repo /absolute/path/to/project --harness codex
 sqnic setup --repo /absolute/path/to/project --harness pi
+sqnic setup --repo /absolute/path/to/project --harness cursor
 ```
 
 Open a fresh session in that project and complete the harness's normal project/hook trust step.
@@ -36,11 +38,17 @@ Codex requires approval of the generated hooks through its normal `/hooks` inter
 Project-local setup does not change global harness configuration or `AGENTS.md`.
 All adapters must use the same local database to share context.
 Setup records absolute executable and database paths, so keep that executable in place.
-Automatic adapter installation currently supports Unix hosts; Cursor and other harnesses can use explicit imports and the CLI/MCP workflow below.
+Automatic adapter installation currently supports Unix hosts.
+The Cursor adapter captures available lifecycle, prompt, response and tool observations; native transcript imports remain explicit.
+Cursor startup injection depends on the client supporting its version-1 hook contract.
+Its adapter tests pass, but a live model run remains unverified because the installed client reports no available models for this account.
 
 The next supported harness receives a bounded brief at startup without being told to use SQnic.
 Original user requests, task notes, evidence pointers, capture health and Git freshness are included.
 The agent can retrieve more detail through CLI commands or the MCP `sqnic_restore` tool.
+Startup supplies an absolute executable/database command prefix with `--read-only` for sandboxed retrieval.
+This mode reads the last stored snapshot without migrations, imports, or session binding writes.
+Use writable hooks or MCP for capture and task updates; read-only MCP hides and rejects write tools.
 A skill can explain the workflow, but capture and startup injection do not depend on the model remembering to invoke a skill.
 Available native history is stored locally; full history is not inserted into every prompt.
 SQnic does not run a summarization model or infer that every old request is still current.
@@ -100,7 +108,7 @@ If it is stale, run `sqnic git-sync TASK` before relying on stored commit covera
 The background worker refreshes changed Git state even when no new chat text is written, for up to 64 tasks with hooks in the previous two minutes.
 Permission requests and commands remain controlled by the destination harness; restored history grants no authority to run them.
 
-See the [architecture and edge-case plan](docs/automatic-handoff-plan.md) and [verification report](docs/automatic-verification.md).
+See the [architecture and edge-case plan](docs/automatic-handoff-plan.md), [initial verification](docs/automatic-verification.md), and [two-harness project trial](docs/two-harness-project-verification.md).
 
 ## start and continue a task
 
@@ -310,6 +318,7 @@ Existing harness authentication is only needed when a model uses the tools.
 - `read --offset --max-chars` pages through exact original text by Unicode character; follow `next_offset`.
 - `history --after` and `notes --after` page by ID; follow `next_after` until no rows remain.
 - `commits --offset` pages by row offset.
+- `search --requests-only` limits results to native user-role records without tool results, so copied tool output cannot displace original requests.
 - `search` matches all whitespace-separated terms with SQLite tokenization; `--exact` also requires the case-sensitive query substring in the indexed body; it does not accept raw FTS operators or perform semantic/vector search.
 - `commit --diff --max-chars` stops reading a large Git patch after a bounded prefix and reports truncation.
 - History is not an active-branch replay: supported native links are normalized, ambiguous IDs remain unresolved, and explicit scopes select branch-specific evidence.
@@ -318,7 +327,9 @@ All database content stays local unless you copy it or a harness sends retrieved
 Raw history can contain sensitive content; SQnic does not silently redact or alter it.
 New Unix data directories use mode `0700`, and new database files use `0600`; existing directory permissions are not changed.
 The database is not encrypted at rest.
-For backup, stop all SQnic processes before copying the database and any remaining `-wal`/`-shm` files, or use SQLite's online backup API.
+Use `sqnic backup NEW_PATH` for an online SQLite backup, `sqnic restore-backup BACKUP --output NEW_DB` to restore to a new path, and `sqnic delete-task TASK --confirm TASK` to remove one task.
+Deletion retains native history files and is not secure erasure.
+See [storage controls](docs/storage.md) for limits and recovery.
 Do not put a live WAL database on a network filesystem or use file sync as concurrent multi-device replication.
 
 ## verification and measurements

@@ -8,6 +8,7 @@ mod mcp;
 mod model;
 mod normalize;
 mod recorder;
+mod storage;
 mod store;
 
 use anyhow::Result;
@@ -23,6 +24,9 @@ struct Cli {
     /// Database path. Defaults to SQNIC_DB or ~/.local/share/sqnic/context.sqlite3.
     #[arg(long, global = true)]
     db: Option<PathBuf>,
+    /// Open an existing database without writes, for sandboxed retrieval.
+    #[arg(long, global = true)]
+    read_only: bool,
     #[command(subcommand)]
     command: Command,
 }
@@ -34,8 +38,40 @@ fn main() {
 }
 fn run() -> Result<()> {
     let cli = Cli::parse();
+    if cli.read_only {
+        anyhow::ensure!(
+            matches!(
+                &cli.command,
+                Command::Tasks
+                    | Command::Resume { .. }
+                    | Command::Search { .. }
+                    | Command::History { .. }
+                    | Command::Read { .. }
+                    | Command::ReadMany { .. }
+                    | Command::Evidence { .. }
+                    | Command::Commit { .. }
+                    | Command::Commits { .. }
+                    | Command::Notes { .. }
+                    | Command::Checkpoints { .. }
+                    | Command::Stats { .. }
+                    | Command::Restore { .. }
+                    | Command::AutoStatus { .. }
+                    | Command::Serve { .. }
+            ),
+            "this command requires a writable database"
+        );
+    }
+    if let Command::RestoreBackup { path, output } = &cli.command {
+        return storage::restore_backup(path, output).map(|result| {
+            println!("{result}");
+        });
+    }
     let path = cli.db.map(Ok).unwrap_or_else(store::default_db)?;
-    let mut store = Store::open(&path)?;
+    let mut store = if cli.read_only {
+        Store::open_read_only(&path)?
+    } else {
+        Store::open(&path)?
+    };
     let db = automatic::database_path(&path)?;
     match &cli.command {
         Command::Setup {
@@ -121,7 +157,8 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
             query,
             limit,
             exact,
-        } => store.search(&task, &query, limit, exact),
+            requests_only,
+        } => store.search(&task, &query, limit, exact, requests_only),
         Command::History { task, after, limit } => store.history(&task, after, limit),
         Command::Read {
             task,
@@ -185,6 +222,11 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
         } => evidence::link(store, &task, id, &hash, &relation, &author),
         Command::Checkpoints { task, after } => evidence::checkpoints(store, &task, after),
         Command::Stats { task } => store.stats(&task),
+        Command::Backup { path } => storage::backup(&store.conn, &path),
+        Command::RestoreBackup { path, output } => storage::restore_backup(&path, &output),
+        Command::DeleteTask { task, confirm } => {
+            storage::delete_task(&mut store.conn, &task, &confirm)
+        }
         Command::Restore {
             repo,
             task,
@@ -194,7 +236,8 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
             max_bytes,
         } => {
             let repo = automatic::root(&repo)?;
-            if session.is_some() {
+            let read_only = store.conn.is_readonly("main")?;
+            if session.is_some() && !read_only {
                 automatic::restore(
                     store,
                     &repo,
@@ -205,7 +248,11 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
                     max_bytes,
                 )?;
             }
-            let reconciliation = recorder::reconcile(store, &repo, true)?;
+            let reconciliation = if read_only {
+                serde_json::json!({})
+            } else {
+                recorder::reconcile(store, &repo, true)?
+            };
             let mut restored = automatic::restore(
                 store,
                 &repo,

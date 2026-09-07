@@ -237,3 +237,31 @@ fn symlinked_config_is_never_replaced() {
     );
     assert_eq!(fs::read_to_string(target).unwrap(), "{}");
 }
+
+#[test]
+fn cursor_install_preserves_native_hooks_and_rejects_modified_owned_entry() {
+    let root = tempdir().unwrap();
+    let repo = root.path().join("repo");
+    fs::create_dir(&repo).unwrap();
+    init_repo(&repo);
+    fs::create_dir(repo.join(".cursor")).unwrap();
+    let config = repo.join(".cursor/hooks.json");
+    fs::write(
+        &config,
+        r#"{"version":1,"hooks":{"stop":[{"command":"custom-command"}]}}"#,
+    )
+    .unwrap();
+    let db = root.path().join("db");
+    assert!(run(&db, &repo, "cursor", false).status.success());
+    let first = fs::read(&config).unwrap();
+    assert!(run(&db, &repo, "cursor", false).status.success());
+    assert_eq!(first, fs::read(&config).unwrap());
+    let mut v: Value = serde_json::from_slice(&first).unwrap();
+    v["hooks"]["sessionStart"][0]["timeout"] = serde_json::json!(99);
+    fs::write(&config, serde_json::to_vec(&v).unwrap()).unwrap();
+    assert!(!run(&db, &repo, "cursor", false).status.success());
+    fs::write(&config, first).unwrap();
+    assert!(run(&db, &repo, "cursor", true).status.success());
+    let v: Value = serde_json::from_slice(&fs::read(&config).unwrap()).unwrap();
+    assert_eq!(v["hooks"]["stop"][0]["command"], "custom-command");
+}

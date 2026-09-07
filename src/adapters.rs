@@ -53,9 +53,97 @@ pub fn install(repo: &str, harness: Harness, db: &Path, remove: bool) -> Result<
             remove,
         ),
         "pi" => install_pi(&repo, harness, &db, &executable, remove),
-        "cursor" => bail!("cursor does not expose a verified project-local lifecycle hook API"),
+        "cursor" => install_cursor(&repo, harness, &db, &executable, remove),
         other => bail!("unsupported harness `{other}`"),
     }
+}
+
+fn install_cursor(
+    repo: &Path,
+    harness: Harness,
+    db: &Path,
+    executable: &Path,
+    remove: bool,
+) -> Result<Value> {
+    let path = repo.join(".cursor/hooks.json");
+    if remove && !path.exists() {
+        return Ok(json!({"installed":false,"changed":false,"harness":"cursor"}));
+    }
+    ensure_parent_directory(path.parent().context("config parent")?)?;
+    let JsonConfig {
+        object: mut config,
+        original,
+    } = read_json_object(&path)?;
+    if let Some(version) = config.get("version") {
+        anyhow::ensure!(
+            version == &json!(1),
+            "unsupported Cursor hook configuration version"
+        );
+    }
+    let prefix = format!(": {}; ", shell_quote(Path::new(&marker(repo, harness))));
+    let command = format!("{prefix}{}", hook_command(executable, repo, harness, db));
+    let expected = json!({"command":command,"timeout":3});
+    let events = [
+        "sessionStart",
+        "sessionEnd",
+        "beforeSubmitPrompt",
+        "postToolUse",
+        "postToolUseFailure",
+        "afterAgentResponse",
+        "stop",
+    ];
+    let hooks = config
+        .entry("hooks")
+        .or_insert_with(|| json!({}))
+        .as_object_mut()
+        .context("Cursor hooks must be an object")?;
+    let mut changed = false;
+    for event in events {
+        if remove && !hooks.contains_key(event) {
+            continue;
+        }
+        let entries = hooks
+            .entry(event)
+            .or_insert_with(|| json!([]))
+            .as_array_mut()
+            .context("Cursor event hooks must be an array")?;
+        let owned: Vec<usize> = entries
+            .iter()
+            .enumerate()
+            .filter(|(_, e)| {
+                e["command"]
+                    .as_str()
+                    .is_some_and(|c| c.starts_with(&prefix))
+            })
+            .map(|(i, _)| i)
+            .collect();
+        anyhow::ensure!(owned.len() <= 1, "duplicate SQnic Cursor hooks");
+        if let Some(&index) = owned.first() {
+            anyhow::ensure!(
+                entries[index] == expected,
+                "SQnic Cursor hook was modified; repair it before setup"
+            );
+            if remove {
+                entries.remove(index);
+                changed = true;
+            }
+        } else if !remove {
+            entries.push(expected.clone());
+            changed = true;
+        }
+        if entries.is_empty() {
+            hooks.remove(event);
+        }
+    }
+    if !remove {
+        config.insert("version".into(), json!(1));
+    }
+    if changed {
+        write_json_atomic(&path, &config, original.as_deref())?;
+    }
+    Ok(
+        json!({"harness":"cursor","path":path,"installed":!remove,"changed":changed,"coverage":"lifecycle observations; transcript import remains explicit","notice":"startup context delivery depends on Cursor version; use restore if context is absent"}),
+    )
 }
 
 fn canonical_repo(input: &str) -> Result<PathBuf> {

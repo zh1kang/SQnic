@@ -95,6 +95,10 @@ pub enum Command {
         #[arg(long)]
         #[serde(default)]
         exact: bool,
+        /// Only native user requests, excluding records with tool results.
+        #[arg(long)]
+        #[serde(default)]
+        requests_only: bool,
     },
     /// Page through history in ingestion order.
     History {
@@ -235,6 +239,20 @@ pub enum Command {
     },
     /// Read counts and storage metrics.
     Stats { task: String },
+    /// Create a validated online backup at a new path.
+    Backup { path: std::path::PathBuf },
+    /// Restore a backup into a new database path.
+    RestoreBackup {
+        path: std::path::PathBuf,
+        #[arg(long)]
+        output: std::path::PathBuf,
+    },
+    /// Delete one task and its dependent data after exact confirmation.
+    DeleteTask {
+        task: String,
+        #[arg(long)]
+        confirm: String,
+    },
     /// Install or remove project-local automatic capture adapters.
     Setup {
         #[arg(long, default_value = ".")]

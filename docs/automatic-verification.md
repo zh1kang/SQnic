@@ -1,5 +1,8 @@
 # automatic handoff verification
 
+This is the initial implementation snapshot.
+See the [later project trial](two-harness-project-verification.md) for completed Pi live checks, Cursor adapter support, storage controls, and sandbox retrieval fixes.
+
 verified on 2026-09-07 on macOS arm64.
 the earlier implementation was committed as `8cf6d29`; the automatic handoff changes are separate working-tree changes.
 

@@ -1,0 +1,521 @@
+{
+  "date": "2026-09-07",
+  "project": "disposable Python standard-library shipping CLI",
+  "models": {
+    "claude": "claude-haiku-4-5-20251001",
+    "codex": "gpt-5.4-mini"
+  },
+  "automatic_startup": true,
+  "generic_continuation_prompts_did_not_repeat_rates": true,
+  "original_request_event": 102,
+  "phases": [
+    {
+      "harness": "claude",
+      "action": "scaffold with pricing deliberately pending",
+      "exit": 0,
+      "seconds": 68.77
+    },
+    {
+      "harness": "codex",
+      "action": "implement pricing",
+      "exit": 0,
+      "seconds": 78.5,
+      "independent_acceptance": false,
+      "failure": "write-oriented restore failed in sandbox; model inferred incorrect first-block pricing"
+    },
+    {
+      "harness": "codex",
+      "action": "recovery before current binary was available",
+      "exit": 0,
+      "seconds": 149.93,
+      "independent_acceptance": false
+    },
+    {
+      "harness": "codex",
+      "action": "read-only original retrieval and recovery",
+      "exit": 0,
+      "seconds": 128.28,
+      "original_retrieved": true,
+      "independent_acceptance": false,
+      "failure": "model still misinterpreted pricing despite original evidence"
+    },
+    {
+      "harness": "claude",
+      "action": "correct pricing and tests",
+      "timeout_seconds": 240,
+      "implementation_completed_before_timeout": true,
+      "independent_acceptance": true,
+      "limitation": "used direct native history fallback after noisy search results; not a clean SQnic-only handoff"
+    }
+  ],
+  "fixes": [
+    "sandbox-safe read-only retrieval",
+    "request-only search excluding tool-result copies",
+    "startup excludes tool results from user requests",
+    "absolute executable/database command examples with resolved task ID"
+  ],
+  "final_reviews": {
+    "claude": {
+      "exit": 0,
+      "harness": "claude",
+      "seconds": 28.59,
+      "original_event": 102,
+      "commit": "02652cd62765377af0e56690fac2da397c041e42",
+      "expected_cents": 273,
+      "actual_cents": 273,
+      "unittest_passed": 28,
+      "sqnic_original_read_verified": true,
+      "usage": {
+        "input_tokens": 58,
+        "cache_creation_input_tokens": 20002,
+        "cache_read_input_tokens": 193650,
+        "output_tokens": 2110
+      },
+      "cost_usd_reported": 0.0549755,
+      "tool_call_count": 8
+    },
+    "codex": {
+      "exit": 0,
+      "harness": "codex",
+      "seconds": 63.88,
+      "original_event": 102,
+      "commit": "02652cd62765377af0e56690fac2da397c041e42",
+      "expected_cents": 273,
+      "actual_cents": 273,
+      "unittest_passed": 28,
+      "sqnic_original_read_verified": true,
+      "command_count": 16,
+      "failed_commands": 4,
+      "usage": {
+        "input_tokens": 261774,
+        "cached_input_tokens": 230144,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2641,
+        "reasoning_output_tokens": 670
+      }
+    }
+  },
+  "acceptance": {
+    "cases": [
+      {
+        "args": [
+          "1",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "99",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "100",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 236,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "101",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "199",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "200",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 273,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "201",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 310,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 310,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "4999",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 2049,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 2049,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "5000",
+          "near"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 2049,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 2049,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "1",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "99",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "100",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 460,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "101",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "199",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "200",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 521,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "201",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 582,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 582,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "4999",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 3449,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 3449,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "5000",
+          "far"
+        ],
+        "passed": true,
+        "expected": {
+          "cents": 3449,
+          "currency": "USD"
+        },
+        "actual": {
+          "cents": 3449,
+          "currency": "USD"
+        },
+        "exit": 0
+      },
+      {
+        "args": [
+          "0",
+          "near"
+        ],
+        "passed": true,
+        "exit": 2
+      },
+      {
+        "args": [
+          "-1",
+          "near"
+        ],
+        "passed": true,
+        "exit": 2
+      },
+      {
+        "args": [
+          "5001",
+          "near"
+        ],
+        "passed": true,
+        "exit": 2
+      },
+      {
+        "args": [
+          "1.5",
+          "near"
+        ],
+        "passed": true,
+        "exit": 2
+      },
+      {
+        "args": [
+          "abc",
+          "near"
+        ],
+        "passed": true,
+        "exit": 2
+      },
+      {
+        "args": [
+          "100",
+          "unknown"
+        ],
+        "passed": true,
+        "exit": 2
+      }
+    ],
+    "passed": true,
+    "unittest": {
+      "exit": 0,
+      "output": "............................\n----------------------------------------------------------------------\nRan 28 tests in 0.003s\n\nOK\n"
+    },
+    "third_party_packages_disabled": true,
+    "cwd": "/tmp for CLI cases"
+  },
+  "cleanup": {
+    "project": "parcel_cli",
+    "deleted": true,
+    "source_sha256": {
+      "test_parcel.py": "7ba481b55de4c16d106329ab3d7f6e2bd34302a34ea0c9e89cc157b82bd9cd9a",
+      "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "parcel.py": "4aab9655c97f6afa4b74545ad1d9eaaa1525fa19b49dfe823e039dc582bc9610"
+    },
+    "parent_fixture_and_test_logs_retained": true,
+    "fixture_commit": "02652cd62765377af0e56690fac2da397c041e42"
+  },
+  "retrieval_latency": {
+    "samples": 30,
+    "method": "release CLI; warm caches; recorded multi-harness fixture; capture paused; includes process startup",
+    "queries": {
+      "requests_only_search": {
+        "p50_ms": 4.305,
+        "p95_ms": 4.879,
+        "output_bytes": 1096
+      },
+      "read_original": {
+        "p50_ms": 3.586,
+        "p95_ms": 4.515,
+        "output_bytes": 2294
+      },
+      "restore_snapshot": {
+        "p50_ms": 27.721,
+        "p95_ms": 32.602,
+        "output_bytes": 7246
+      }
+    }
+  },
+  "pi": {
+    "version": "0.85.0",
+    "installation": "isolated local installation with pi-server dependency; global installation unchanged",
+    "native_loader_callbacks": 6,
+    "live_sessions": 2,
+    "model": "claude-haiku-4-5",
+    "exact_marker_and_retry_recall": true,
+    "seconds": [
+      1.8,
+      1.5
+    ],
+    "extension_explicitly_selected": true
+  },
+  "cursor": {
+    "adapter_tests": true,
+    "native_hooks_version": 1,
+    "client_version": "2026.03.20-44cb435",
+    "live_model_verified": false,
+    "blocker": "No models available for this account",
+    "coverage": "hook observations; native transcript import explicit"
+  },
+  "local_checks": {
+    "rust_tests": 69,
+    "packaging_tests": 4,
+    "pi_callbacks": 6,
+    "fmt": true,
+    "clippy": true,
+    "ruff": true
+  },
+  "release": {
+    "published": false,
+    "github_actions_executed": false,
+    "local_target": "aarch64-apple-darwin",
+    "cross_platform_binaries_tested_locally": false,
+    "archive_sha256": "f068651b62511a908eab09adfbb76d663c126bbf44ec6a3b1cec8dda2902f462",
+    "extracted_binary_storage_smoke": true,
+    "binary_sha256": "c97ce13fe93f3f8b4c3b193f63dbe95ebec7c6979a96eb19ce9d5a7676e99da5"
+  },
+  "limits": [
+    "single synthetic project, not a reliability estimate",
+    "model CLI syntax errors recovered during final reviews",
+    "database latency excludes model inference and client tool scheduling",
+    "source directory deleted; test logs and Git history remain in the pre-existing fixture"
+  ]
+}

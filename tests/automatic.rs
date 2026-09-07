@@ -91,8 +91,14 @@ fn another_harness_restores_automatically_and_does_not_reinject_each_prompt() {
     let path = f.transcript("claude-1", "retain switch-marker-871 and use seven retries");
     let first = context(&f.hook("claude", "claude-1", Some(&path), "SessionStart"));
     assert_eq!(first["status"], "restored");
-    let second = context(&f.hook("codex", "codex-1", None, "SessionStart"));
+    let response = f.hook("codex", "codex-1", None, "SessionStart");
+    let second = context(&response);
     assert_eq!(second["task"], first["task"]);
+    let instructions = response["hookSpecificOutput"]["additionalContext"]
+        .as_str()
+        .unwrap();
+    assert!(instructions.contains(&format!("search '{}'", second["task"].as_str().unwrap())));
+    assert!(!instructions.contains("search TASK"));
     assert!(second.to_string().contains("switch-marker-871"));
     assert!(
         f.hook("codex", "codex-1", None, "UserPromptSubmit")
@@ -486,4 +492,90 @@ fn injected_context_is_preserved_raw_but_not_recursively_indexed() {
     assert!(!restored.to_string().contains("recursive-private-marker"));
     let conn = rusqlite::Connection::open(f.dir.path().join("db.sqlite")).unwrap();
     assert_eq!(conn.query_row("SELECT count(*) FROM events WHERE kind='sqnic_context' AND body='' AND raw LIKE '%recursive-private-marker%'", [], |r|r.get::<_,i64>(0)).unwrap(),2);
+}
+
+#[test]
+fn cursor_observations_restore_without_importing_unverified_transcripts() {
+    let f = Fixture::new();
+    let payload = |event: &str| json!({"conversation_id":"cursor-fixture","workspace_roots":[f.repo()],"hook_event_name":event,"transcript_path":"/unverified/private.jsonl"});
+    let start = f.payload("cursor", payload("sessionStart"));
+    assert!(start["additional_context"].is_string());
+    let mut prompt = payload("beforeSubmitPrompt");
+    prompt["prompt"] = json!("cursor-persisted-rule: retries must be 11");
+    f.payload("cursor", prompt);
+    let mut tool = payload("postToolUse");
+    tool["tool_name"] = json!("Shell");
+    tool["tool_output"] = json!("fixture test failed, exit 1");
+    f.payload("cursor", tool);
+    let restored = f.hook("claude", "after-cursor", None, "SessionStart");
+    assert!(restored.to_string().contains("cursor-persisted-rule"));
+    assert!(restored.to_string().contains("fixture test failed"));
+    assert!(f.status()["files"].as_array().unwrap().is_empty());
+    let mut ambiguous = payload("sessionStart");
+    ambiguous["workspace_roots"] = json!([f.repo(), "/other"]);
+    assert!(
+        f.payload("cursor", ambiguous)["systemMessage"]
+            .as_str()
+            .unwrap()
+            .contains("multi-root")
+    );
+}
+
+#[test]
+fn sandbox_read_only_restore_reads_evidence_without_binding_or_writing() {
+    let f = Fixture::new();
+    for t in ["a", "b"] {
+        f.run(&["create", t, "--repo", f.repo()]);
+    }
+    f.run(&[
+        "update",
+        "a",
+        "--kind",
+        "constraint",
+        "--text",
+        "readonly-known-constraint",
+    ]);
+    f.hook("codex", "readonly", None, "SessionStart");
+    let db = rusqlite::Connection::open(f.dir.path().join("db.sqlite")).unwrap();
+    let value = f.run(&[
+        "--read-only",
+        "restore",
+        "--repo",
+        f.repo(),
+        "--task",
+        "a",
+        "--harness",
+        "codex",
+        "--session",
+        "readonly",
+    ]);
+    assert_eq!(value["read_only"], true);
+    assert!(value.to_string().contains("readonly-known-constraint"));
+    let bound: Option<String> = db
+        .query_row(
+            "SELECT task FROM auto_sessions WHERE native_id='readonly'",
+            [],
+            |r| r.get(0),
+        )
+        .unwrap();
+    assert!(bound.is_none());
+    let result = f
+        .command()
+        .args([
+            "--read-only",
+            "update",
+            "a",
+            "--kind",
+            "goal",
+            "--text",
+            "forbidden",
+        ])
+        .output()
+        .unwrap();
+    assert!(!result.status.success());
+    assert!(
+        !f.run(&["--read-only", "resume", "a"])
+            .to_string()
+            .contains("forbidden")
+    );
 }
