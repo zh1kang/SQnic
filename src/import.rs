@@ -11,12 +11,40 @@ use std::{
 const MAX_RECORD: u64 = 16 * 1024 * 1024;
 
 pub fn import(store: &mut Store, task: &str, path: &str, format: Format) -> Result<Value> {
+    import_guarded(store, task, path, format, None)
+}
+pub fn import_automatic(
+    store: &mut Store,
+    task: &str,
+    path: &str,
+    format: Format,
+    session: i64,
+) -> Result<Value> {
+    import_guarded(store, task, path, format, Some(session))
+}
+fn import_guarded(
+    store: &mut Store,
+    task: &str,
+    path: &str,
+    format: Format,
+    session: Option<i64>,
+) -> Result<Value> {
     store.repo(task)?;
     let path = std::fs::canonicalize(path).context("resolve history path")?;
     let name = path.to_str().context("history path must be UTF-8")?;
     let mut file = File::open(&path)?;
     let before = file.metadata()?;
     ensure!(before.is_file(), "history must be a regular file");
+    if let Some(session) = session {
+        let (repo, harness, native): (String, String, String) = store.conn.query_row(
+            "SELECT repo,harness,native_id FROM auto_sessions WHERE id=?",
+            [session],
+            |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
+        )?;
+        // Validate the same open descriptor that the importer consumes.
+        crate::recorder::verify(&mut file, &path, &repo, &harness, &native)?;
+    }
+
     let old: Option<(i64, String, i64, i64, String)> = store
         .conn
         .query_row(
@@ -69,6 +97,10 @@ pub fn import(store: &mut Store, task: &str, path: &str, format: Format) -> Resu
     let tx = store
         .conn
         .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    if let Some(session) = session {
+        let active:bool=tx.query_row("SELECT EXISTS(SELECT 1 FROM auto_sessions a JOIN auto_projects p ON p.repo=a.repo WHERE a.id=? AND a.task=? AND a.excluded=0 AND p.enabled=1)",params![session,task],|r|r.get(0))?;
+        ensure!(active, "automatic recording is paused or excluded");
+    }
     // The cursor is checked after the write lock to prevent two importers from appending the same batch.
     let current: Option<i64> = tx
         .query_row(
@@ -124,7 +156,11 @@ pub fn import(store: &mut Store, task: &str, path: &str, format: Format) -> Resu
             "INSERT INTO events(task,source,line,kind,body,raw) VALUES(?,?,?,?,?,?)",
             params![task, source, line, kind, body, raw],
         )?;
-        crate::normalize::record(&tx, tx.last_insert_rowid(), Some(source), &parsed)?;
+        let event = tx.last_insert_rowid();
+        crate::normalize::record(&tx, event, Some(source), &parsed)?;
+        if let Some(session) = session {
+            tx.execute("UPDATE event_meta SET scope=(SELECT branch FROM auto_sessions WHERE id=?) WHERE event=? AND scope=''",params![session,event])?;
+        }
         hasher.update(&bytes);
         consumed += n as u64;
         added += 1;
@@ -158,6 +194,20 @@ fn hash_prefix(file: &mut File, mut remaining: u64, hasher: &mut Sha256) -> Resu
 }
 
 pub(crate) fn normalize(value: &Value) -> (String, String) {
+    let attachment = &value["attachment"];
+    if value["customType"] == "sqnic-context" || value["message"]["customType"] == "sqnic-context" {
+        return ("sqnic_context".into(), String::new());
+    }
+    if value["type"] == "attachment"
+        && (attachment["command"]
+            .as_str()
+            .is_some_and(|s| s.starts_with("sqnic-managed:v1:"))
+            || attachment["content"]
+                .as_str()
+                .is_some_and(|s| s.starts_with("SQnic local handoff.")))
+    {
+        return ("sqnic_context".into(), String::new());
+    }
     let outer = value
         .get("type")
         .and_then(Value::as_str)

@@ -121,8 +121,8 @@ Every search keeps exact SQL task filtering, including task IDs with punctuation
 
 ## MCP profiles
 
-The default `full` profile retains all 21 operations.
-The optional `handoff` profile exposes six operations: evidence, read_many, search, commit, notes and update.
+The default `full` profile retains all 22 operations.
+The optional `handoff` profile exposes seven operations: restore, evidence, read_many, search, commit, notes and update.
 Discovery and dispatch apply the same filter, so a hidden operation is rejected before execution.
 The CLI retains the full interface.
 
@@ -145,3 +145,11 @@ The existing 100,000-record benchmark does not establish million-record or milli
 The proposed lesson workflow is separate and remains unimplemented.
 For that workflow, candidate lessons should be scoped to their project/component, analyzed incrementally, and deduplicated by independent session evidence.
 Only a small, reviewed set of broadly applicable rules should enter always-loaded instructions.
+
+## automatic capture and restore
+
+See [the automatic handoff plan](automatic-handoff-plan.md) for schema-v4 lifecycle states, adapter contracts, recording limits and privacy behavior.
+The existing source importer remains responsible for atomic raw storage and prefix verification.
+Automatic entry points add session identity validation on the same open file descriptor and a transaction-time enabled/session guard.
+A separate OS file lock serializes reconciliation across foreground, one-shot and background callers.
+Git indexing also checks automatic recording eligibility inside its write transaction.

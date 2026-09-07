@@ -275,7 +275,7 @@ pub fn bundle(
     if let Some(query) = query {
         let expr = terms(query)?;
         // Keep FTS first: a watermark range otherwise made SQLite scan every task event.
-        let mut q=store.conn.prepare("SELECT e.id FROM event_fts CROSS JOIN events e ON e.id=event_fts.rowid LEFT JOIN event_meta m ON m.event=e.id WHERE event_fts MATCH ? AND e.task=? AND e.id<=? AND coalesce(m.scope,'') IN ('',?) AND e.kind NOT IN ('note','checkpoint') ORDER BY rank LIMIT 24")?;
+        let mut q=store.conn.prepare("SELECT e.id FROM event_fts CROSS JOIN events e ON e.id=event_fts.rowid LEFT JOIN event_meta m ON m.event=e.id WHERE event_fts MATCH ? AND e.task=? AND e.id<=? AND coalesce(m.scope,'') IN ('',?) AND e.kind NOT IN ('note','checkpoint','sqnic_context') ORDER BY rank LIMIT 24")?;
         candidates.extend(
             q.query_map(
                 params![
@@ -293,7 +293,7 @@ pub fn bundle(
             candidates.extend(store.conn.prepare("SELECT x.event FROM enrichment_fts CROSS JOIN enrichments x ON x.id=enrichment_fts.rowid LEFT JOIN event_meta m ON m.event=x.event WHERE enrichment_fts MATCH ? AND x.task=? AND x.event<=? AND coalesce(m.scope,'') IN ('',?) ORDER BY rank LIMIT 12")?.query_map(params![expr,task,watermark,scope],|r|r.get::<_,i64>(0))?.collect::<rusqlite::Result<Vec<_>>>()?);
         }
     } else {
-        candidates.extend(store.conn.prepare("SELECT e.id FROM events e LEFT JOIN event_meta m ON m.event=e.id WHERE e.task=? AND e.id<=? AND coalesce(m.scope,'') IN ('',?) AND e.kind NOT IN ('note','checkpoint') ORDER BY e.id DESC LIMIT 24")?.query_map(params![task,watermark,scope],|r|r.get::<_,i64>(0))?.collect::<rusqlite::Result<Vec<_>>>()?);
+        candidates.extend(store.conn.prepare("SELECT e.id FROM events e LEFT JOIN event_meta m ON m.event=e.id WHERE e.task=? AND e.id<=? AND coalesce(m.scope,'') IN ('',?) AND e.kind NOT IN ('note','checkpoint','sqnic_context') ORDER BY e.id DESC LIMIT 24")?.query_map(params![task,watermark,scope],|r|r.get::<_,i64>(0))?.collect::<rusqlite::Result<Vec<_>>>()?);
     }
     let mut seen = HashSet::new();
     for id in candidates {
@@ -320,7 +320,7 @@ pub fn bundle(
             if related != id && !seen.insert(related) {
                 continue;
             }
-            let row=store.conn.query_row("SELECT e.kind,substr(e.body,1,600),e.source,e.line,length(e.raw) FROM events e LEFT JOIN event_meta m ON m.event=e.id WHERE e.task=? AND e.id=? AND e.id<=? AND coalesce(m.scope,'') IN ('',?)",params![task,related,watermark,scope],|r|Ok((r.get::<_,String>(0)?,r.get::<_,String>(1)?,r.get::<_,Option<i64>>(2)?,r.get::<_,Option<i64>>(3)?,r.get::<_,i64>(4)?))).optional()?;
+            let row=store.conn.query_row("SELECT e.kind,substr(e.body,1,600),e.source,e.line,length(e.raw) FROM events e LEFT JOIN event_meta m ON m.event=e.id WHERE e.task=? AND e.id=? AND e.id<=? AND e.kind != 'sqnic_context' AND coalesce(m.scope,'') IN ('',?)",params![task,related,watermark,scope],|r|Ok((r.get::<_,String>(0)?,r.get::<_,String>(1)?,r.get::<_,Option<i64>>(2)?,r.get::<_,Option<i64>>(3)?,r.get::<_,i64>(4)?))).optional()?;
             if let Some((kind, text, source, line, total)) = row {
                 if kind == "commit"
                     && let Some((cp_id, _, _)) = &cp

@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-07",
+  "baseline_commit": "8cf6d29",
+  "rust_tests": {
+    "unit": 2,
+    "adapters": 7,
+    "automatic": 14,
+    "cli": 35,
+    "total": 58
+  },
+  "checks": {
+    "format": "passed",
+    "clippy_all_targets_deny_warnings": "passed",
+    "python_ruff": "passed",
+    "pi_node_lifecycle": "passed"
+  },
+  "live_cross_harness": {
+    "source": "Claude Code 2.1.259",
+    "source_model": "claude-haiku-4-5-20251001",
+    "destination": "Codex 0.153.4",
+    "destination_model": "gpt-5.4-mini",
+    "prompt_mentions_sqnic": false,
+    "normal_project_hook_trust": true,
+    "expected_marker": "cheap-cross-324ca40b939d",
+    "expected_retry_limit": 9,
+    "answer": "cheap-cross-324ca40b939d\n9",
+    "passed": true,
+    "claude_reported_cost_usd": 0.01810375,
+    "codex_usage": {
+      "input_tokens": 25258,
+      "cached_input_tokens": 5376,
+      "output_tokens": 82
+    },
+    "codex_elapsed_seconds": 8.153
+  },
+  "pi": {
+    "version": "0.85.0",
+    "node": "26.0.0",
+    "callbacks_passed": 6,
+    "model_calls": 0,
+    "native_loader": "blocked: installed package cannot resolve @earendil-works/pi-server",
+    "full_live_agent_verified": false
+  },
+  "negative_results_retained": [
+    "Earlier Claude startup received hook context but failed factual recovery; original-request budget reservation fixed this and a subsequent live run recovered both exact facts.",
+    "Delegated live rerun hit account usage limit; direct low-cost CLI cross-harness test subsequently passed.",
+    "Installed Pi native loader failed due to a missing dependency; standalone TypeScript callback tests passed."
+  ],
+  "scope": "Unix automatic adapters; explicit exports for unsupported harnesses. No claim of universal or complete hidden-state capture."
+}

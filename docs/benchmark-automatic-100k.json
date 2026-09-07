@@ -1,0 +1,63 @@
+{
+  "workload": "synthetic Claude-shaped JSONL; one worktree/session, unchanged warm queries; CLI process startup included; worker disabled by fixture lease",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "binary_sha256": "dabb6f39d2f54b7237f4d0bb926fc606cd5c22f16b3e7ee3921ec28d0319c8ef",
+  "samples": 50,
+  "events": 100000,
+  "final_events": 100053,
+  "transcript_bytes": 25879420,
+  "database_bytes": 88707072,
+  "initial_startup_ms": 82.876,
+  "initial_background_catchup_ms": 7756.456,
+  "measurements": {
+    "startup_hook": {
+      "p50_ms": 114.848,
+      "p95_ms": 262.483,
+      "p99_ms": 793.226,
+      "mean_ms": 144.827,
+      "max_output_bytes": 8587
+    },
+    "prompt_hook": {
+      "p50_ms": 35.107,
+      "p95_ms": 48.892,
+      "p99_ms": 76.301,
+      "mean_ms": 37.1,
+      "max_output_bytes": 3
+    },
+    "restore": {
+      "p50_ms": 75.303,
+      "p95_ms": 153.47,
+      "p99_ms": 418.255,
+      "mean_ms": 93.26,
+      "max_output_bytes": 7432
+    },
+    "restore_query": {
+      "p50_ms": 73.744,
+      "p95_ms": 107.051,
+      "p99_ms": 203.321,
+      "mean_ms": 80.3,
+      "max_output_bytes": 7857
+    },
+    "status": {
+      "p50_ms": 13.848,
+      "p95_ms": 17.828,
+      "p99_ms": 21.174,
+      "mean_ms": 14.116,
+      "max_output_bytes": 655
+    },
+    "unchanged_reconcile": {
+      "p50_ms": 54.736,
+      "p95_ms": 62.118,
+      "p99_ms": 74.744,
+      "mean_ms": 56.222,
+      "max_output_bytes": 109
+    },
+    "append_and_reconcile": {
+      "p50_ms": 90.807,
+      "p95_ms": 121.756,
+      "p99_ms": 129.884,
+      "mean_ms": 93.297,
+      "max_output_bytes": 109
+    }
+  }
+}

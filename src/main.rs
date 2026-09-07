@@ -1,3 +1,5 @@
+mod adapters;
+mod automatic;
 mod capture;
 mod evidence;
 mod git;
@@ -5,6 +7,7 @@ mod import;
 mod mcp;
 mod model;
 mod normalize;
+mod recorder;
 mod store;
 
 use anyhow::Result;
@@ -33,6 +36,50 @@ fn run() -> Result<()> {
     let cli = Cli::parse();
     let path = cli.db.map(Ok).unwrap_or_else(store::default_db)?;
     let mut store = Store::open(&path)?;
+    let db = automatic::database_path(&path)?;
+    match &cli.command {
+        Command::Setup {
+            repo,
+            harness,
+            remove,
+        } => {
+            let repo = automatic::root(repo)?;
+            if *remove {
+                automatic::set_adapter(&store, &repo, *harness, false)?;
+            }
+            let result = adapters::install(&repo, *harness, &db, *remove)?;
+            automatic::set_adapter(&store, &repo, *harness, !remove)?;
+            println!("{result}");
+            return Ok(());
+        }
+        Command::Hook { repo, harness } => {
+            use std::io::Read;
+            let result = (|| -> Result<Value> {
+                let mut bytes = Vec::new();
+                std::io::stdin()
+                    .take(1024 * 1024 + 1)
+                    .read_to_end(&mut bytes)?;
+                anyhow::ensure!(bytes.len() <= 1024 * 1024, "hook payload exceeds 1 MiB");
+                let payload = serde_json::from_slice(&bytes)?;
+                let repo = automatic::root(repo)?;
+                automatic::hook(&mut store, &repo, *harness, payload, &db)
+            })();
+            match result {
+                Ok(v) => println!("{v}"),
+                Err(e) => println!(
+                    "{}",
+                    serde_json::json!({"systemMessage":format!("SQnic capture/restore incomplete: {e:#}. Run sqnic auto-status for details.")})
+                ),
+            }
+            return Ok(());
+        }
+        Command::Record { repo, once } => {
+            let repo = automatic::root(repo)?;
+            println!("{}", recorder::run(&mut store, &repo, *once)?);
+            return Ok(());
+        }
+        _ => {}
+    }
     if let Command::Serve { profile } = cli.command {
         return mcp::serve(&mut store, profile);
     }
@@ -138,6 +185,53 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
         } => evidence::link(store, &task, id, &hash, &relation, &author),
         Command::Checkpoints { task, after } => evidence::checkpoints(store, &task, after),
         Command::Stats { task } => store.stats(&task),
-        Command::Serve { .. } => anyhow::bail!("serve cannot be nested"),
+        Command::Restore {
+            repo,
+            task,
+            harness,
+            session,
+            query,
+            max_bytes,
+        } => {
+            let repo = automatic::root(&repo)?;
+            if session.is_some() {
+                automatic::restore(
+                    store,
+                    &repo,
+                    task.as_deref(),
+                    harness,
+                    session.as_deref(),
+                    query.as_deref(),
+                    max_bytes,
+                )?;
+            }
+            let reconciliation = recorder::reconcile(store, &repo, true)?;
+            let mut restored = automatic::restore(
+                store,
+                &repo,
+                task.as_deref(),
+                harness,
+                session.as_deref(),
+                query.as_deref(),
+                max_bytes,
+            )?;
+            if reconciliation["reconciliation_busy"] == true && restored["capture"].is_object() {
+                restored["capture"]["freshness"] =
+                    serde_json::json!("reconciliation busy; retry restore");
+            }
+            Ok(restored)
+        }
+        Command::AutoStatus { repo } => automatic::status(store, &automatic::root(&repo)?),
+        Command::Pause { repo } => automatic::pause(store, &automatic::root(&repo)?),
+        Command::Unpause { repo } => automatic::enable(store, &automatic::root(&repo)?),
+        Command::ExcludeSession {
+            repo,
+            harness,
+            session,
+        } => automatic::exclude(store, &automatic::root(&repo)?, harness, &session),
+        Command::Serve { .. }
+        | Command::Setup { .. }
+        | Command::Hook { .. }
+        | Command::Record { .. } => anyhow::bail!("process lifecycle commands cannot be nested"),
     }
 }

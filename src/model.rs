@@ -235,6 +235,71 @@ pub enum Command {
     },
     /// Read counts and storage metrics.
     Stats { task: String },
+    /// Install or remove project-local automatic capture adapters.
+    Setup {
+        #[arg(long, default_value = ".")]
+        repo: String,
+        #[arg(long, value_enum)]
+        harness: Harness,
+        #[arg(long)]
+        #[serde(default)]
+        remove: bool,
+    },
+    /// Inspect recording, session bindings and capture errors.
+    AutoStatus {
+        #[arg(long, default_value = ".")]
+        repo: String,
+    },
+    /// Pause automatic capture and exclude current sessions from later backfill.
+    Pause {
+        #[arg(long, default_value = ".")]
+        repo: String,
+    },
+    /// Enable automatic capture for new sessions after a pause.
+    Unpause {
+        #[arg(long, default_value = ".")]
+        repo: String,
+    },
+    /// Exclude one native session from future automatic recording and restoration.
+    ExcludeSession {
+        #[arg(long, default_value = ".")]
+        repo: String,
+        #[arg(long, value_enum)]
+        harness: Harness,
+        #[arg(long)]
+        session: String,
+    },
+    /// Resolve the current project task and restore bounded context.
+    Restore {
+        #[arg(long, default_value = ".")]
+        repo: String,
+        #[arg(long)]
+        task: Option<String>,
+        #[arg(long, value_enum)]
+        harness: Option<Harness>,
+        #[arg(long)]
+        session: Option<String>,
+        #[arg(long)]
+        query: Option<String>,
+        #[arg(long, default_value_t = 8000)]
+        #[serde(default = "budget")]
+        max_bytes: usize,
+    },
+    /// Receive a native lifecycle event on stdin (normally called by an adapter).
+    Hook {
+        #[arg(long)]
+        repo: String,
+        #[arg(long, value_enum)]
+        harness: Harness,
+    },
+    /// Reconcile registered automatic transcripts; without --once, run a leased recorder.
+    Record {
+        #[arg(long, default_value = ".")]
+        repo: String,
+        #[arg(long)]
+        #[serde(default)]
+        once: bool,
+    },
     /// Serve the same operations over MCP stdio.
     Serve {
         #[arg(long, value_enum, default_value = "full")]
@@ -264,4 +329,23 @@ pub enum ToolProfile {
     #[default]
     Full,
     Handoff,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, ValueEnum, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum Harness {
+    Claude,
+    Codex,
+    Pi,
+    Cursor,
+}
+impl Harness {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::Claude => "claude",
+            Self::Codex => "codex",
+            Self::Pi => "pi",
+            Self::Cursor => "cursor",
+        }
+    }
 }

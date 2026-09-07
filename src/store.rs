@@ -44,13 +44,13 @@ impl Store {
         conn.execute_batch("PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL;")?;
         let version: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
         ensure!(
-            version <= 3,
+            version <= 4,
             "database schema {version} is newer than this binary"
         );
-        if version < 3 {
+        if version < 4 {
             let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
             let version: i64 = tx.query_row("PRAGMA user_version", [], |r| r.get(0))?;
-            ensure!(version <= 3, "database schema changed; upgrade this binary");
+            ensure!(version <= 4, "database schema changed; upgrade this binary");
             if version == 0 {
                 tx.execute_batch(include_str!("schema.sql"))?;
             }
@@ -60,6 +60,9 @@ impl Store {
             if version < 3 {
                 tx.execute_batch(include_str!("migration_v3.sql"))?;
                 crate::normalize::backfill(&tx)?;
+            }
+            if version < 4 {
+                tx.execute_batch(include_str!("migration_v4.sql"))?;
             }
             tx.commit()?;
         }

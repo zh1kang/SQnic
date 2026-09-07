@@ -291,7 +291,7 @@ fn mcp_handles_initialization_tool_calls_and_protocol_errors() {
         .map(|s| serde_json::from_str(s).unwrap())
         .collect();
     assert_eq!(values.len(), 11);
-    assert_eq!(values[1]["result"]["tools"].as_array().unwrap().len(), 21);
+    assert_eq!(values[1]["result"]["tools"].as_array().unwrap().len(), 22);
     assert!(
         values[3]["result"]["content"][0]["text"]
             .as_str()
@@ -865,7 +865,7 @@ fn schema_two_note_revisions_migrate_into_historical_state() {
     assert_eq!(
         conn.query_row("PRAGMA user_version", [], |r| r.get::<_, i64>(0))
             .unwrap(),
-        3
+        4
     );
 }
 
@@ -1040,7 +1040,7 @@ fn handoff_profile_limits_discovery_and_dispatch() {
         .lines()
         .map(|s| serde_json::from_str(s).unwrap())
         .collect();
-    assert_eq!(values[1]["result"]["tools"].as_array().unwrap().len(), 6);
+    assert_eq!(values[1]["result"]["tools"].as_array().unwrap().len(), 7);
     assert_eq!(values[2]["error"]["code"], -32602);
     assert_eq!(f.run(&["stats", "alpha"])["events"], 0);
 }

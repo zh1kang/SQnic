@@ -26,7 +26,18 @@ fn git(repo: &str, args: &[&str]) -> Result<String> {
     );
     Ok(String::from_utf8_lossy(&output.stdout).into_owned())
 }
+pub fn snapshot(repo: &str) -> Result<Value> {
+    Ok(
+        json!({"head":head(repo)?,"branch":git(repo,&["branch","--show-current"])?.trim(),"status":git(repo,&["status","--porcelain=v1"])?,"captured_unix_seconds":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs()}),
+    )
+}
 pub fn sync(store: &mut Store, task: &str) -> Result<Value> {
+    sync_guarded(store, task, false)
+}
+pub fn sync_automatic(store: &mut Store, task: &str) -> Result<Value> {
+    sync_guarded(store, task, true)
+}
+fn sync_guarded(store: &mut Store, task: &str, automatic: bool) -> Result<Value> {
     let repo = store.repo(task)?;
     git(&repo, &["rev-parse", "--show-toplevel"])?;
     let head = head(&repo)?;
@@ -76,6 +87,10 @@ pub fn sync(store: &mut Store, task: &str) -> Result<Value> {
     let tx = store
         .conn
         .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    if automatic {
+        let active: bool = tx.query_row("SELECT EXISTS(SELECT 1 FROM auto_sessions a JOIN auto_projects p ON p.repo=a.repo WHERE a.task=? AND a.excluded=0 AND p.enabled=1)", [task], |r| r.get(0))?;
+        ensure!(active, "automatic recording is paused or excluded");
+    }
     let mut added = 0;
     for (hash, metadata, summary) in records {
         let exists: bool = tx.query_row(

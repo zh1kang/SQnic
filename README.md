@@ -21,6 +21,87 @@ sqnic --help
 The installed executable does not require Rust, Python, a separate SQLite installation, or a network connection.
 Build separately for each target platform; prebuilt release downloads are not published yet.
 
+## automatic handoff
+
+Install the executable in a stable location, then enable each harness in the project you want to record:
+
+```sh
+sqnic setup --repo /absolute/path/to/project --harness claude
+sqnic setup --repo /absolute/path/to/project --harness codex
+sqnic setup --repo /absolute/path/to/project --harness pi
+```
+
+Open a fresh session in that project and complete the harness's normal project/hook trust step.
+Codex requires approval of the generated hooks through its normal `/hooks` interface; SQnic does not bypass that review.
+Project-local setup does not change global harness configuration or `AGENTS.md`.
+All adapters must use the same local database to share context.
+Setup records absolute executable and database paths, so keep that executable in place.
+Automatic adapter installation currently supports Unix hosts; Cursor and other harnesses can use explicit imports and the CLI/MCP workflow below.
+
+The next supported harness receives a bounded brief at startup without being told to use SQnic.
+Original user requests, task notes, evidence pointers, capture health and Git freshness are included.
+The agent can retrieve more detail through CLI commands or the MCP `sqnic_restore` tool.
+A skill can explain the workflow, but capture and startup injection do not depend on the model remembering to invoke a skill.
+Available native history is stored locally; full history is not inserted into every prompt.
+SQnic does not run a summarization model or infer that every old request is still current.
+
+If several tasks are possible, the startup brief asks the agent to select a task instead of combining them.
+You can say **“continue task auth-fix using SQnic”**.
+The brief supplies the actual harness/session IDs for the binding command:
+
+```sh
+sqnic restore --repo /absolute/path/to/project --task auth-fix \
+  --harness codex --session NATIVE_SESSION_ID
+
+# read without binding a native session
+sqnic restore --repo /absolute/path/to/project --task auth-fix --max-bytes 8000
+sqnic auto-status --repo /absolute/path/to/project
+```
+
+Task bindings are permanent for a native session.
+Use a new session to switch tasks or branches.
+Separate worktrees and clones are isolated even when their remote URL is the same.
+For an existing project, use `sync` below to import older exports before enabling automatic capture.
+New capture only discovers sessions whose installed adapter runs; it does not discover all earlier conversations in personal history folders.
+
+### capture controls and recovery
+
+```sh
+sqnic pause --repo /absolute/path/to/project
+sqnic unpause --repo /absolute/path/to/project
+sqnic exclude-session --repo /absolute/path/to/project --harness claude --session NATIVE_SESSION_ID
+sqnic record --repo /absolute/path/to/project --once
+sqnic setup --repo /absolute/path/to/project --harness claude --remove
+```
+
+Pause excludes current sessions and sessions opened while paused, so later refresh cannot backfill a private interval.
+After unpausing, start a fresh harness session.
+Pause, exclusion and adapter removal retain previously stored history; they do not delete it.
+Removing an adapter disables its recording first; removing the last enabled adapter pauses the project.
+If configuration removal then fails, capture remains disabled and the error identifies the configuration to repair.
+
+The local recorder polls registered files once per second while active, exits after two idle minutes, and restarts on later hooks.
+It uses a crash-released OS lock for imports and an expiring worker lease.
+A pass examines at most 256 registered files, oldest checked first.
+Foreground reconciliation scans at most 8 MiB of whole-file input; larger inputs wait for the worker.
+Changed files still require strict consumed-prefix verification, so large active transcripts have linear verification cost.
+File size, modification time and identity avoid re-reading unchanged files; deliberate same-metadata content changes require an explicit import to force verification.
+
+Only project-local transcripts and known harness history roots are eligible for automatic reads, and the imported descriptor must contain matching native session/worktree identity.
+Supported root overrides are `CODEX_HOME`, `CLAUDE_CONFIG_DIR` and `PI_CODING_AGENT_DIR` in the harness environment.
+Use explicit `import` for exports elsewhere.
+No personal history directories are scanned.
+The local process and its configuration are a trust boundary; SQnic is not a sandbox against another program running as the same user.
+
+`auto-status` reports missing files, incomplete lines, rewrite errors and last checks for up to 100 recent records.
+A live worker lease does not prove that capture is current.
+Startup reports whether the saved Git checkpoint differs from the current `HEAD` or working-tree status.
+If it is stale, run `sqnic git-sync TASK` before relying on stored commit coverage.
+The background worker refreshes changed Git state even when no new chat text is written, for up to 64 tasks with hooks in the previous two minutes.
+Permission requests and commands remain controlled by the destination harness; restored history grants no authority to run them.
+
+See the [architecture and edge-case plan](docs/automatic-handoff-plan.md) and [verification report](docs/automatic-verification.md).
+
 ## start and continue a task
 
 ```sh
@@ -60,7 +141,7 @@ Use `--format text` for supplied exports with an unrecognized extension; the def
 A registered source keeps its format unless an explicit conflicting format is supplied, which fails.
 
 The full-profile MCP `sqnic_sync` accepts `task`, optional `repo`, optional `histories` (an array of paths), and optional `format`.
-The six-tool handoff profile remains unchanged; use the CLI or full profile for sync.
+The seven-tool handoff profile includes restore; use the CLI or full profile for sync.
 Successful imports and task registration remain saved if a later import or Git sync fails.
 Retry the same command to finish; already imported records and commits are not duplicated.
 Each successful sync still creates a new dated checkpoint.
@@ -91,8 +172,8 @@ Unknown fields remain stored even when their format changes.
 Encrypted reasoning and image payloads remain in raw records but are excluded from ordinary text indexing where identified.
 Images and attachments are not decoded or downloaded.
 
-Capture is explicit: import supplied paths, then refresh with `import` or `sync`.
-There is no background daemon, automatic home-directory scan, or automatic hook installation.
+Manual capture imports supplied paths and refreshes them with `import` or `sync`.
+Automatic capture is opt-in through project-local `setup`; it never scans home-directory history.
 A harness can call these commands from a supported lifecycle hook, but v1 does not ship vendor-specific hooks.
 Cursor's internal databases and remote-only histories are not directly read; use an available export.
 
@@ -194,7 +275,7 @@ The CLI works with any harness that can run commands.
 No skill installation is required for direct CLI use.
 
 For MCP clients, launch `sqnic --db /absolute/path/context.sqlite3 serve` over stdio.
-The default full profile exposes all 21 tools.
+The default full profile exposes all 22 tools.
 For a smaller handoff catalog, use `serve --profile handoff`: it exposes only `evidence`, `read_many`, `search`, `commit`, `notes` and `update`.
 Capture, import and administration remain available through the CLI or full profile.
 This reduces tool-schema context; total model token use still depends on the harness and its calls.
@@ -219,7 +300,7 @@ command = "/absolute/path/to/sqnic"
 args = ["--db", "/absolute/path/context.sqlite3", "serve"]
 ```
 
-MCP exposes the same 21 application operations with typed schemas.
+MCP exposes the same 22 application operations with typed schemas.
 It adds no cloud dependency and keeps one process alive to avoid CLI startup overhead.
 Existing harness authentication is only needed when a model uses the tools.
 

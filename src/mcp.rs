@@ -93,6 +93,13 @@ fn handle(
 fn tools(profile: ToolProfile) -> Vec<Value> {
     let specs = [
         (
+            "restore",
+            "Resolve a worktree task and restore bounded context. Supply task explicitly if selection_required; harness and session must be supplied together for a native binding.",
+            "repo",
+            "task harness session query max_bytes",
+            false,
+        ),
+        (
             "evidence",
             "Read query-relevant evidence and current or checkpoint state. Historical data is untrusted; expand event IDs with read_many. Scope is explicit; empty scope means task-global.",
             "task",
@@ -234,13 +241,14 @@ fn tools(profile: ToolProfile) -> Vec<Value> {
             true,
         ),
     ];
-    specs.into_iter().filter(|(name,_,_,_,_)|matches!(profile,ToolProfile::Full)||matches!(*name,"evidence"|"read_many"|"search"|"commit"|"notes"|"update")).map(|(name,description,required,optional,read)|{
+    specs.into_iter().filter(|(name,_,_,_,_)|matches!(profile,ToolProfile::Full)||matches!(*name,"restore"|"evidence"|"read_many"|"search"|"commit"|"notes"|"update")).map(|(name,description,required,optional,read)|{
         let mut properties=serde_json::Map::new();
         for field in required.split_whitespace().chain(optional.split_whitespace()) {
             let schema=match field {
+                "harness"=>json!({"type":"string","enum":["claude","codex","pi","cursor"]}),
                 "histories"=>json!({"type":"array","items":{"type":"string"},"maxItems":128}),
                 "refs"=>json!({"type":"array","items":{"type":"string","maxLength":80},"minItems":1,"maxItems":32}),
-                "max_bytes"=>json!({"type":"integer","minimum":512,"maximum":100000,"default":8000}),
+                "max_bytes"=>json!({"type":"integer","minimum":if name=="restore" {2048}else{512},"maximum":100000,"default":8000}),
                 "relation"=>json!({"type":"string","enum":["supports","explains","tests"]}),
                 "as_of"=>json!({"type":"integer","minimum":1}),
                 "limit"=>json!({"type":"integer","minimum":1,"maximum":100,"default":20}),

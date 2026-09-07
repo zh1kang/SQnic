@@ -5,6 +5,15 @@ use rusqlite::{OptionalExtension, params};
 use serde_json::{Value, json};
 
 pub fn append(store: &mut Store, task: &str, key: &str, raw: &str) -> Result<Value> {
+    append_guarded(store, task, key, raw, None)
+}
+pub fn append_guarded(
+    store: &mut Store,
+    task: &str,
+    key: &str,
+    raw: &str,
+    session: Option<i64>,
+) -> Result<Value> {
     store.repo(task)?;
     ensure!(
         !key.is_empty() && key.len() <= 256,
@@ -19,6 +28,10 @@ pub fn append(store: &mut Store, task: &str, key: &str, raw: &str) -> Result<Val
     let tx = store
         .conn
         .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    if let Some(session) = session {
+        let active:bool=tx.query_row("SELECT EXISTS(SELECT 1 FROM auto_sessions a JOIN auto_projects p ON p.repo=a.repo WHERE a.id=? AND a.task=? AND a.excluded=0 AND p.enabled=1)",params![session,task],|r|r.get(0))?;
+        ensure!(active, "automatic recording is paused or excluded");
+    }
     let old:Option<(i64,String)>=tx.query_row("SELECT c.event,e.raw FROM captures c JOIN events e ON e.id=c.event WHERE c.task=? AND c.key=?",params![task,key],|r|Ok((r.get(0)?,r.get(1)?))).optional()?;
     if let Some((event, previous)) = old {
         ensure!(
