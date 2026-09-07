@@ -1,0 +1,98 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python -m unittest discover -s tests -p '*_test.py'
+      - run: node scripts/pi_adapter_test.mjs
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --check
+      - run: cargo test --locked
+      - run: cargo clippy --all-targets --all-features --locked -- -D warnings
+
+  build:
+    needs: verify
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-15
+            target: aarch64-apple-darwin
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: read and verify version
+        shell: bash
+        run: |
+          version="$(cargo metadata --no-deps --format-version 1 | python -c 'import json,sys; print(json.load(sys.stdin)["packages"][0]["version"])')"
+          test "$GITHUB_REF_NAME" = "v$version"
+          echo "SQNIC_VERSION=$version" >> "$GITHUB_ENV"
+      - run: cargo build --release --locked --target "${{ matrix.target }}"
+      - name: package binary
+        shell: bash
+        run: |
+          binary="target/${{ matrix.target }}/release/sqnic"
+          if [[ "${{ matrix.target }}" == *windows* ]]; then binary+=".exe"; fi
+          python scripts/package_release.py \
+            --binary "$binary" \
+            --version "$SQNIC_VERSION" \
+            --target "${{ matrix.target }}" \
+            --output-dir dist
+      - name: smoke test binary
+        shell: bash
+        run: |
+          binary="target/${{ matrix.target }}/release/sqnic"
+          if [[ "${{ matrix.target }}" == *windows* ]]; then binary+=".exe"; fi
+          "$binary" --version
+          "$binary" --help
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sqnic-${{ matrix.target }}
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: sqnic-*
+          merge-multiple: true
+      - name: create checksums
+        working-directory: dist
+        run: sha256sum -- *.tar.gz *.zip > SHA256SUMS
+      - name: publish github release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes
