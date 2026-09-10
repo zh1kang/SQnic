@@ -7,6 +7,7 @@ All model output is kept in a private directory beside the requested report.
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 import hashlib
 import json
 import math
@@ -170,7 +171,7 @@ def fixture(binary: Path, root: Path, *, buried: bool = False) -> tuple[Path, st
     subprocess.run(["git", "init", "-q", str(repo)], check=True, timeout=30)
     run_sqnic(binary, db, ["unpause", "--repo", str(repo)])
     import sqlite3
-    with sqlite3.connect(db) as conn:
+    with closing(sqlite3.connect(db)) as conn, conn:
         conn.execute("INSERT INTO auto_leases VALUES(?, 'acceptance', unixepoch()+3600)", (str(repo.resolve()),))
     original = (
         "Implement answer.py with quote_cents(weight, zone), expired(age_seconds, ttl_seconds), and stable_unique(strings). "

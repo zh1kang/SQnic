@@ -2,6 +2,11 @@ name: release
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/release.yml"
+      - "scripts/package_release.py"
+      - "tests/package_release_test.py"
   push:
     tags:
       - "v*.*.*"
@@ -50,6 +55,8 @@ jobs:
         with:
           name: release-latency-gates
           path: .artifacts/gate-*.json
+          include-hidden-files: true
+          if-no-files-found: error
 
   build:
     needs: verify

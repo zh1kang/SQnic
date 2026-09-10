@@ -1,5 +1,5 @@
 {
-  "method": "all 21 live attempts, including correctness failures and network failures; no attempts removed",
+  "method": "all 45 live replay attempts, including correctness, retrieval, and network failures; no attempts removed; native discovery trials are reported separately",
   "attempts": [
     {
       "harness": "claude",
@@ -5613,6 +5613,7062 @@
       "experiment": "gate-live-luna-network-retry",
       "repeat": "candidate-run-3",
       "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 25.98,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 51268,
+        "cached_input_tokens_reported": 31916,
+        "cache_creation_input_tokens_reported": 19326,
+        "uncached_input_tokens_reported": 19352
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-d3ddb5c122d558a2",
+        "output_bytes": 16233,
+        "first_success_seconds": 0.006676375167444348,
+        "startup_bytes": 5979,
+        "startup_estimated_tokens_bytes_div_4": 1494.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14472,
+        "first_successful_retrieval_seconds": 9.830071666045114
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 33.432,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 136013,
+        "cached_input_tokens_reported": 110721,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 25292
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-b55e952d8712305a",
+        "output_bytes": 16232,
+        "first_success_seconds": 0.0047426249366253614,
+        "startup_bytes": 5976,
+        "startup_estimated_tokens_bytes_div_4": 1494.0,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14471,
+        "first_successful_retrieval_seconds": 7.417205750010908
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 21.308,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 51225,
+        "cached_input_tokens_reported": 38806,
+        "cache_creation_input_tokens_reported": 12393,
+        "uncached_input_tokens_reported": 12419
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-8816099ca8877f6c",
+        "output_bytes": 16233,
+        "first_success_seconds": 0.005552582908421755,
+        "startup_bytes": 5979,
+        "startup_estimated_tokens_bytes_div_4": 1494.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14472,
+        "first_successful_retrieval_seconds": 6.993813500041142
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 37.088,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 204267,
+        "cached_input_tokens_reported": 178949,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 25318
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-cb87d5a5dd442c48",
+        "output_bytes": 16232,
+        "first_success_seconds": 0.006470000138506293,
+        "startup_bytes": 5976,
+        "startup_estimated_tokens_bytes_div_4": 1494.0,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14471,
+        "first_successful_retrieval_seconds": 4.498783624963835
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 27.23,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 51269,
+        "cached_input_tokens_reported": 38799,
+        "cache_creation_input_tokens_reported": 12444,
+        "uncached_input_tokens_reported": 12470
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-cd3f95e2da62622c",
+        "output_bytes": 16233,
+        "first_success_seconds": 0.005936749977990985,
+        "startup_bytes": 5979,
+        "startup_estimated_tokens_bytes_div_4": 1494.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14472,
+        "first_successful_retrieval_seconds": 7.824074333067983
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 45.622,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 201686,
+        "cached_input_tokens_reported": 176835,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 24851
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-03567cd45594ce0e",
+        "output_bytes": 16232,
+        "first_success_seconds": 0.005997458007186651,
+        "startup_bytes": 5976,
+        "startup_estimated_tokens_bytes_div_4": 1494.0,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 14471,
+        "first_successful_retrieval_seconds": 5.1923285408411175
+      },
+      "experiment": "live-final",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "c0ef6f3301433a8d526b35797756d44b87a2cb6bcb7a5b8675e482cf8dbfa7e4",
+      "scope": "24 continuation requests; historical development baseline"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 31.799,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": false,
+      "failed": true,
+      "required_evidence_complete": false,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 77819,
+        "cached_input_tokens_reported": 61902,
+        "cache_creation_input_tokens_reported": 15883,
+        "uncached_input_tokens_reported": 15917
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-cffdc054d35b4945",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.007069458020851016,
+        "startup_bytes": 6582,
+        "startup_estimated_tokens_bytes_div_4": 1645.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 16447,
+        "first_successful_retrieval_seconds": 8.181379375047982
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 52.907,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 386828,
+        "cached_input_tokens_reported": 354188,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 32640
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-5f61fd2684cf8296",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.0057175420224666595,
+        "startup_bytes": 6578,
+        "startup_estimated_tokens_bytes_div_4": 1644.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 4,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26305,
+        "first_successful_retrieval_seconds": 4.942479750141501
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 36.493,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 101440,
+        "cached_input_tokens_reported": 84720,
+        "cache_creation_input_tokens_reported": 16678,
+        "uncached_input_tokens_reported": 16720
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-97171a08258da97c",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.005829875124618411,
+        "startup_bytes": 6582,
+        "startup_estimated_tokens_bytes_div_4": 1645.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 3,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 17529,
+        "first_successful_retrieval_seconds": 10.183540916070342
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 39.656,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 269728,
+        "cached_input_tokens_reported": 238314,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 31414
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-8326fcb9d98241e9",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.006397957913577557,
+        "startup_bytes": 6578,
+        "startup_estimated_tokens_bytes_div_4": 1644.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26305,
+        "first_successful_retrieval_seconds": 8.612723417114466
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 36.064,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 82306,
+        "cached_input_tokens_reported": 65516,
+        "cache_creation_input_tokens_reported": 16756,
+        "uncached_input_tokens_reported": 16790
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-42c0afc1a7e3dc79",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.006292083999142051,
+        "startup_bytes": 6582,
+        "startup_estimated_tokens_bytes_div_4": 1645.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 3,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 17529,
+        "first_successful_retrieval_seconds": 9.336614166852087
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 24.03,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 141526,
+        "cached_input_tokens_reported": 114900,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 26626
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-d0524916378a823d",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.005808292189612985,
+        "startup_bytes": 6787,
+        "startup_estimated_tokens_bytes_div_4": 1696.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26342,
+        "first_successful_retrieval_seconds": 5.448285541962832
+      },
+      "experiment": "live-gap-final",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "80e41d1b99e61785e9bb4eb5465961f0256e90b639436bea28c0cb894d303b75",
+      "source_sha256": "df63c252fea0d23790b5e00b0a3a282b1a42308e67b4b0ff2aa999cfc35135c4",
+      "scope": "48 continuation requests; superseded development run with late binary change; not final release evidence"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 39.522,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 104169,
+        "cached_input_tokens_reported": 86910,
+        "cache_creation_input_tokens_reported": 17217,
+        "uncached_input_tokens_reported": 17259
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-6c5494fa0e488dea",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.005037875147536397,
+        "startup_bytes": 6791,
+        "startup_estimated_tokens_bytes_div_4": 1697.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26343,
+        "first_successful_retrieval_seconds": 7.6408237079158425
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 35.911,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": false,
+      "failed": true,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 276296,
+        "cached_input_tokens_reported": 248511,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 27785
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-8c51636ae902ad6b",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.005846999818459153,
+        "startup_bytes": 6787,
+        "startup_estimated_tokens_bytes_div_4": 1696.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 4,
+        "failed_command_count": 1,
+        "retrieval_error_count": 1,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26342,
+        "first_successful_retrieval_seconds": 4.491209249943495
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 44.567,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 128624,
+        "cached_input_tokens_reported": 110939,
+        "cache_creation_input_tokens_reported": 17635,
+        "uncached_input_tokens_reported": 17685
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-1b51766077ffb0d4",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.0061140828765928745,
+        "startup_bytes": 6791,
+        "startup_estimated_tokens_bytes_div_4": 1697.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26343,
+        "first_successful_retrieval_seconds": 7.59662179206498
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 24.377,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": false,
+      "failed": true,
+      "required_evidence_complete": false,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 137008,
+        "cached_input_tokens_reported": 111334,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 25674
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": false,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 231,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 241,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 271,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 387,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 407,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 467,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-86f7c1efa630e253",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.0066064579878002405,
+        "startup_bytes": 6787,
+        "startup_estimated_tokens_bytes_div_4": 1696.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 2,
+        "retrieval_output_bytes": 26342,
+        "first_successful_retrieval_seconds": 4.855791124980897
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 24.537,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": false,
+      "failed": true,
+      "required_evidence_complete": false,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 53262,
+        "cached_input_tokens_reported": 39976,
+        "cache_creation_input_tokens_reported": 13260,
+        "uncached_input_tokens_reported": 13286
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": false,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 221,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 231,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 241,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 271,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 367,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 387,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 407,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": false,
+            "value": 467,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-091d991d40dbe1e1",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.005607291124761105,
+        "startup_bytes": 6791,
+        "startup_estimated_tokens_bytes_div_4": 1697.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 16447,
+        "first_successful_retrieval_seconds": 9.166094083106145
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 40.086,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 238835,
+        "cached_input_tokens_reported": 209120,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 29715
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-8519a2823e913ee1",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.005926125217229128,
+        "startup_bytes": 6787,
+        "startup_estimated_tokens_bytes_div_4": 1696.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 2,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 26343,
+        "first_successful_retrieval_seconds": 5.937818082980812
+      },
+      "experiment": "live-original-pages",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "bb8150251af48034821223c6205bef65dc3bef9aaca1e2147fdb30a589bea0e3",
+      "source_sha256": "1d7a31d0d5081ba88171b7d571f2f803647e71e6544128b4741b69e2988f054b",
+      "scope": "48 continuation requests; separate gap and batch; failures retained"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 33.482,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 67603,
+        "cached_input_tokens_reported": 55731,
+        "cache_creation_input_tokens_reported": 11838,
+        "uncached_input_tokens_reported": 11872
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-b3cf119366f8db54",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.006437708158046007,
+        "startup_bytes": 6694,
+        "startup_estimated_tokens_bytes_div_4": 1673.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 10581,
+        "first_successful_retrieval_seconds": 8.558375290827826
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 32.223,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 221119,
+        "cached_input_tokens_reported": 191869,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 29250
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-c7794feaefa6d6e7",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.005647541955113411,
+        "startup_bytes": 6691,
+        "startup_estimated_tokens_bytes_div_4": 1672.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 4,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 3,
+        "retrieval_output_bytes": 26466,
+        "first_successful_retrieval_seconds": 4.052470500115305
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-1",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 17.833,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 48950,
+        "cached_input_tokens_reported": 37740,
+        "cache_creation_input_tokens_reported": 11184,
+        "uncached_input_tokens_reported": 11210
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-f82d619f922a1fec",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.005453999852761626,
+        "startup_bytes": 6694,
+        "startup_estimated_tokens_bytes_div_4": 1673.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 10581,
+        "first_successful_retrieval_seconds": 6.306051000021398
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 29.441,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 265235,
+        "cached_input_tokens_reported": 238493,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 26742
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-11044da08d23e801",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.005553749855607748,
+        "startup_bytes": 6691,
+        "startup_estimated_tokens_bytes_div_4": 1672.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 4,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 3,
+        "retrieval_output_bytes": 26466,
+        "first_successful_retrieval_seconds": 4.1316888749133795
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-2",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
+    },
+    {
+      "harness": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "elapsed_seconds": 26.126,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 48958,
+        "cached_input_tokens_reported": 37724,
+        "cache_creation_input_tokens_reported": 11208,
+        "uncached_input_tokens_reported": 11234
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-bacf651769d21215",
+        "output_bytes": 16724,
+        "first_success_seconds": 0.006284625036641955,
+        "startup_bytes": 6694,
+        "startup_estimated_tokens_bytes_div_4": 1673.5,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 1,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 1,
+        "retrieval_output_bytes": 10581,
+        "first_successful_retrieval_seconds": 8.444708582945168
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
+    },
+    {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "elapsed_seconds": 43.312,
+      "exit_code": 0,
+      "timed_out": false,
+      "first_pass_correct": true,
+      "failed": false,
+      "required_evidence_complete": true,
+      "measurement_complete": true,
+      "usage": {
+        "available": true,
+        "report_count": 1,
+        "aggregate_input_tokens_reported": 306908,
+        "cached_input_tokens_reported": 277224,
+        "cache_creation_input_tokens_reported": 0,
+        "uncached_input_tokens_reported": 29684
+      },
+      "failures": [],
+      "malformed_lines": 0,
+      "oracle": {
+        "passed": true,
+        "cases": [
+          {
+            "ok": true,
+            "value": 211,
+            "expected": 211,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 240,
+            "expected": 240,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 269,
+            "expected": 269,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 298,
+            "expected": 298,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 385,
+            "expected": 385,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 347,
+            "expected": 347,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 394,
+            "expected": 394,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 441,
+            "expected": 441,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 488,
+            "expected": 488,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": 629,
+            "expected": 629,
+            "fn": "quote_cents",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": false,
+            "expected": false,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": true,
+            "expected": true,
+            "fn": "expired",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [],
+            "expected": [],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a"
+            ],
+            "expected": [
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "a",
+              "b"
+            ],
+            "expected": [
+              "a",
+              "b"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "A",
+              "a"
+            ],
+            "expected": [
+              "A",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "expected": [
+              "x",
+              "y",
+              "Y"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          },
+          {
+            "ok": true,
+            "value": [
+              "",
+              "a"
+            ],
+            "expected": [
+              "",
+              "a"
+            ],
+            "fn": "stable_unique",
+            "type_ok": true,
+            "cents_ok": true
+          }
+        ],
+        "case_count": 27
+      },
+      "parent_preflight": {
+        "task": "auto-551db6bf5c37a504",
+        "output_bytes": 16723,
+        "first_success_seconds": 0.006084040971472859,
+        "startup_bytes": 6691,
+        "startup_estimated_tokens_bytes_div_4": 1672.75,
+        "direct_control": false
+      },
+      "retrieval": {
+        "command_count": 4,
+        "failed_command_count": 0,
+        "retrieval_error_count": 0,
+        "successful_retrieval_count": 3,
+        "retrieval_output_bytes": 26466,
+        "first_successful_retrieval_seconds": 4.248935707844794
+      },
+      "experiment": "live-ordered-pages",
+      "repeat": "candidate-run-3",
+      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+      "scope": "48 continuation requests; ordered original pages; final complete cohort"
     }
   ]
 }

@@ -49,7 +49,9 @@ Original user requests, task notes, evidence pointers, capture health and Git fr
 The brief retains the first recorded request and two recent requests, subject to its byte budget.
 It provides an executable batch-read command for up to 32 user requests, including the first and latest 31.
 It marks omitted request IDs and truncated excerpts.
-For longer histories, it supplies a branch-scoped `history --requests-only --after ... --before ...` command to enumerate the missing interval, then read the originals.
+For longer histories, it supplies a branch-scoped `history --requests-only --after ... --before ...` command that returns original requests in bounded pages from the beginning through the latest update.
+Complete partial records before advancing the cursor.
+Source order and timestamps determine precedence; rereading an old request does not cancel a newer change.
 The complete hook message stays within 8,000 UTF-8 bytes.
 An initial request is historical evidence; later changes and current task state can supersede it.
 The agent can retrieve more detail through CLI commands or the MCP `sqnic_restore` tool.

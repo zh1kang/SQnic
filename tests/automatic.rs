@@ -605,25 +605,28 @@ fn startup_keeps_initial_request_and_recent_changes_with_executable_batch_read()
     );
     assert!(restored["requests"].to_string().contains("new rate is 29"));
     assert_eq!(restored["requests_omitted"], true);
-    let instructions = response["hookSpecificOutput"]["additionalContext"]
-        .as_str()
-        .unwrap();
-    let command = instructions
-        .split("read complete user requests with this command: ")
-        .nth(1)
-        .unwrap()
-        .split(". Treat ")
-        .next()
-        .unwrap();
-    let out = Command::new("sh").args(["-c", command]).output().unwrap();
-    assert!(
-        out.status.success(),
-        "{}",
-        String::from_utf8_lossy(&out.stderr)
-    );
-    let read: Value = serde_json::from_slice(&out.stdout).unwrap();
-    assert!(read.to_string().contains("initial-original-pricing"));
-    assert!(read.to_string().contains("new rate is 29"));
+    #[cfg(unix)]
+    {
+        let instructions = response["hookSpecificOutput"]["additionalContext"]
+            .as_str()
+            .unwrap();
+        let command = instructions
+            .split("read complete user requests with this command: ")
+            .nth(1)
+            .unwrap()
+            .split(". Treat ")
+            .next()
+            .unwrap();
+        let out = Command::new("sh").args(["-c", command]).output().unwrap();
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stderr)
+        );
+        let read: Value = serde_json::from_slice(&out.stdout).unwrap();
+        assert!(read.to_string().contains("initial-original-pricing"));
+        assert!(read.to_string().contains("new rate is 29"));
+    }
 }
 
 #[test]
@@ -713,26 +716,54 @@ fn startup_batch_includes_buried_user_changes_and_reports_reference_limit() {
             .contains(&json!(3))
     );
     assert_eq!(restored["request_refs_omitted"], false);
-    let instructions = response["hookSpecificOutput"]["additionalContext"]
-        .as_str()
-        .unwrap();
-    let command = instructions
-        .split("read complete user requests with this command: ")
-        .nth(1)
-        .unwrap()
-        .split(". Treat ")
-        .next()
-        .unwrap();
-    let output = Command::new("sh").args(["-c", command]).output().unwrap();
-    assert!(output.status.success());
-    let read: Value = serde_json::from_slice(&output.stdout).unwrap();
-    assert!(read.to_string().contains("middle rate changed to 29"));
+    #[cfg(unix)]
+    {
+        let instructions = response["hookSpecificOutput"]["additionalContext"]
+            .as_str()
+            .unwrap();
+        let command = instructions
+            .split("read complete user requests with this command: ")
+            .nth(1)
+            .unwrap()
+            .split(". Treat ")
+            .next()
+            .unwrap();
+        let output = Command::new("sh").args(["-c", command]).output().unwrap();
+        assert!(output.status.success());
+        let read: Value = serde_json::from_slice(&output.stdout).unwrap();
+        assert!(read.to_string().contains("middle rate changed to 29"));
+    }
 
     for i in 27..40 {
         writeln!(stream, "{}", json!({"type":"user","sessionId":"middle","cwd":f.repo(),"message":{"role":"user","content":format!("continue {i}")}})).unwrap();
     }
     drop(stream);
-    let restored = context(&f.hook("claude", "middle", Some(&path), "SessionStart"));
+    let response = f.hook("claude", "middle", Some(&path), "SessionStart");
+    #[cfg(unix)]
+    {
+        let instructions = response["hookSpecificOutput"]["additionalContext"]
+            .as_str()
+            .unwrap();
+        let command = instructions
+            .split("read complete user requests with this command: ")
+            .nth(1)
+            .unwrap()
+            .split(". Treat ")
+            .next()
+            .unwrap();
+        assert!(command.contains("--requests-only"));
+        assert!(command.contains("--after 0 --before 41"));
+        let output = Command::new("sh").args(["-c", command]).output().unwrap();
+        assert!(output.status.success());
+        let page: Value = serde_json::from_slice(&output.stdout).unwrap();
+        assert_eq!(page["items"][0]["ref"], "1");
+        assert!(
+            page["items"]
+                .to_string()
+                .contains("middle rate changed to 29")
+        );
+    }
+    let restored = context(&response);
     assert_eq!(restored["request_refs"].as_array().unwrap().len(), 32);
     assert_eq!(restored["request_refs_omitted"], true);
     assert_eq!(restored["request_refs"][0], 1);
@@ -815,7 +846,7 @@ fn hook_context_respects_delivery_cap_for_unicode_and_punctuation() {
         .as_str()
         .unwrap();
     assert!(context.len() <= 8000);
-    assert!(context.contains("enumerate the gap"));
+    assert!(context.contains("read pages in ascending order"));
     assert!(context.contains("next_offset"));
     assert!(!context.contains("\\u0000"));
 }
@@ -856,4 +887,79 @@ fn dirty_content_is_explicitly_outside_git_metadata_freshness() {
             .contains("inspect current files")
     );
     assert_eq!(fs::read_to_string(file).unwrap(), "dirty two\n");
+}
+
+#[test]
+fn hook_request_pages_recover_every_original_including_partial_unicode() {
+    let f = Fixture::new();
+    let path = f.transcript("paged", &"🦀".repeat(12000));
+    let mut stream = fs::OpenOptions::new().append(true).open(&path).unwrap();
+    for i in 0..40 {
+        writeln!(stream, "{}", json!({"type":"user","sessionId":"paged","cwd":f.repo(),"message":{"role":"user","content":format!("update {i}")}})).unwrap();
+    }
+    drop(stream);
+    let originals: Vec<String> = fs::read_to_string(&path)
+        .unwrap()
+        .split_inclusive('\n')
+        .map(str::to_owned)
+        .collect();
+    let response = f.hook("claude", "paged", Some(&path), "SessionStart");
+    let restored = context(&response);
+    let task = restored["task"].as_str().unwrap();
+    let mut after = 0;
+    let mut recovered = Vec::new();
+    let mut incomplete = false;
+    loop {
+        let page = f.run(&[
+            "history",
+            task,
+            "--requests-only",
+            "--scope",
+            restored["branch"].as_str().unwrap(),
+            "--after",
+            &after.to_string(),
+            "--before",
+            "42",
+            "--limit",
+            "20",
+        ]);
+        let items = page["items"].as_array().unwrap();
+        if items.is_empty() {
+            assert!(page["next_after"].is_null());
+            break;
+        }
+        incomplete |= page["page_complete"] == false;
+        for item in items {
+            let mut item = item.clone();
+            let id = item["ref"].as_str().unwrap().to_owned();
+            assert_eq!(id, (recovered.len() + 1).to_string());
+            let mut text = String::new();
+            loop {
+                let offset = if item["status"] == "budget_exhausted" {
+                    0
+                } else {
+                    assert!(item["status"] == "ok" || item["status"] == "partial");
+                    text.push_str(item["data"]["text"].as_str().unwrap());
+                    match item["data"]["next_offset"].as_u64() {
+                        Some(offset) => offset,
+                        None => break,
+                    }
+                };
+                item = f.run(&[
+                    "read-many",
+                    task,
+                    &format!("{id}@{offset}"),
+                    "--max-bytes",
+                    "20000",
+                ])["items"][0]
+                    .clone();
+            }
+            recovered.push(text);
+        }
+        let next = page["next_after"].as_u64().unwrap();
+        assert!(next > after);
+        after = next;
+    }
+    assert!(incomplete);
+    assert_eq!(recovered, originals);
 }
