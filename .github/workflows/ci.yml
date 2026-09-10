@@ -1,8 +1,8 @@
 name: rust
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 concurrency:
-  group: rust-${{ github.head_ref || github.ref_name }}
+  group: rust-${{ github.event_name }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   test:
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
     strategy:
       fail-fast: false
       matrix:
