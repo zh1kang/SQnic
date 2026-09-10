@@ -189,9 +189,9 @@ fn tools(profile: ToolProfile, read_only: bool) -> Vec<Value> {
         ),
         (
             "history",
-            "Page through event excerpts in ingestion order.",
+            "Page through event excerpts in ingestion order. requests_only returns up to 32 original records within 20 KB, with partial text and budget statuses. Finish incomplete items before next_after. Use scope and before for a stable historical range.",
             "task",
-            "after limit",
+            "after limit requests_only scope before",
             true,
         ),
         (
@@ -263,7 +263,7 @@ fn tools(profile: ToolProfile, read_only: bool) -> Vec<Value> {
                 "as_of"=>json!({"type":"integer","minimum":1}),
                 "limit"=>json!({"type":"integer","minimum":1,"maximum":100,"default":20}),
                 "max_chars"=>json!({"type":"integer","minimum":256,"maximum":100000,"default":8000}),
-                "id"|"after"|"offset"|"expected_revision"=>json!({"type":"integer","minimum":0}),
+                "id"|"after"|"before"|"offset"|"expected_revision"=>json!({"type":"integer","minimum":0}),
                 "diff"|"exact"|"requests_only"=>json!({"type":"boolean","default":false}),
                 "format"=>json!({"type":"string","enum":["auto","jsonl","claude","codex","pi","text"],"default":"auto"}),
                 "kind"=>json!({"type":"string","enum":["goal","constraint","decision","progress","blocker","next"]}),

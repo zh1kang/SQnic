@@ -1,0 +1,541 @@
+{
+  "gate-10k": {
+    "workload": "synthetic Claude-shaped JSONL; one worktree; extra active tasks held by fixture timestamps; growing append queries; warm caches; CLI startup included; worker disabled by fixture lease",
+    "active_tasks": 32,
+    "tracked_worktree_files": 2000,
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "binary_sha256": "a89728013f78d4365e8375ece2b449508533ef5442cd754c21d4e27ef583b12d",
+    "samples": 50,
+    "events": 10000,
+    "final_events": 10053,
+    "transcript_bytes": 2578420,
+    "database_bytes": 15749120,
+    "initial_startup_ms": 532.159,
+    "initial_background_catchup_ms": 218.845,
+    "measurements": {
+      "startup_hook": {
+        "p50_ms": 115.459,
+        "p95_ms": 209.999,
+        "p99_ms": 618.085,
+        "mean_ms": 138.861,
+        "max_output_bytes": 9157
+      },
+      "prompt_hook": {
+        "p50_ms": 19.327,
+        "p95_ms": 25.721,
+        "p99_ms": 114.533,
+        "mean_ms": 22.343,
+        "max_output_bytes": 3
+      },
+      "restore": {
+        "p50_ms": 62.469,
+        "p95_ms": 94.777,
+        "p99_ms": 122.199,
+        "mean_ms": 67.112,
+        "max_output_bytes": 7353
+      },
+      "restore_query": {
+        "p50_ms": 67.576,
+        "p95_ms": 112.224,
+        "p99_ms": 225.968,
+        "mean_ms": 75.254,
+        "max_output_bytes": 7537
+      },
+      "read_many": {
+        "p50_ms": 3.893,
+        "p95_ms": 4.441,
+        "p99_ms": 4.633,
+        "mean_ms": 3.886,
+        "max_output_bytes": 693
+      },
+      "search": {
+        "p50_ms": 4.86,
+        "p95_ms": 5.249,
+        "p99_ms": 5.391,
+        "mean_ms": 4.882,
+        "max_output_bytes": 8151
+      },
+      "status": {
+        "p50_ms": 9.128,
+        "p95_ms": 13.794,
+        "p99_ms": 26.266,
+        "mean_ms": 9.753,
+        "max_output_bytes": 5372
+      },
+      "unchanged_reconcile": {
+        "p50_ms": 57.221,
+        "p95_ms": 69.159,
+        "p99_ms": 74.847,
+        "mean_ms": 58.692,
+        "max_output_bytes": 109
+      },
+      "append_and_reconcile": {
+        "p50_ms": 63.719,
+        "p95_ms": 75.068,
+        "p99_ms": 90.007,
+        "mean_ms": 65.769,
+        "max_output_bytes": 109
+      }
+    },
+    "latency_gate": {
+      "read_many": {
+        "p95_ms": 4.441,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore": {
+        "p95_ms": 94.777,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore_query": {
+        "p95_ms": 112.224,
+        "limit_ms": 100,
+        "passed": false
+      },
+      "search": {
+        "p95_ms": 5.249,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "startup_hook": {
+        "p95_ms": 209.999,
+        "limit_ms": 250,
+        "passed": true
+      }
+    },
+    "gate_enforced": true
+  },
+  "gate-10k-revised": {
+    "workload": "synthetic Claude-shaped JSONL; one worktree; extra active tasks held by fixture timestamps; growing append queries; warm caches; CLI startup included; worker disabled by fixture lease",
+    "active_tasks": 32,
+    "tracked_worktree_files": 2000,
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "binary_sha256": "629d1941e6dccaa29a096791ac97ac34653c89324abe9de786eba1d6638c7025",
+    "samples": 50,
+    "events": 10000,
+    "final_events": 10053,
+    "original_records_exact_match": true,
+    "transcript_bytes": 2578420,
+    "database_bytes": 15663104,
+    "initial_startup_ms": 486.986,
+    "initial_background_catchup_ms": 196.633,
+    "measurements": {
+      "startup_hook": {
+        "p50_ms": 68.41,
+        "p95_ms": 70.075,
+        "p99_ms": 70.682,
+        "mean_ms": 68.46,
+        "max_output_bytes": 9157
+      },
+      "prompt_hook": {
+        "p50_ms": 18.422,
+        "p95_ms": 19.282,
+        "p99_ms": 19.51,
+        "mean_ms": 18.363,
+        "max_output_bytes": 3
+      },
+      "restore": {
+        "p50_ms": 59.082,
+        "p95_ms": 61.239,
+        "p99_ms": 64.746,
+        "mean_ms": 59.341,
+        "max_output_bytes": 7353
+      },
+      "restore_query": {
+        "p50_ms": 59.475,
+        "p95_ms": 64.362,
+        "p99_ms": 67.995,
+        "mean_ms": 59.955,
+        "max_output_bytes": 7537
+      },
+      "read_many": {
+        "p50_ms": 4.077,
+        "p95_ms": 5.469,
+        "p99_ms": 6.012,
+        "mean_ms": 4.201,
+        "max_output_bytes": 693
+      },
+      "search": {
+        "p50_ms": 4.677,
+        "p95_ms": 5.301,
+        "p99_ms": 6.335,
+        "mean_ms": 4.738,
+        "max_output_bytes": 8151
+      },
+      "status": {
+        "p50_ms": 9.089,
+        "p95_ms": 9.383,
+        "p99_ms": 9.573,
+        "mean_ms": 9.079,
+        "max_output_bytes": 5372
+      },
+      "unchanged_reconcile": {
+        "p50_ms": 59.064,
+        "p95_ms": 64.999,
+        "p99_ms": 74.159,
+        "mean_ms": 59.504,
+        "max_output_bytes": 109
+      },
+      "append_and_reconcile": {
+        "p50_ms": 64.981,
+        "p95_ms": 72.478,
+        "p99_ms": 89.299,
+        "mean_ms": 66.185,
+        "max_output_bytes": 109
+      }
+    },
+    "latency_gate": {
+      "read_many": {
+        "p95_ms": 5.469,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore": {
+        "p95_ms": 61.239,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore_query": {
+        "p95_ms": 64.362,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "search": {
+        "p95_ms": 5.301,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "startup_hook": {
+        "p95_ms": 70.075,
+        "limit_ms": 250,
+        "passed": true
+      }
+    },
+    "gate_enforced": true
+  },
+  "gate-100k": {
+    "workload": "synthetic Claude-shaped JSONL; one worktree; extra active tasks held by fixture timestamps; growing append queries; warm caches; CLI startup included; worker disabled by fixture lease",
+    "active_tasks": 1,
+    "tracked_worktree_files": 0,
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "binary_sha256": "629d1941e6dccaa29a096791ac97ac34653c89324abe9de786eba1d6638c7025",
+    "samples": 50,
+    "events": 100000,
+    "final_events": 100053,
+    "original_records_exact_match": true,
+    "transcript_bytes": 25879420,
+    "database_bytes": 88702976,
+    "initial_startup_ms": 51.945,
+    "initial_background_catchup_ms": 5453.74,
+    "measurements": {
+      "startup_hook": {
+        "p50_ms": 48.377,
+        "p95_ms": 55.249,
+        "p99_ms": 57.256,
+        "mean_ms": 49.29,
+        "max_output_bytes": 9404
+      },
+      "prompt_hook": {
+        "p50_ms": 18.546,
+        "p95_ms": 20.615,
+        "p99_ms": 20.84,
+        "mean_ms": 18.804,
+        "max_output_bytes": 3
+      },
+      "restore": {
+        "p50_ms": 38.036,
+        "p95_ms": 39.863,
+        "p99_ms": 40.433,
+        "mean_ms": 38.131,
+        "max_output_bytes": 7598
+      },
+      "restore_query": {
+        "p50_ms": 43.901,
+        "p95_ms": 70.368,
+        "p99_ms": 78.844,
+        "mean_ms": 46.806,
+        "max_output_bytes": 7469
+      },
+      "read_many": {
+        "p50_ms": 4.022,
+        "p95_ms": 5.343,
+        "p99_ms": 5.85,
+        "mean_ms": 4.089,
+        "max_output_bytes": 693
+      },
+      "search": {
+        "p50_ms": 8.184,
+        "p95_ms": 8.845,
+        "p99_ms": 10.545,
+        "mean_ms": 8.286,
+        "max_output_bytes": 8151
+      },
+      "status": {
+        "p50_ms": 9.288,
+        "p95_ms": 96.418,
+        "p99_ms": 121.318,
+        "mean_ms": 17.591,
+        "max_output_bytes": 655
+      },
+      "unchanged_reconcile": {
+        "p50_ms": 40.886,
+        "p95_ms": 60.735,
+        "p99_ms": 110.769,
+        "mean_ms": 44.712,
+        "max_output_bytes": 109
+      },
+      "append_and_reconcile": {
+        "p50_ms": 63.281,
+        "p95_ms": 70.995,
+        "p99_ms": 78.847,
+        "mean_ms": 63.71,
+        "max_output_bytes": 109
+      }
+    },
+    "latency_gate": {
+      "read_many": {
+        "p95_ms": 5.343,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore": {
+        "p95_ms": 39.863,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore_query": {
+        "p95_ms": 70.368,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "search": {
+        "p95_ms": 8.845,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "startup_hook": {
+        "p95_ms": 55.249,
+        "limit_ms": 250,
+        "passed": true
+      }
+    },
+    "gate_enforced": true
+  },
+  "gate-10k-final": {
+    "workload": "synthetic Claude-shaped JSONL; one worktree; extra active tasks held by fixture timestamps; growing append queries; warm caches; CLI startup included; worker disabled by fixture lease",
+    "active_tasks": 32,
+    "tracked_worktree_files": 2000,
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d",
+    "samples": 50,
+    "events": 10000,
+    "final_events": 10053,
+    "original_records_exact_match": true,
+    "transcript_bytes": 2578420,
+    "database_bytes": 15679488,
+    "initial_startup_ms": 413.625,
+    "initial_background_catchup_ms": 170.831,
+    "measurements": {
+      "startup_hook": {
+        "p50_ms": 84.518,
+        "p95_ms": 91.292,
+        "p99_ms": 94.682,
+        "mean_ms": 85.248,
+        "max_output_bytes": 9838
+      },
+      "prompt_hook": {
+        "p50_ms": 21.545,
+        "p95_ms": 26.55,
+        "p99_ms": 27.496,
+        "mean_ms": 22.026,
+        "max_output_bytes": 3
+      },
+      "restore": {
+        "p50_ms": 71.403,
+        "p95_ms": 84.426,
+        "p99_ms": 145.276,
+        "mean_ms": 74.726,
+        "max_output_bytes": 7556
+      },
+      "restore_query": {
+        "p50_ms": 71.942,
+        "p95_ms": 77.902,
+        "p99_ms": 79.459,
+        "mean_ms": 72.747,
+        "max_output_bytes": 7740
+      },
+      "read_many": {
+        "p50_ms": 5.365,
+        "p95_ms": 24.972,
+        "p99_ms": 48.507,
+        "mean_ms": 7.597,
+        "max_output_bytes": 693
+      },
+      "search": {
+        "p50_ms": 12.615,
+        "p95_ms": 28.317,
+        "p99_ms": 32.475,
+        "mean_ms": 15.572,
+        "max_output_bytes": 8151
+      },
+      "status": {
+        "p50_ms": 10.87,
+        "p95_ms": 14.368,
+        "p99_ms": 15.6,
+        "mean_ms": 11.222,
+        "max_output_bytes": 5372
+      },
+      "unchanged_reconcile": {
+        "p50_ms": 74.547,
+        "p95_ms": 117.272,
+        "p99_ms": 144.181,
+        "mean_ms": 80.096,
+        "max_output_bytes": 109
+      },
+      "append_and_reconcile": {
+        "p50_ms": 98.861,
+        "p95_ms": 108.013,
+        "p99_ms": 110.845,
+        "mean_ms": 98.623,
+        "max_output_bytes": 109
+      }
+    },
+    "latency_gate": {
+      "read_many": {
+        "p95_ms": 24.972,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore": {
+        "p95_ms": 84.426,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore_query": {
+        "p95_ms": 77.902,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "search": {
+        "p95_ms": 28.317,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "startup_hook": {
+        "p95_ms": 91.292,
+        "limit_ms": 250,
+        "passed": true
+      }
+    },
+    "gate_enforced": true
+  },
+  "gate-100k-final": {
+    "workload": "synthetic Claude-shaped JSONL; one worktree; extra active tasks held by fixture timestamps; growing append queries; warm caches; CLI startup included; worker disabled by fixture lease",
+    "active_tasks": 1,
+    "tracked_worktree_files": 0,
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d",
+    "samples": 50,
+    "events": 100000,
+    "final_events": 100053,
+    "original_records_exact_match": true,
+    "transcript_bytes": 25879420,
+    "database_bytes": 88702976,
+    "initial_startup_ms": 68.453,
+    "initial_background_catchup_ms": 9014.361,
+    "measurements": {
+      "startup_hook": {
+        "p50_ms": 65.99,
+        "p95_ms": 153.029,
+        "p99_ms": 165.373,
+        "mean_ms": 80.593,
+        "max_output_bytes": 10145
+      },
+      "prompt_hook": {
+        "p50_ms": 24.58,
+        "p95_ms": 26.013,
+        "p99_ms": 82.998,
+        "mean_ms": 25.284,
+        "max_output_bytes": 3
+      },
+      "restore": {
+        "p50_ms": 50.152,
+        "p95_ms": 54.028,
+        "p99_ms": 54.915,
+        "mean_ms": 50.449,
+        "max_output_bytes": 7832
+      },
+      "restore_query": {
+        "p50_ms": 56.465,
+        "p95_ms": 69.04,
+        "p99_ms": 89.431,
+        "mean_ms": 58.685,
+        "max_output_bytes": 7703
+      },
+      "read_many": {
+        "p50_ms": 5.828,
+        "p95_ms": 6.106,
+        "p99_ms": 7.784,
+        "mean_ms": 5.87,
+        "max_output_bytes": 693
+      },
+      "search": {
+        "p50_ms": 11.287,
+        "p95_ms": 11.939,
+        "p99_ms": 12.037,
+        "mean_ms": 11.16,
+        "max_output_bytes": 8151
+      },
+      "status": {
+        "p50_ms": 11.234,
+        "p95_ms": 16.88,
+        "p99_ms": 17.9,
+        "mean_ms": 12.742,
+        "max_output_bytes": 655
+      },
+      "unchanged_reconcile": {
+        "p50_ms": 46.509,
+        "p95_ms": 56.763,
+        "p99_ms": 58.435,
+        "mean_ms": 47.842,
+        "max_output_bytes": 109
+      },
+      "append_and_reconcile": {
+        "p50_ms": 73.077,
+        "p95_ms": 78.399,
+        "p99_ms": 85.113,
+        "mean_ms": 73.375,
+        "max_output_bytes": 109
+      }
+    },
+    "latency_gate": {
+      "read_many": {
+        "p95_ms": 6.106,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore": {
+        "p95_ms": 54.028,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "restore_query": {
+        "p95_ms": 69.04,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "search": {
+        "p95_ms": 11.939,
+        "limit_ms": 100,
+        "passed": true
+      },
+      "startup_hook": {
+        "p95_ms": 153.029,
+        "limit_ms": 250,
+        "passed": true
+      }
+    },
+    "gate_enforced": true
+  }
+}

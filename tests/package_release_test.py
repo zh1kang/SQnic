@@ -11,6 +11,8 @@ import unittest
 import zipfile
 from pathlib import Path
 
+from scripts.package_release import verify_package
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGER = ROOT / "scripts" / "package_release.py"
@@ -109,6 +111,21 @@ class PackageReleaseTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertTrue(archive.is_symlink())
         self.assertFalse((root / "outside").exists())
+
+    def test_checksum_corruption_is_rejected(self) -> None:
+        root, archive, checksum = self.package("aarch64-apple-darwin")
+        self.addCleanup(lambda: shutil.rmtree(root))
+        checksum.write_text("wrong checksum\n")
+        with self.assertRaisesRegex(ValueError, "checksum mismatch"):
+            verify_package(archive, checksum, "sqnic", False)
+
+    @unittest.skipUnless(os.name == "posix", "executable fixture uses a shell")
+    def test_smoke_executes_extracted_binary(self) -> None:
+        root, archive, checksum = self.package("aarch64-apple-darwin")
+        self.addCleanup(lambda: shutil.rmtree(root))
+        # The archive is valid, but its fixture bytes are not executable code.
+        with self.assertRaises(OSError):
+            verify_package(archive, checksum, "sqnic", True)
 
 
 if __name__ == "__main__":

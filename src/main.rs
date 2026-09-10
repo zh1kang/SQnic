@@ -159,7 +159,14 @@ fn execute(store: &mut Store, command: Command) -> Result<Value> {
             exact,
             requests_only,
         } => store.search(&task, &query, limit, exact, requests_only),
-        Command::History { task, after, limit } => store.history(&task, after, limit),
+        Command::History {
+            task,
+            after,
+            limit,
+            requests_only,
+            scope,
+            before,
+        } => store.history(&task, after, limit, requests_only, scope.as_deref(), before),
         Command::Read {
             task,
             id,

@@ -1246,3 +1246,69 @@ fn request_search_excludes_assistant_and_tool_result_copies() {
     assert_eq!(matches[0]["id"], 1);
     assert_eq!(result["requests_only"], true);
 }
+
+#[test]
+fn request_history_pages_are_scoped_and_preserve_buried_changes() {
+    let f = Fixture::new();
+    let rows = [
+        json!({"type":"user","scope":"main","message":{"content":"initial: rate 17"}}),
+        json!({"type":"user","scope":"other","message":{"content":"foreign: rate 999"}}),
+        json!({"type":"user","message":{"content":[{"type":"tool_result","tool_use_id":"x","content":"copied: rate 999"}]}}),
+        json!({"type":"user","scope":"main","message":{"content":"actually use 29"}}),
+        json!({"type":"assistant","message":{"content":"wrong summary: rate 17"}}),
+        json!({"type":"user","message":{"content":"keep zero units free"}}),
+        json!({"type":"user","scope":"main","message":{"content":"later continuation"}}),
+    ];
+    let text = rows.iter().map(|v| format!("{v}\n")).collect::<String>();
+    let source = f.file("requests.jsonl", &text);
+    f.run(&["import", "alpha", &source]);
+    let args = [
+        "history",
+        "alpha",
+        "--requests-only",
+        "--scope",
+        "main",
+        "--before",
+        "7",
+        "--limit",
+        "1",
+        "--after",
+    ];
+    let first = f.run(&[args.as_slice(), &["1"]].concat());
+    assert_eq!(first["items"][0]["data"]["id"], 4);
+    assert_eq!(first["next_after"], 4);
+    let second = f.run(&[args.as_slice(), &["4"]].concat());
+    assert_eq!(second["items"][0]["data"]["id"], 6);
+    let end = f.run(&[args.as_slice(), &["6"]].concat());
+    assert_eq!(end["items"], json!([]));
+    assert_eq!(end["next_after"], Value::Null);
+    assert_eq!(
+        f.run(&["history", "alpha"])["events"]
+            .as_array()
+            .unwrap()
+            .len(),
+        7
+    );
+    assert!(
+        !f.output(&["history", "alpha", "--before", "-1"])
+            .status
+            .success()
+    );
+}
+
+#[test]
+fn request_history_reports_incomplete_originals_within_its_byte_budget() {
+    let f = Fixture::new();
+    let record =
+        json!({"type":"user","message":{"content":"🦀".repeat(12000)},"unknown":"preserve"});
+    let path = f.file("large-request.jsonl", &format!("{record}\n"));
+    f.run(&["import", "alpha", &path]);
+    let out = f.output(&["history", "alpha", "--requests-only"]);
+    assert!(out.status.success());
+    assert!(out.stdout.len() <= 20000);
+    let page: Value = serde_json::from_slice(&out.stdout).unwrap();
+    assert_eq!(page["page_complete"], false);
+    assert_eq!(page["items"][0]["status"], "partial");
+    assert!(page["items"][0]["data"]["next_offset"].as_u64().unwrap() > 0);
+    assert_eq!(page["next_after"], 1);
+}

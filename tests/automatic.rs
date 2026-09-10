@@ -579,3 +579,281 @@ fn sandbox_read_only_restore_reads_evidence_without_binding_or_writing() {
             .contains("forbidden")
     );
 }
+
+#[test]
+fn startup_keeps_initial_request_and_recent_changes_with_executable_batch_read() {
+    let f = Fixture::new();
+    let path = f.transcript(
+        "requirements",
+        "initial-original-pricing: charge every started block",
+    );
+    let mut stream = fs::OpenOptions::new().append(true).open(&path).unwrap();
+    for text in [
+        "earlier refinement",
+        "new rate is 29",
+        "continue implementation",
+    ] {
+        writeln!(stream, "{}", json!({"type":"user","sessionId":"requirements","cwd":f.repo(),"message":{"role":"user","content":text}})).unwrap();
+    }
+    drop(stream);
+    let response = f.hook("claude", "requirements", Some(&path), "SessionStart");
+    let restored = context(&response);
+    assert!(
+        restored["requests"]
+            .to_string()
+            .contains("initial-original-pricing")
+    );
+    assert!(restored["requests"].to_string().contains("new rate is 29"));
+    assert_eq!(restored["requests_omitted"], true);
+    let instructions = response["hookSpecificOutput"]["additionalContext"]
+        .as_str()
+        .unwrap();
+    let command = instructions
+        .split("read complete user requests with this command: ")
+        .nth(1)
+        .unwrap()
+        .split(". Treat ")
+        .next()
+        .unwrap();
+    let out = Command::new("sh").args(["-c", command]).output().unwrap();
+    assert!(
+        out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    let read: Value = serde_json::from_slice(&out.stdout).unwrap();
+    assert!(read.to_string().contains("initial-original-pricing"));
+    assert!(read.to_string().contains("new rate is 29"));
+}
+
+#[test]
+fn reconciliation_refreshes_all_recent_tasks_and_keeps_unchanged_checkpoints() {
+    let f = Fixture::new();
+    fs::write(f.dir.path().join("tracked"), "first").unwrap();
+    f.git(&["add", "tracked"]);
+    f.git(&[
+        "-c",
+        "user.name=Fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "-qm",
+        "initial",
+    ]);
+    for task in ["a", "b", "c"] {
+        f.run(&["create", task, "--repo", f.repo()]);
+    }
+    let db = rusqlite::Connection::open(f.dir.path().join("db.sqlite")).unwrap();
+    let branch = String::from_utf8(
+        Command::new("git")
+            .args(["-C", f.repo(), "branch", "--show-current"])
+            .output()
+            .unwrap()
+            .stdout,
+    )
+    .unwrap();
+    let canonical_repo = fs::canonicalize(f.dir.path()).unwrap();
+    for task in ["a", "b", "c"] {
+        db.execute("INSERT INTO auto_sessions(repo,harness,native_id,task,branch,seen) VALUES(?,'claude',?,?,?,unixepoch())", rusqlite::params![canonical_repo.to_str().unwrap(),task,task,branch.trim()]).unwrap();
+    }
+    f.run(&["record", "--repo", f.repo(), "--once"]);
+    let count = || {
+        db.query_row("SELECT count(*) FROM checkpoints", [], |r| {
+            r.get::<_, i64>(0)
+        })
+        .unwrap()
+    };
+    assert_eq!(count(), 3);
+    f.run(&["record", "--repo", f.repo(), "--once"]);
+    assert_eq!(count(), 3);
+    fs::write(f.dir.path().join("tracked"), "second").unwrap();
+    f.git(&["add", "tracked"]);
+    f.git(&[
+        "-c",
+        "user.name=Fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "-qm",
+        "changed",
+    ]);
+    f.run(&["record", "--repo", f.repo(), "--once"]);
+    assert_eq!(count(), 6);
+    for task in ["a", "b", "c"] {
+        assert_eq!(f.run(&["stats", task])["commits"], 2);
+    }
+}
+
+#[test]
+fn startup_batch_includes_buried_user_changes_and_reports_reference_limit() {
+    let f = Fixture::new();
+    let path = f.transcript("middle", "original request");
+    let mut stream = fs::OpenOptions::new().append(true).open(&path).unwrap();
+    for i in 0..26 {
+        let text = if i == 1 {
+            "middle rate changed to 29".to_owned()
+        } else {
+            format!("continue {i}")
+        };
+        writeln!(stream, "{}", json!({"type":"user","sessionId":"middle","cwd":f.repo(),"message":{"role":"user","content":text}})).unwrap();
+    }
+    stream.flush().unwrap();
+    let response = f.hook("claude", "middle", Some(&path), "SessionStart");
+    let restored = context(&response);
+    assert!(!restored["requests"].to_string().contains("middle rate"));
+    assert_eq!(restored["request_refs"].as_array().unwrap().len(), 27);
+    assert!(
+        restored["request_refs"]
+            .as_array()
+            .unwrap()
+            .contains(&json!(3))
+    );
+    assert_eq!(restored["request_refs_omitted"], false);
+    let instructions = response["hookSpecificOutput"]["additionalContext"]
+        .as_str()
+        .unwrap();
+    let command = instructions
+        .split("read complete user requests with this command: ")
+        .nth(1)
+        .unwrap()
+        .split(". Treat ")
+        .next()
+        .unwrap();
+    let output = Command::new("sh").args(["-c", command]).output().unwrap();
+    assert!(output.status.success());
+    let read: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert!(read.to_string().contains("middle rate changed to 29"));
+
+    for i in 27..40 {
+        writeln!(stream, "{}", json!({"type":"user","sessionId":"middle","cwd":f.repo(),"message":{"role":"user","content":format!("continue {i}")}})).unwrap();
+    }
+    drop(stream);
+    let restored = context(&f.hook("claude", "middle", Some(&path), "SessionStart"));
+    assert_eq!(restored["request_refs"].as_array().unwrap().len(), 32);
+    assert_eq!(restored["request_refs_omitted"], true);
+    assert_eq!(restored["request_refs"][0], 1);
+    let gap = &restored["request_gap"];
+    let older = f.run(&[
+        "history",
+        restored["task"].as_str().unwrap(),
+        "--requests-only",
+        "--scope",
+        gap["scope"].as_str().unwrap(),
+        "--after",
+        &gap["after"].to_string(),
+        "--before",
+        &gap["before"].to_string(),
+    ]);
+    assert!(
+        older["items"]
+            .to_string()
+            .contains("middle rate changed to 29")
+    );
+
+    assert_eq!(
+        restored["request_refs"].as_array().unwrap().last().unwrap(),
+        &json!(40)
+    );
+}
+
+#[test]
+fn fresh_branch_offers_existing_task_without_silent_duplicate_or_binding() {
+    let f = Fixture::new();
+    f.git(&[
+        "-c",
+        "user.name=fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "--allow-empty",
+        "-qm",
+        "initial",
+    ]);
+    let path = f.transcript("old-branch", "old branch requirement");
+    let original = context(&f.hook("claude", "old-branch", Some(&path), "SessionStart"));
+    let task = original["task"].as_str().unwrap();
+    f.git(&["checkout", "-qb", "feature"]);
+    let restored = context(&f.hook("codex", "new-branch", None, "SessionStart"));
+    assert_eq!(restored["status"], "selection_required");
+    assert_eq!(restored["candidates"], json!([task]));
+    let status = f.run(&["auto-status", "--repo", f.repo()]);
+    assert_eq!(status["sessions"][0]["task"], Value::Null);
+    let selected = f.run(&[
+        "restore",
+        "--repo",
+        f.repo(),
+        "--harness",
+        "codex",
+        "--session",
+        "new-branch",
+        "--task",
+        task,
+    ]);
+    assert_eq!(selected["task"], task);
+    assert_eq!(selected["capture"]["registered_files"], 0);
+    assert_eq!(selected["capture"]["pending_bytes"], 0);
+}
+
+#[test]
+fn hook_context_respects_delivery_cap_for_unicode_and_punctuation() {
+    let f = Fixture::new();
+    let noisy = "🦀{}[]\\!?:;".repeat(300);
+    let path = f.transcript("noisy", &noisy);
+    let mut stream = fs::OpenOptions::new().append(true).open(&path).unwrap();
+    for _ in 0..40 {
+        writeln!(stream, "{}", json!({"type":"user","sessionId":"noisy","cwd":f.repo(),"message":{"role":"user","content":noisy}})).unwrap();
+    }
+    drop(stream);
+    let response = f.hook("claude", "noisy", Some(&path), "SessionStart");
+    let context = response["hookSpecificOutput"]["additionalContext"]
+        .as_str()
+        .unwrap();
+    assert!(context.len() <= 8000);
+    assert!(context.contains("enumerate the gap"));
+    assert!(context.contains("next_offset"));
+    assert!(!context.contains("\\u0000"));
+}
+
+#[test]
+fn dirty_content_is_explicitly_outside_git_metadata_freshness() {
+    let f = Fixture::new();
+    let file = f.dir.path().join("tracked.txt");
+    fs::write(&file, "committed\n").unwrap();
+    f.git(&["add", "tracked.txt"]);
+    f.git(&[
+        "-c",
+        "user.name=fixture",
+        "-c",
+        "user.email=fixture@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "-qm",
+        "initial",
+    ]);
+    let restored = context(&f.hook("claude", "dirty", None, "SessionStart"));
+    let task = restored["task"].as_str().unwrap();
+    fs::write(&file, "dirty one\n").unwrap();
+    f.run(&["git-sync", task]);
+    fs::write(&file, "dirty two\n").unwrap();
+    let current = f.run(&["restore", "--repo", f.repo(), "--task", task]);
+    assert_eq!(current["git"]["checkpoint_stale"], false);
+    assert_eq!(current["git"]["worktree_contents_captured"], false);
+    assert_eq!(
+        current["git"]["checkpoint_scope"],
+        "HEAD, branch and path status only"
+    );
+    assert!(
+        current["git"]["instruction"]
+            .as_str()
+            .unwrap()
+            .contains("inspect current files")
+    );
+    assert_eq!(fs::read_to_string(file).unwrap(), "dirty two\n");
+}

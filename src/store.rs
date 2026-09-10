@@ -163,13 +163,57 @@ impl Store {
         tx.commit()?;
         Ok(json!({"revision":id,"event":event,"scope":scope,"changed":true}))
     }
-    pub fn history(&self, task: &str, after: i64, limit: usize) -> Result<Value> {
+    pub fn history(
+        &self,
+        task: &str,
+        after: i64,
+        limit: usize,
+        requests_only: bool,
+        scope: Option<&str>,
+        before: Option<i64>,
+    ) -> Result<Value> {
         self.repo(task)?;
         validate_limit(limit)?;
-        let mut q=self.conn.prepare("SELECT e.id,e.kind,substr(e.body,1,600),s.path,e.line,length(e.raw) FROM events e LEFT JOIN sources s ON s.id=e.source WHERE e.task=? AND e.id>? ORDER BY e.id LIMIT ?")?;
+        ensure!(
+            !requests_only || limit <= 32,
+            "request history accepts at most 32 originals per page"
+        );
+        ensure!(
+            after >= 0 && before.is_none_or(|id| id >= 0),
+            "history cursors must be non-negative"
+        );
+        let mut q=self.conn.prepare("SELECT e.id,e.kind,substr(e.body,1,600),s.path,e.line,length(e.raw) FROM events e LEFT JOIN sources s ON s.id=e.source WHERE e.task=? AND e.id>? AND e.id<? AND (? IS NULL OR EXISTS(SELECT 1 FROM event_meta m WHERE m.event=e.id AND m.scope IN ('',?))) AND (?=0 OR (EXISTS(SELECT 1 FROM event_meta m WHERE m.event=e.id AND m.role='user') AND NOT EXISTS(SELECT 1 FROM tool_refs t WHERE t.event=e.id AND t.direction='result'))) ORDER BY e.id LIMIT ?")?;
         let rows = q
-            .query_map(params![task, after, limit as i64], event_row)?
+            .query_map(
+                params![
+                    task,
+                    after,
+                    before.unwrap_or(i64::MAX),
+                    scope,
+                    scope,
+                    requests_only,
+                    limit as i64
+                ],
+                event_row,
+            )?
             .collect::<rusqlite::Result<Vec<_>>>()?;
+        if requests_only {
+            let refs: Vec<String> = rows.iter().map(|row| row["id"].to_string()).collect();
+            let mut out = if refs.is_empty() {
+                json!({"historical_data":true,"omitted":false,"items":[]})
+            } else {
+                crate::evidence::read_many(self, task, &refs, 19800, None)?
+            };
+            out["next_after"] = rows.last().map_or(Value::Null, |row| row["id"].clone());
+            out["page_complete"] = json!(
+                out["items"]
+                    .as_array()
+                    .context("items")?
+                    .iter()
+                    .all(|item| item["status"] == "ok" && item["data"]["next_offset"].is_null())
+            );
+            return Ok(out);
+        }
         Ok(json!({"next_after":rows.last().and_then(|r|r.get("id")),"events":rows}))
     }
     pub fn read(&self, task: &str, id: i64, offset: usize, max: usize) -> Result<Value> {

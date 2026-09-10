@@ -173,39 +173,43 @@ pub fn reconcile(store: &mut Store, repo: &str, foreground: bool) -> Result<Valu
     }
     if !foreground {
         let tasks=store.conn.prepare("SELECT task FROM auto_sessions WHERE repo=? AND branch=? AND excluded=0 AND task IS NOT NULL AND seen>=unixepoch()-120 GROUP BY task ORDER BY max(seen) DESC LIMIT 64")?.query_map(params![repo,scope],|r|r.get::<_,String>(0))?.collect::<rusqlite::Result<Vec<_>>>()?;
-        for task in tasks {
-            let latest: Option<String> = store
-                .conn
-                .query_row(
-                    "SELECT snapshot FROM checkpoints WHERE task=? ORDER BY id DESC LIMIT 1",
-                    [&task],
-                    |r| r.get(0),
-                )
-                .optional()?;
-            let outcome = (|| -> Result<()> {
-                let current = crate::git::snapshot(repo)?;
-                let previous = latest
-                    .as_deref()
-                    .map(serde_json::from_str::<Value>)
-                    .transpose()?;
-                let differs = previous.as_ref().is_none_or(|p| {
-                    p["head"] != current["head"]
-                        || p["branch"] != current["branch"]
-                        || p["status"] != current["status"]
-                });
-                if differs {
-                    crate::git::sync_automatic(store, &task)?;
-                }
-                Ok(())
-            })();
-            store.conn.execute(
-                "UPDATE auto_sessions SET error=? WHERE repo=? AND task=? AND excluded=0",
-                params![
-                    outcome.err().map(|e| format!("Git checkpoint: {e:#}")),
-                    repo,
-                    task
-                ],
-            )?;
+        if !tasks.is_empty() {
+            // All tasks share this worktree observation. Indexing still rechecks HEAD.
+            let current = crate::git::snapshot(repo);
+            for task in tasks {
+                let latest: Option<String> = store
+                    .conn
+                    .query_row(
+                        "SELECT snapshot FROM checkpoints WHERE task=? ORDER BY id DESC LIMIT 1",
+                        [&task],
+                        |r| r.get(0),
+                    )
+                    .optional()?;
+                let outcome = (|| -> Result<()> {
+                    let current = current.as_ref().map_err(|e| anyhow::anyhow!("{e:#}"))?;
+                    let previous = latest
+                        .as_deref()
+                        .map(serde_json::from_str::<Value>)
+                        .transpose()?;
+                    let differs = previous.as_ref().is_none_or(|p| {
+                        p["head"] != current["head"]
+                            || p["branch"] != current["branch"]
+                            || p["status"] != current["status"]
+                    });
+                    if differs {
+                        crate::git::sync_automatic(store, &task)?;
+                    }
+                    Ok(())
+                })();
+                store.conn.execute(
+                    "UPDATE auto_sessions SET error=? WHERE repo=? AND task=? AND excluded=0",
+                    params![
+                        outcome.err().map(|e| format!("Git checkpoint: {e:#}")),
+                        repo,
+                        task
+                    ],
+                )?;
+            }
         }
     }
     Ok(

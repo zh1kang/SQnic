@@ -100,7 +100,7 @@ pub enum Command {
         #[serde(default)]
         requests_only: bool,
     },
-    /// Page through history in ingestion order.
+    /// Page through history; requests-only returns up to 32 originals within 20 KB.
     History {
         task: String,
         #[arg(long, default_value_t = 0)]
@@ -109,6 +109,16 @@ pub enum Command {
         #[arg(long, default_value_t = 20)]
         #[serde(default = "limit")]
         limit: usize,
+        /// Only native user requests, excluding tool results.
+        #[arg(long)]
+        #[serde(default)]
+        requests_only: bool,
+        /// Include this branch scope and unscoped history.
+        #[arg(long)]
+        scope: Option<String>,
+        /// Exclude this ID and later events for stable bounded paging.
+        #[arg(long)]
+        before: Option<i64>,
     },
     /// Read original event text in character slices.
     Read {

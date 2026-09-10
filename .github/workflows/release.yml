@@ -1,6 +1,7 @@
 name: release
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
@@ -19,7 +20,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - run: python -m pip install --disable-pip-version-check --no-cache-dir ruff==0.12.10
+      - run: python -m ruff check scripts/package_release.py scripts/handoff_acceptance.py scripts/benchmark_automatic.py scripts/harness_test.py tests/package_release_test.py tests/handoff_acceptance_test.py tests/release_accuracy_test.py
       - run: python -m unittest discover -s tests -p '*_test.py'
+      - name: validate live accuracy evidence
+        run: python scripts/handoff_acceptance.py --check-report docs/release-gate-live.json
       - run: node scripts/pi_adapter_test.mjs
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -27,6 +32,24 @@ jobs:
       - run: cargo fmt --check
       - run: cargo test --locked
       - run: cargo clippy --all-targets --all-features --locked -- -D warnings
+      - run: cargo build --release --locked
+      - name: release accuracy gate
+        shell: bash
+        run: |
+          binary="target/release/sqnic"
+          if [[ "$RUNNER_OS" == "Windows" ]]; then binary+=".exe"; fi
+          SQNIC_TEST_BINARY="$binary" python -m unittest discover -s tests -p release_accuracy_test.py -v
+      - name: latency gate (10k records, 32 tasks, 2000 files)
+        run: python scripts/benchmark_automatic.py --events 10000 --tasks 32 --worktree-files 2000 --samples 50 --gate --output .artifacts/gate-10k.json
+      - name: latency gate (100k growing records)
+        run: python scripts/benchmark_automatic.py --events 100000 --samples 50 --gate --output .artifacts/gate-100k.json
+      - name: latency gate (cold fixture cache, 100k records)
+        run: python scripts/benchmark_automatic.py --events 100000 --samples 50 --cold-cache --gate --operations startup_hook restore restore_query read_many search request_history --output .artifacts/gate-cold-100k.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-latency-gates
+          path: .artifacts/gate-*.json
 
   build:
     needs: verify
@@ -45,6 +68,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
@@ -52,7 +78,7 @@ jobs:
         shell: bash
         run: |
           version="$(cargo metadata --no-deps --format-version 1 | python -c 'import json,sys; print(json.load(sys.stdin)["packages"][0]["version"])')"
-          test "$GITHUB_REF_NAME" = "v$version"
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then test "$GITHUB_REF_NAME" = "v$version"; fi
           echo "SQNIC_VERSION=$version" >> "$GITHUB_ENV"
       - run: cargo build --release --locked --target "${{ matrix.target }}"
       - name: package binary
@@ -64,14 +90,7 @@ jobs:
             --binary "$binary" \
             --version "$SQNIC_VERSION" \
             --target "${{ matrix.target }}" \
-            --output-dir dist
-      - name: smoke test binary
-        shell: bash
-        run: |
-          binary="target/${{ matrix.target }}/release/sqnic"
-          if [[ "${{ matrix.target }}" == *windows* ]]; then binary+=".exe"; fi
-          "$binary" --version
-          "$binary" --help
+            --output-dir dist --smoke-test
       - uses: actions/upload-artifact@v4
         with:
           name: sqnic-${{ matrix.target }}
@@ -79,6 +98,7 @@ jobs:
           if-no-files-found: error
 
   publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
     permissions:

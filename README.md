@@ -35,6 +35,7 @@ sqnic setup --repo /absolute/path/to/project --harness cursor
 
 Open a fresh session in that project and complete the harness's normal project/hook trust step.
 Codex requires approval of the generated hooks through its normal `/hooks` interface; SQnic does not bypass that review.
+Use the normal Codex configuration for automatic hooks; the isolated `--ignore-user-config` verification mode does not load the same project trust state.
 Project-local setup does not change global harness configuration or `AGENTS.md`.
 All adapters must use the same local database to share context.
 Setup records absolute executable and database paths, so keep that executable in place.
@@ -45,6 +46,12 @@ Its adapter tests pass, but a live model run remains unverified because the inst
 
 The next supported harness receives a bounded brief at startup without being told to use SQnic.
 Original user requests, task notes, evidence pointers, capture health and Git freshness are included.
+The brief retains the first recorded request and two recent requests, subject to its byte budget.
+It provides an executable batch-read command for up to 32 user requests, including the first and latest 31.
+It marks omitted request IDs and truncated excerpts.
+For longer histories, it supplies a branch-scoped `history --requests-only --after ... --before ...` command to enumerate the missing interval, then read the originals.
+The complete hook message stays within 8,000 UTF-8 bytes.
+An initial request is historical evidence; later changes and current task state can supersede it.
 The agent can retrieve more detail through CLI commands or the MCP `sqnic_restore` tool.
 Startup supplies an absolute executable/database command prefix with `--read-only` for sandboxed retrieval.
 This mode reads the last stored snapshot without migrations, imports, or session binding writes.
@@ -182,7 +189,7 @@ Images and attachments are not decoded or downloaded.
 
 Manual capture imports supplied paths and refreshes them with `import` or `sync`.
 Automatic capture is opt-in through project-local `setup`; it never scans home-directory history.
-A harness can call these commands from a supported lifecycle hook, but v1 does not ship vendor-specific hooks.
+Installed lifecycle adapters invoke these commands automatically; manual import remains available for older exports.
 Cursor's internal databases and remote-only histories are not directly read; use an available export.
 
 JSONL records must end with a newline.
@@ -343,7 +350,8 @@ python3 scripts/benchmark.py --extended --events 10000 --samples 50 --output .ar
 python3 scripts/evaluate.py --output .artifacts/evaluation.json
 ```
 
-The optional live check uses existing Claude Code and Codex accounts and consumes model usage:
+The optional live check uses existing Claude Code and Codex accounts and consumes model usage.
+Its default models are Claude Opus 4.5 and Codex `gpt-5.6-luna`:
 
 ```sh
 python3 scripts/harness_test.py --output .artifacts/harness-results.json
@@ -354,6 +362,23 @@ It creates disposable synthetic history and commits, deletes the source transcri
 The checker asserts typed current/superseded values, source IDs, reasons, diff values and tool usage.
 It does not read personal conversation history or change global harness configuration.
 
+For an independent coding oracle, explicit startup-context replay, and measured model retrieval, run:
+
+```sh
+python3 scripts/handoff_acceptance.py --live --binary target/release/sqnic --output .artifacts/handoff-acceptance.json
+python3 scripts/handoff_acceptance.py --live --direct-spec-control --binary target/release/sqnic --output .artifacts/handoff-control.json
+```
+
+The runner uses fresh disposable repositories, synthetic history and fixed Opus 4.5/Luna models.
+It deletes source transcripts before the model starts and deletes each project when the run ends.
+It does not test native hook installation or automatic discovery.
+Use `--baseline-binary PATH` for a paired comparison.
+Use `--buried-update --repeats 3` to test recovery of an omitted middle change in three fresh sessions per harness.
+Each run has a 150-second bound; Claude also has a $1 and 12-turn limit.
+Reports separate startup bytes, observed retrieval bytes, aggregate input and cached input.
+Raw model logs remain beside the report in a hidden directory.
+See [handoff fixes and measurements](docs/handoff-fixes.md) for results and limits.
+
 See [schema-v3 implementation and results](docs/improvements.md), [architecture](docs/architecture.md), [verification results](docs/verification.md), and the machine-readable benchmark reports under `docs/`.
 
 Historical expansion must pass the same checkpoint: `read-many TASK 42,commit:FULL_HASH --as-of CHECKPOINT`.
@@ -363,3 +388,5 @@ If `evidence` returns `status: required_state_omitted`, increase the byte budget
 The tool returns no lower-priority evidence while a required goal or constraint is missing.
 
 see [the implemented improvements and current measurements](docs/improvements.md) for schema-v3 behavior, the smaller MCP profile, quantitative results and limits.
+
+See [accuracy and latency release gates](docs/release-gates.md) for current Opus/Luna results, enforced thresholds and remaining verification limits.

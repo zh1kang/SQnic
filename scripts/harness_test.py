@@ -22,6 +22,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mode", choices=["legacy", "bundle"], default="bundle")
     parser.add_argument("--reverse", action="store_true")
+    parser.add_argument("--claude-model", default="claude-opus-4-5-20251101")
+    parser.add_argument("--codex-model", default="gpt-5.6-luna")
     parser.add_argument("--profile", choices=["full", "handoff"], default="full")
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -204,6 +206,8 @@ def main() -> None:
         claude_command = [
             "claude",
             "-p",
+            "--model",
+            args.claude_model,
             "--output-format",
             "stream-json",
             "--verbose",
@@ -223,6 +227,8 @@ def main() -> None:
         codex_command = [
             "codex",
             "exec",
+            "--model",
+            args.codex_model,
             "--ignore-user-config",
             "--json",
             "--ephemeral",
@@ -238,6 +244,7 @@ def main() -> None:
         outputs = {}
         commands = {"claude": claude_command, "codex": codex_command}
         order = ["codex", "claude"] if args.reverse else ["claude", "codex"]
+        report["models"] = {"claude": args.claude_model, "codex": args.codex_model}
         report["mode"] = args.mode
         report["profile"] = args.profile
         report["order"] = order
@@ -247,7 +254,7 @@ def main() -> None:
                 if index == 0
                 else " Also recover the transfer progress marker left by the previous harness. Do not use shell commands or read files directly."
             )
-            outputs[name] = record(name, [*commands[name], prompt + instruction])
+            outputs[name] = record(name, [*commands[name], "--", prompt + instruction])
             log = root / f"{name}-output.jsonl"
             log.write_text(outputs[name])
             report[f"{name}_live_records_imported"] = tool(

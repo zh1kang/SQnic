@@ -1,0 +1,135 @@
+{
+  "method": "normal project-local lifecycle hooks; fresh sessions; destination prompts do not mention SQnic or contain answers; Codex trust approved through normal UI; no hook-trust bypass",
+  "models": {
+    "claude": "claude-opus-4-5-20251101",
+    "codex": "gpt-5.6-luna"
+  },
+  "oracle": {
+    "cases": [
+      {
+        "input": 0,
+        "ok": true
+      },
+      {
+        "input": 1,
+        "ok": true
+      },
+      {
+        "input": 2,
+        "ok": true
+      },
+      {
+        "input": 100,
+        "ok": true
+      },
+      {
+        "input": 1000000,
+        "ok": true
+      },
+      {
+        "input": -1,
+        "ok": true
+      },
+      {
+        "input": -100,
+        "ok": true
+      },
+      {
+        "input": true,
+        "ok": true
+      },
+      {
+        "input": false,
+        "ok": true
+      },
+      {
+        "input": 1.0,
+        "ok": true
+      },
+      {
+        "input": "1",
+        "ok": true
+      },
+      {
+        "input": null,
+        "ok": true
+      },
+      {
+        "input": [],
+        "ok": true
+      },
+      {
+        "input": {},
+        "ok": true
+      }
+    ],
+    "passed": true
+  },
+  "draft_preserved": true,
+  "runs": [
+    {
+      "harness": "codex",
+      "label": "native-codex-normal",
+      "elapsed_seconds": 43.936,
+      "automatic_retrieval": true,
+      "successful_retrieval_count": 1,
+      "retrieval_error_count": 1,
+      "expected_values_recovered": true,
+      "usage": {
+        "input_tokens": 275976,
+        "cached_input_tokens": 241282,
+        "cache_write_input_tokens": 34667,
+        "output_tokens": 2438,
+        "reasoning_output_tokens": 668
+      }
+    },
+    {
+      "harness": "claude",
+      "label": "native-claude-return",
+      "elapsed_seconds": 20.399,
+      "automatic_retrieval": true,
+      "successful_retrieval_count": 1,
+      "retrieval_error_count": 0,
+      "expected_values_recovered": true,
+      "usage": {
+        "input_tokens": 17,
+        "cache_creation_input_tokens": 21655,
+        "cache_read_input_tokens": 15093,
+        "output_tokens": 1202
+      }
+    },
+    {
+      "harness": "codex",
+      "label": "native-codex-build",
+      "elapsed_seconds": 42.778,
+      "automatic_retrieval": true,
+      "successful_retrieval_count": 2,
+      "retrieval_error_count": 0,
+      "expected_values_recovered": true,
+      "usage": {
+        "input_tokens": 322640,
+        "cached_input_tokens": 281156,
+        "cache_write_input_tokens": 41457,
+        "output_tokens": 3896,
+        "reasoning_output_tokens": 1271
+      }
+    }
+  ],
+  "attempts_before_normal_configuration": [
+    {
+      "status": "failed",
+      "reason": "invalid MCP override configuration"
+    },
+    {
+      "status": "discovery_failed",
+      "reason": "isolated ignore-user-config run did not receive startup context; model mined SQLite directly; not counted as native success"
+    }
+  ],
+  "native_capture": {
+    "sessions": 6,
+    "registered_files": 6,
+    "errors": [],
+    "pending_bytes": 0
+  },
+  "disposable_project_removed": true
+}
