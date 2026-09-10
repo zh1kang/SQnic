@@ -55,6 +55,11 @@ def main() -> None:
             subprocess.run(["git", "-C", str(repo), "-c", "user.name=Benchmark", "-c", "user.email=fixture@example.invalid", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgsign=false", "commit", "-qm", "fixture"], check=True, timeout=60)
         base = [str(binary), "--db", str(db)]
 
+        last_io = None
+        resource_module = None
+        if os.name == "posix":
+            import resource as resource_module
+
         def run(*command: str, payload: dict | None = None) -> tuple[dict, float, int]:
             if args.cold_cache:
                 for path in (db, Path(str(db) + "-wal"), Path(str(db) + "-shm"), repo / "bench.jsonl"):
@@ -62,6 +67,8 @@ def main() -> None:
                         with path.open("rb") as stream:
                             os.fsync(stream.fileno())
                             os.posix_fadvise(stream.fileno(), 0, 0, os.POSIX_FADV_DONTNEED)
+            nonlocal last_io
+            before_usage = resource_module.getrusage(resource_module.RUSAGE_CHILDREN) if resource_module else None
             start = time.perf_counter_ns()
             result = subprocess.run(
                 [*base, *command],
@@ -73,7 +80,13 @@ def main() -> None:
             value = json.loads(result.stdout)
             if "systemMessage" in value:
                 raise RuntimeError(value["systemMessage"])
-            return value, (time.perf_counter_ns() - start) / 1e6, len(result.stdout)
+            elapsed = (time.perf_counter_ns() - start) / 1e6
+            after_usage = resource_module.getrusage(resource_module.RUSAGE_CHILDREN) if resource_module else None
+            last_io = None if before_usage is None else {
+                "major_page_faults": after_usage.ru_majflt - before_usage.ru_majflt,
+                "input_blocks": after_usage.ru_inblock - before_usage.ru_inblock,
+            }
+            return value, elapsed, len(result.stdout)
 
         run("unpause", "--repo", str(repo))
         # Keep the workload deterministic: this fixture owns an artificial worker lease.
@@ -190,10 +203,11 @@ def main() -> None:
                 if name == "search" and not response.get("matches"):
                     raise RuntimeError("search lost the expected matching requests")
                 if iteration >= 3:
-                    values.append(value)
+                    values.append((*value, last_io))
             measurements[name] = {
                 **summary([v[1] for v in values]),
                 "max_output_bytes": max(v[2] for v in values),
+                "samples": [{"ms": round(v[1], 3), "io": v[3]} for v in values],
             }
         with closing(sqlite3.connect(db)) as conn, conn:
             events = conn.execute(
