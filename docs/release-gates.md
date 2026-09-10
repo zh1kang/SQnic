@@ -1,97 +1,105 @@
 # accuracy and latency release gates
 
-this table records the previous local baseline.
-The current native and long-history follow-up is described in [remaining verification](remaining-verification.md).
-Final measurements and saved release evidence are being refreshed before publication.
-
-## current result
+## verified local result
 
 the final local gates pass on macOS arm64.
-These are defined synthetic workloads, not proof of perfect behavior on arbitrary projects.
-Opus 4.5 replaces Haiku; Codex uses Luna.
-No commit, push or release was performed.
+The implementation remains one Rust executable with local SQLite storage and no added runtime dependencies or product model calls.
+The full hook message is bounded to 8,000 UTF-8 bytes.
+The native hook trial, strict model replay, and query benchmarks are separate checks.
+These synthetic workloads do not prove perfect behavior on arbitrary histories.
 
-| final workload | startup p95 | restore p95 | query restore p95 | batch read p95 | search p95 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 10k records, 32 active tasks, 2,000 tracked files | 91.292 ms | 84.426 ms | 77.902 ms | 24.972 ms | 28.317 ms |
-| 100k growing records, one active task | 153.029 ms | 54.028 ms | 69.040 ms | 6.106 ms | 11.939 ms |
+| workload | startup p95 | restore p95 | query restore p95 | batch read p95 | search p95 | request history p95 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 10k records, 32 tasks, 2,000 tracked files | 58.113 ms | 50.927 ms | 50.695 ms | 3.261 ms | 4.093 ms | 4.764 ms |
+| 100k growing records | 36.799 ms | 29.859 ms | 39.222 ms | 3.205 ms | 7.949 ms | 4.297 ms |
+| one million growing records | 42.673 ms | 31.065 ms | 62.633 ms | 3.162 ms | 36.199 ms | 4.517 ms |
 
-each operation uses 50 measured samples after three warmups, with CLI startup included.
-The gate requires startup below 250 ms p95 and all four retrieval operations below 100 ms p95.
-It rejects partial operation sets and fewer than 50 samples.
-Responses must contain the correct task, successful evidence, matching search results and fresh Git checkpoints.
-All original JSON records must match the source after ingestion and append reconciliation.
-The crash and concurrency tests separately compare complete raw records and check database integrity.
-Initial catch-up is reported separately and is not covered by the interactive latency target.
-See [all latency runs, including the initial failure](release-gate-latency.json).
+each operation uses 50 measured samples after three warmups, including CLI startup and a fresh SQLite connection.
+Startup must stay below 250 ms p95; all five retrieval operations must stay below 100 ms p95.
+The gate rejects partial operation sets and fewer than 50 samples.
+Responses must identify the correct task and contain expected originals, matching search results, and fresh Git metadata.
+Every stored JSON record is compared with its source values after ingestion and append reconciliation.
+The separate pagination regression compares complete raw records, including Unicode and line endings.
+See [all latency reports](release-gate-latency.json), including failures and per-sample measurements.
 
-## changes caused by failures
+## memory, storage, and initial import
 
-the first latency run failed query restore at 112.224 ms p95.
-Restore now uses one Git snapshot for branch scope and freshness, avoiding a duplicate branch lookup while preserving detached-HEAD identity.
-Timing varied across runs; the reports retain every measured profile rather than claiming the whole difference comes from this change.
-
-both models initially missed a required change buried behind 24 continuation messages.
-The brief still contains three request excerpts, but its executable command now expands up to 32 user-request IDs: the first and the latest 31.
-Tool-result wrappers are excluded.
-`request_refs_omitted` marks histories that exceed this batch.
-The instruction explicitly requires every listed ID and explains how to expand budget-limited records and find older requests.
-Raw history remains available; the brief does not claim to contain all history.
+the one-million-record profile used a 4.37 MB executable.
+Measured query process peaks were 4.3 to 8.2 MiB.
+The peak reported for child processes through initial ingestion was 9.4 MiB; it is not an isolated importer-only measurement.
+Initial background catch-up took 60.43 seconds.
+The source occupied 260.7 MB and the database 885.5 MB after reconciliation.
+The database contains raw records, normalized evidence, and indexes.
+Initial catch-up is separate from the interactive latency target.
+Strict append-prefix verification took 145.691 ms p95 at this size.
 
 ## live accuracy evidence
 
-the final cohort contains three fresh Opus 4.5 sessions and three fresh Luna sessions.
-Every session passed all 27 independent pricing, expiry and deduplication cases.
-Every session retrieved the original request and the buried change, cited their source IDs and supplied complete usage telemetry.
-No final successful run had a SQnic retrieval error.
+the release evidence contains three fresh Opus 4.5 runs and three fresh Luna runs against the same product and execution-source fingerprint.
+Each passed all 27 independent pricing, expiry, and deduplication cases.
+Each retrieved and cited the original request, an early price update, and a conflicting expiry update on the second request page.
+The fixture places these changes behind 48 continuation requests, outside the startup excerpts.
+The six accepted runs have complete usage telemetry and no failed SQnic retrieval calls.
 
-| model | successful runs | total run times | uncached input tokens |
+| model | passing runs | total run times | reported uncached input tokens |
 | --- | ---: | --- | --- |
-| `claude-opus-4-5-20251101` | 3/3 | 35.876, 43.244, 56.140 s | 13,653; 20,430; 20,354 |
-| `gpt-5.6-luna` | 3/3 | 35.859, 48.392, 53.634 s | 34,866; 37,894; 39,606 |
+| `claude-opus-4-5-20251101` | 3/3 | 35.427, 45.681, 52.300 s | 17,968; 17,459; 18,100 |
+| `gpt-5.6-luna` | 3/3 | 31.423, 20.145, 21.840 s | 28,322; 26,578; 27,032 |
 
-these times include model work and tool dispatch, not just SQnic queries.
-The handoff was about 9.3 KB, and the batch read returned about 14.5 KB.
-This adds context compared with the old three-reference brief; the measured tradeoff is better recovery of omitted changes, not a demonstrated token saving.
-The oracle was outside the disposable project and was not accessed by the final model command traces.
-The runner replays real SQnic hook output explicitly; this is not a new test of native hook installation or discovery.
+these times include model work and tool dispatch.
+Token accounting differs by provider and is not a billing comparison.
+The runner explicitly replays SQnic hook output; native discovery is tested separately.
+The source transcript is removed before the model starts, and an external oracle checks the resulting file.
+See [source-matched release evidence](release-gate-live.json).
 
-all 21 attempts are retained in [the attempt report](release-gate-attempts.json).
-Before the batch change, 0/6 passed.
-The first batch version passed 4/6; Opus shortened the command in its two failures.
-The explicit full-batch instruction then passed all three Opus runs.
-The accompanying Luna attempts timed out or reported DNS/connection errors and remain failures.
-After DNS resolution recovered, a separate three-run Luna cohort passed on the same product and execution code.
-These final cohorts are combined transparently in [the release evidence](release-gate-live.json).
-The result does not establish a general success rate or show that infrastructure failures cannot recur.
+all 66 live replay attempts remain in [the attempt report](release-gate-attempts.json).
+Earlier failures exposed missing originals, incorrect precedence, incomplete page traversal, invalid options, and evaluator parsing errors.
+The final Opus cohort passed as a group.
+One Luna run then mistyped a task ID, was correctly rejected, and recovered; that run remains a strict failure.
+A subsequent full three-run Luna cohort passed on the same code and runner.
+The release report identifies these separate cohorts explicitly.
+This does not establish a general 100% model success rate or eliminate possible model typing errors.
 
-## enforced checks
+## native handoff and platform checks
 
-normal CI and release verification run six additional CLI/database tests after building the release binary:
+a disposable invoice project passed 14 independent cases through normal Claude Code and Codex hooks.
+Destination prompts did not mention SQnic or contain the missing values.
+The trial recovered a changed requirement, tool output, a commit, and a conversation-only token while preserving an existing uncommitted draft.
+The project was deleted after success.
+Initial discovery/configuration failures and recovered invalid calls remain in [the native report](native-handoff-verification.json).
 
-- concurrent importers of the same 50k-record source, followed by idempotent retries
-- killing an importer during an observed write transaction, then recovering every raw record
-- explicit bindings for separate tasks in one repository
-- task-scoped commit evidence and rejection of foreign events and commit references
-- repeated detached-HEAD restore and rejection after changing detached commits
-- same-path, same-size file replacement detection without changing stored originals
+local validation passed 78 Rust tests, 29 Python tests, formatting, Clippy, the pinned CI Ruff checks, six Pi callback checks, and an extracted macOS arm64 archive smoke test.
+The archive test creates a database, imports an original Unicode record, and reads it back exactly.
+CI tests Linux, Windows, macOS arm64, and macOS x86_64.
+Release verification checks the saved live report before building all four release targets.
+See [current pull request checks and artifacts](https://github.com/zh1kang/SQnic/pull/1/checks) for remote status on the latest commit.
+Only a version-tag push can publish; pull-request and manual runs retain artifacts without publication.
 
-Linux CI and release verification run both latency profiles.
-The tagged-release workflow also checks the saved live report against the current product and execution-source fingerprint.
-It requires complete candidate repeats, distinct fixture identities, the exact configured models, exact boolean success flags, all oracle cases, required evidence and complete telemetry.
-Baseline runs cannot satisfy this gate.
-Verifier-only functions are excluded from the execution fingerprint so report-validation fixes do not require paid model reruns.
-The report retains the original full digest and a verified migration record showing that product and execution code did not change during that verifier correction.
+## cold-cache evidence and limits
+
+Linux cold-cache tests sync and advise eviction of fixture files before every sample.
+They do not flush system caches or establish a controlled physical cold-disk state.
+The same 100k workload passed normal CI with cold search at 52.879 ms p95, but two release-verification runs failed at 205.111 and 290.929 ms p95.
+In the diagnostic failure, search samples read the same 4,552 input blocks while elapsed time ranged from 66.094 to 468.425 ms.
+A passing runner read almost the same amount, with search samples near 48 to 53 ms.
+This supports an inference of hosted-runner I/O variability; it does not prove its cause.
+No speculative search or index change was made, and the 100 ms gate remains active.
+All failures remain recorded; current CI artifacts include each sample's time, major page faults, and input blocks.
+
+Cursor live testing remains blocked because the installed client reports no models available for this account.
+Automatic adapter installation supports Unix hosts; Windows supports the CLI.
+Git checkpoint freshness covers HEAD, branch, and path status, not uncommitted file contents.
+The receiving agent must inspect current files and diffs.
+Long histories still require additional reads and tokens; small query latency does not make unlimited context free.
+
+## repeat the local gates
 
 ```sh
 cargo build --release --locked
 SQNIC_TEST_BINARY=target/release/sqnic python3 -m unittest discover -s tests -p '*_test.py'
 python3 scripts/benchmark_automatic.py --events 10000 --tasks 32 --worktree-files 2000 --samples 50 --gate --output .artifacts/gate-10k.json
 python3 scripts/benchmark_automatic.py --events 100000 --samples 50 --gate --output .artifacts/gate-100k.json
+python3 scripts/benchmark_automatic.py --events 1000000 --samples 50 --gate --output .artifacts/gate-1m.json
 python3 scripts/handoff_acceptance.py --live --buried-update --repeats 3 --output .artifacts/live-gate.json
 python3 scripts/handoff_acceptance.py --check-report docs/release-gate-live.json
 ```
-
-validation: 72 Rust tests, 28 Python tests, formatting, Clippy, Ruff and the extracted macOS arm64 archive smoke test passed.
-Remote CI, Windows/Linux target binaries and Cursor live behavior still require external verification.
-The latency evidence uses warm local caches and synthetic histories up to 100k records; it does not establish cold-disk, multi-million-record or multi-machine performance.

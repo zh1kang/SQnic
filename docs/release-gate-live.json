@@ -1,29 +1,22 @@
 {
+  "source_sha256": "d9d430e613cecb527aaf8c602712a7ead7bc317653f398db63f0653f139ac9f4",
   "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
   "live": true,
   "direct_spec_control": false,
   "buried_update": true,
   "repeats": 3,
-  "source_sha256": "a68e9fe0c9f1b60188cd9932b97f2cce9466dec6282719de2e1dbee09adc83b7",
-  "execution_source_sha256": "2eeecbd86ad442cf72b4d0eeb869dcfdf89a02b4f9e742963cc1a7e069b58330",
-  "verifier_migration": {
-    "original_execution_source_sha256": "2eeecbd86ad442cf72b4d0eeb869dcfdf89a02b4f9e742963cc1a7e069b58330",
-    "source_sha256": "a68e9fe0c9f1b60188cd9932b97f2cce9466dec6282719de2e1dbee09adc83b7",
-    "execution_code_unchanged": true,
-    "method": "Only source_digest and validate_report function bodies are excluded from the operational fingerprint. Saved executed runner and current runner match outside those functions; original full digest also matches current product files plus saved runner."
+  "cohorts": {
+    "claude": "all three Opus runs from live-capped",
+    "codex": "all three Luna runs from live-capped-luna-repeat; one earlier task-ID typo remains in the attempt report"
   },
-  "cohorts": [
-    "gate-live-final: Opus runs",
-    "gate-live-luna-network-retry: Luna runs after DNS recovered"
-  ],
   "binaries": {
     "candidate-run-1": {
-      "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 35.876,
+          "elapsed_seconds": 35.427,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -33,10 +26,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 54506,
-            "cached_input_tokens_reported": 40853,
-            "cache_creation_input_tokens_reported": 13627,
-            "uncached_input_tokens_reported": 13653
+            "aggregate_input_tokens_reported": 124608,
+            "cached_input_tokens_reported": 106640,
+            "cache_creation_input_tokens_reported": 17918,
+            "uncached_input_tokens_reported": 17968
           },
           "failures": [],
           "malformed_lines": 0,
@@ -293,26 +286,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-26de210eae8b1928",
-            "output_bytes": 16233,
-            "first_success_seconds": 0.009186166105791926,
-            "startup_bytes": 9300,
-            "startup_estimated_tokens_bytes_div_4": 2325.0,
+            "task": "auto-bf2b20249095e328",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005080875009298325,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14472,
-            "first_successful_retrieval_seconds": 13.493781375000253
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 6.233290000120178
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 35.859,
+          "elapsed_seconds": 31.423,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -322,10 +315,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 121650,
-            "cached_input_tokens_reported": 86784,
+            "aggregate_input_tokens_reported": 224950,
+            "cached_input_tokens_reported": 196628,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 34866
+            "uncached_input_tokens_reported": 28322
           },
           "failures": [],
           "malformed_lines": 0,
@@ -582,31 +575,31 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-d821dc6512156b52",
-            "output_bytes": 16232,
-            "first_success_seconds": 0.0063310840632766485,
-            "startup_bytes": 9297,
-            "startup_estimated_tokens_bytes_div_4": 2324.25,
+            "task": "auto-ec6735a3e26baf40",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.004801125032827258,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14471,
-            "first_successful_retrieval_seconds": 10.111456667073071
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 5.2130587918218225
           }
         }
       ]
     },
     "candidate-run-2": {
-      "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 43.244,
+          "elapsed_seconds": 45.681,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -616,10 +609,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 54388,
-            "cached_input_tokens_reported": 33958,
-            "cache_creation_input_tokens_reported": 20404,
-            "uncached_input_tokens_reported": 20430
+            "aggregate_input_tokens_reported": 100096,
+            "cached_input_tokens_reported": 82637,
+            "cache_creation_input_tokens_reported": 17417,
+            "uncached_input_tokens_reported": 17459
           },
           "failures": [],
           "malformed_lines": 0,
@@ -876,26 +869,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-e47304bc1892f5e9",
-            "output_bytes": 16233,
-            "first_success_seconds": 0.004705167142674327,
-            "startup_bytes": 9300,
-            "startup_estimated_tokens_bytes_div_4": 2325.0,
+            "task": "auto-352f00e8b5ecff73",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005298207979649305,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14472,
-            "first_successful_retrieval_seconds": 6.854564958950505
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 6.6460081248078495
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 48.392,
+          "elapsed_seconds": 20.145,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -905,10 +898,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 175366,
-            "cached_input_tokens_reported": 137472,
+            "aggregate_input_tokens_reported": 213251,
+            "cached_input_tokens_reported": 186673,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 37894
+            "uncached_input_tokens_reported": 26578
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1165,31 +1158,31 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-cb4422cebcd4e1ed",
-            "output_bytes": 16232,
-            "first_success_seconds": 0.0044559158850461245,
-            "startup_bytes": 9297,
-            "startup_estimated_tokens_bytes_div_4": 2324.25,
+            "task": "auto-80e19c14ea61674f",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.0047336670104414225,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14471,
-            "first_successful_retrieval_seconds": 10.528372457949445
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 3.0013833339326084
           }
         }
       ]
     },
     "candidate-run-3": {
-      "binary_sha256": "6454e7e5ff77802d167f3ccf5650bb1482c65c44da3b19ce953dd2640ba8914d",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 56.14,
+          "elapsed_seconds": 52.3,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -1199,10 +1192,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 54308,
-            "cached_input_tokens_reported": 33954,
-            "cache_creation_input_tokens_reported": 20328,
-            "uncached_input_tokens_reported": 20354
+            "aggregate_input_tokens_reported": 124704,
+            "cached_input_tokens_reported": 106604,
+            "cache_creation_input_tokens_reported": 18050,
+            "uncached_input_tokens_reported": 18100
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1459,26 +1452,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-975dd2b869db7d59",
-            "output_bytes": 16233,
-            "first_success_seconds": 0.004685124848037958,
-            "startup_bytes": 9300,
-            "startup_estimated_tokens_bytes_div_4": 2325.0,
+            "task": "auto-b4864689a589a15b",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005890834145247936,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14472,
-            "first_successful_retrieval_seconds": 38.303989874897525
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 8.146055500023067
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 53.634,
+          "elapsed_seconds": 21.84,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -1488,10 +1481,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 154806,
-            "cached_input_tokens_reported": 115200,
+            "aggregate_input_tokens_reported": 192664,
+            "cached_input_tokens_reported": 165632,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 39606
+            "uncached_input_tokens_reported": 27032
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1748,20 +1741,20 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-61aebb81538bb062",
-            "output_bytes": 16232,
-            "first_success_seconds": 0.0044257910922169685,
-            "startup_bytes": 9297,
-            "startup_estimated_tokens_bytes_div_4": 2324.25,
+            "task": "auto-0184d6a9c471c1ca",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.005178540945053101,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 14471,
-            "first_successful_retrieval_seconds": 13.645896499976516
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 4.12386625004001
           }
         }
       ]

@@ -292,6 +292,19 @@ fn mcp_handles_initialization_tool_calls_and_protocol_errors() {
         .collect();
     assert_eq!(values.len(), 11);
     assert_eq!(values[1]["result"]["tools"].as_array().unwrap().len(), 22);
+    let history = values[1]["result"]["tools"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|tool| tool["name"] == "sqnic_history")
+        .unwrap();
+    assert_eq!(history["inputSchema"]["properties"]["limit"]["maximum"], 32);
+    assert!(
+        history["description"]
+            .as_str()
+            .unwrap()
+            .contains("has_more")
+    );
     assert!(
         values[3]["result"]["content"][0]["text"]
             .as_str()
@@ -1277,10 +1290,13 @@ fn request_history_pages_are_scoped_and_preserve_buried_changes() {
     let first = f.run(&[args.as_slice(), &["1"]].concat());
     assert_eq!(first["items"][0]["data"]["id"], 4);
     assert_eq!(first["next_after"], 4);
+    assert_eq!(first["has_more"], true);
     let second = f.run(&[args.as_slice(), &["4"]].concat());
     assert_eq!(second["items"][0]["data"]["id"], 6);
+    assert_eq!(second["has_more"], false);
     let end = f.run(&[args.as_slice(), &["6"]].concat());
     assert_eq!(end["items"], json!([]));
+    assert_eq!(end["has_more"], false);
     assert_eq!(end["next_after"], Value::Null);
     assert_eq!(
         f.run(&["history", "alpha"])["events"]

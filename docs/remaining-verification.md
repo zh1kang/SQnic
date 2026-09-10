@@ -32,10 +32,15 @@ See [native results](native-handoff-verification.json).
 ## correctness changes
 
 older requests can now be enumerated without guessing search terms.
-When startup omits requests, it supplies an exclusive `after`/`before` interval and the current branch scope.
+When startup omits requests, it supplies one ascending request-history traversal with an exclusive upper bound and the current branch scope.
+The traversal starts at the first request, instead of mixing an initial-and-recent batch with a separate middle gap.
+A live model had applied the old requirement after reading the gap first; ordered pages and explicit precedence guidance address that failure.
 `history --requests-only` returns up to 32 original records within 20 KB using the existing batch reader.
 It preserves raw fields and flags partial text or exhausted budgets.
-The caller must complete those records before advancing `next_after`, then continue until `items` is empty.
+The caller must complete those records before advancing `next_after`.
+`has_more` explicitly reports whether further requests remain.
+`page_complete` describes only the text in the current page.
+Trace review found that Opus stopped after a complete first page, so the live fixture now requires a second conflicting update on a later page.
 Normal `history` retains its existing excerpt interface.
 
 fresh sessions on a different branch now offer existing tasks for explicit selection instead of silently creating a second task.

@@ -7,6 +7,7 @@ All model output is kept in a private directory beside the requested report.
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 import hashlib
 import json
 import math
@@ -28,6 +29,7 @@ from typing import Any
 MODEL = {"claude": "claude-opus-4-5-20251101", "codex": "gpt-5.6-luna"}
 NEAR = (211, 29)
 FAR = (347, 47)
+LATE_UPDATE = "Update expiry: expired returns true when age_seconds is at least ttl_seconds, including equality. Continue."
 
 
 def expected_cases() -> list[dict[str, Any]]:
@@ -170,7 +172,7 @@ def fixture(binary: Path, root: Path, *, buried: bool = False) -> tuple[Path, st
     subprocess.run(["git", "init", "-q", str(repo)], check=True, timeout=30)
     run_sqnic(binary, db, ["unpause", "--repo", str(repo)])
     import sqlite3
-    with sqlite3.connect(db) as conn:
+    with closing(sqlite3.connect(db)) as conn, conn:
         conn.execute("INSERT INTO auto_leases VALUES(?, 'acceptance', unixepoch()+3600)", (str(repo.resolve()),))
     original = (
         "Implement answer.py with quote_cents(weight, zone), expired(age_seconds, ttl_seconds), and stable_unique(strings). "
@@ -182,6 +184,8 @@ def fixture(binary: Path, root: Path, *, buried: bool = False) -> tuple[Path, st
     update = (
         "Update only the pricing rates: near rate is 29 and far rate is 47. Continue."
     )
+    if buried:
+        original = original.replace("at least ttl_seconds", "greater than ttl_seconds")
     marker = "fixture-original-request"
     transcript = repo / "native.jsonl"
     records = [
@@ -194,7 +198,7 @@ def fixture(binary: Path, root: Path, *, buried: bool = False) -> tuple[Path, st
         {"type": "user", "message": {"role": "user", "content": "continue"}},
     ]
     if buried:
-        records.extend({"type": "user", "message": {"role": "user", "content": f"Progress note {index}: continue the implementation."}} for index in range(48))
+        records.extend({"type": "user", "message": {"role": "user", "content": LATE_UPDATE if index == 30 else f"Progress note {index}: continue the implementation."}} for index in range(48))
     transcript.write_text("\n".join(json.dumps(record) for record in records) + "\n")
     payload = {"session_id": "acceptance", "cwd": str(repo), "transcript_path": str(transcript), "hook_event_name": "SessionStart"}
     response, _, _ = run_sqnic(binary, db, ["hook", "--repo", str(repo), "--harness", "claude"], stdin=(json.dumps(payload) + "\n").encode())
@@ -252,8 +256,34 @@ def harness_command(name: str, repo: Path, model_prompt: str) -> list[str]:
 
 
 def invokes_sqnic(command: str, executable: Path) -> bool:
+    # Preserve shell command boundaries without interpreting quoted text or heredocs.
+    normalized = []
+    quote = None
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if char == "\\" and quote != "'" and index + 1 < len(command):
+            if command[index + 1] != "\n":
+                normalized.append(command[index:index + 2])
+            index += 2
+            continue
+        if quote is None and command[index:index + 2] == "<<":
+            return False
+        if quote is None and char == "#" and (index == 0 or command[index - 1] in " \t\r\n;&|"):
+            end = command.find("\n", index)
+            if end == -1:
+                break
+            index = end
+            continue
+        if char in {"'", '"'}:
+            if quote is None:
+                quote = char
+            elif quote == char:
+                quote = None
+        normalized.append(";" if char == "\n" and quote is None else char)
+        index += 1
     try:
-        tokens = list(shlex.shlex(command, posix=True, punctuation_chars=True))
+        tokens = list(shlex.shlex("".join(normalized), posix=True, punctuation_chars=True))
     except ValueError:
         return False
     # Shell wrappers carry the command as one quoted argument.
@@ -593,7 +623,7 @@ def main(argv: list[str] | None = None) -> int:
                     preflight["startup_estimated_tokens_bytes_div_4"] = preflight["startup_bytes"] / 4
                     preflight["direct_control"] = args.direct_spec_control
                     model_context = "" if args.direct_spec_control else context
-                    result = run_harness(name, Path(repo_name), prompt(model_context, original, update, args.direct_spec_control), raw_dir / label / name, selected_binary, args.direct_spec_control, preflight)
+                    result = run_harness(name, Path(repo_name), prompt(model_context, original, update + ("\n" + LATE_UPDATE if args.buried_update else ""), args.direct_spec_control), raw_dir / label / name, selected_binary, args.direct_spec_control, preflight)
                     answer = Path(repo_name) / "answer.py"
                     result["oracle"] = oracle(answer) if answer.is_file() else {"passed": False, "error": "answer.py missing"}
                     payloads = "\n".join(item["output"] for item in result.get("retrieval", {}).get("successful_retrievals", []))
@@ -601,6 +631,7 @@ def main(argv: list[str] | None = None) -> int:
                     evidence = {str(item) for item in final.get("evidence", [])} if isinstance(final.get("evidence"), list) else set()
                     result["required_evidence_complete"] = args.direct_spec_control or (
                         "fixture-original-request" in payloads and update in payloads and {"1", "5"}.issubset(evidence)
+                        and (not args.buried_update or (LATE_UPDATE in payloads and "38" in evidence))
                     )
                     result["measurement_complete"] = result.get("usage", {}).get("available", False) and result.get("malformed_lines", 0) == 0
                     result["failed"] = run_failed(result, args.direct_spec_control)

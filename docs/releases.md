@@ -13,7 +13,7 @@ each release contains versioned archives for:
 
 each archive contains one executable at the archive root. The release also
 contains `SHA256SUMS` and a per-archive `.sha256` sidecar. The workflow runs
-the extracted executable with `--version` and `--help` before publishing.
+the extracted executable with `--version` and `--help`, then creates a database and round-trips an original Unicode record before publishing.
 The packager verifies archive membership and its SHA-256 sidecar.
 Normal CI also runs this archive smoke test on each runner platform.
 
@@ -32,8 +32,8 @@ publish job receives `contents: write`, and it runs for pushed version tags.
 
 the model-free Pi callback check runs on Unix runners because its disposable
 fixture is a Unix executable. Rust's automatic integration tests already guard
-their Unix-only process behavior with `cfg(unix)`; Windows still runs the
-remaining Rust tests and the Python checks.
+their Unix-only shell-command behavior with `cfg(unix)`; Windows still runs the
+metadata, complete original-record pagination, remaining Rust tests and Python checks.
 
 local verification does not prove that GitHub Actions or all four target binaries pass.
 The workflow is prepared; no version tag or public release was pushed during this work.
@@ -46,6 +46,8 @@ Stale, incomplete or failed evidence blocks a tagged release.
 
 run the release workflow manually on a branch to check the saved live evidence, latency gates, and all four packaged targets.
 Manual runs retain archives as workflow artifacts and do not publish a GitHub release.
+Pull requests that change the release workflow or packager also run these checks.
+The publish job accepts only pushed version tags.
 
 ```sh
 gh workflow run release.yml --ref YOUR_BRANCH

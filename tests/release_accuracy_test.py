@@ -433,6 +433,7 @@ class ReleaseAccuracyTest(unittest.TestCase):
             hook["hookSpecificOutput"]["additionalContext"].split("\n", 1)[1]
         )
         self.assertEqual(context["branch"], f"detached:{first_hash}")
+        self.assertTrue(Path(context["repo"]).samefile(self.repo))
         for _ in range(2):
             restored = self._json(
                 "restore",
@@ -449,7 +450,7 @@ class ReleaseAccuracyTest(unittest.TestCase):
         with closing(sqlite3.connect(self.db)) as connection, connection:
             bindings = connection.execute(
                 "SELECT count(*) FROM auto_sessions WHERE repo=? AND native_id=?",
-                (str(self.repo.resolve()), "detached-session"),
+                (context["repo"], "detached-session"),
             ).fetchone()[0]
         self.assertEqual(bindings, 1)
         self._git("checkout", "-qb", "switched")

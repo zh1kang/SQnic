@@ -3,7 +3,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from scripts import handoff_acceptance as acceptance
 
@@ -70,7 +70,7 @@ class HandoffAcceptanceTest(unittest.TestCase):
         )
         self.assertEqual(claude["usage"]["input_tokens"] + claude["usage"]["cache_creation_input_tokens"] + claude["usage"]["cache_read_input_tokens"], 20)
         self.assertEqual(codex["usage"]["input_tokens"] - codex["usage"]["cached_input_tokens"], 4)
-        failed = acceptance.retrieval_stats("codex", json.dumps({"type": "item.completed", "item": {"type": "command_execution", "command": "/bin/sqnic read-many", "exit_code": 1, "aggregated_output": "bad"}}), Path("/bin/sqnic"))
+        failed = acceptance.retrieval_stats("codex", json.dumps({"type": "item.completed", "item": {"type": "command_execution", "command": "/bin/sqnic read-many", "exit_code": 1, "aggregated_output": "bad"}}), PurePosixPath("/bin/sqnic"))
         self.assertEqual(failed["failed_command_count"], 1)
         self.assertEqual(failed["successful_retrieval_count"], 0)
 
@@ -78,16 +78,16 @@ class HandoffAcceptanceTest(unittest.TestCase):
         payload = json.dumps({"historical_data": True, "items": [{"status": "ok", "data": {"id": 1, "text": "original request"}}]})
         event = {"type": "item.completed", "item": {"type": "command_execution", "command": "/bin/sqnic read-many task 1 && rg missing", "exit_code": 1, "aggregated_output": "skill text\n" + payload + "\nno matches\n"}}
         text = json.dumps(event)
-        stats = acceptance.retrieval_stats("codex", text, Path("/bin/sqnic"))
+        stats = acceptance.retrieval_stats("codex", text, PurePosixPath("/bin/sqnic"))
         self.assertEqual(stats["successful_retrieval_count"], 1)
         self.assertEqual(stats["failed_command_count"], 1)
         self.assertEqual(stats["retrieval_output_bytes"], len(payload.encode()))
-        self.assertEqual(acceptance.first_retrieval_time_observed("codex", [(12.0, text.encode())], Path("/bin/sqnic"), 10.0), 2.0)
+        self.assertEqual(acceptance.first_retrieval_time_observed("codex", [(12.0, text.encode())], PurePosixPath("/bin/sqnic"), 10.0), 2.0)
 
     def test_retrieval_rejects_empty_or_error_only_payload(self):
         for value in ({"items": []}, {"historical_data": True, "items": [{"status": "error"}]}):
             event = {"type": "item.completed", "item": {"type": "command_execution", "command": "/bin/sqnic read-many task 1", "exit_code": 0, "aggregated_output": json.dumps(value)}}
-            self.assertEqual(acceptance.retrieval_stats("codex", json.dumps(event), Path("/bin/sqnic"))["successful_retrieval_count"], 0)
+            self.assertEqual(acceptance.retrieval_stats("codex", json.dumps(event), PurePosixPath("/bin/sqnic"))["successful_retrieval_count"], 0)
 
     def test_fixture_creates_nested_root_and_retrieves_history(self):
         binary = ROOT / "target" / "release" / "sqnic"
@@ -106,15 +106,27 @@ class HandoffAcceptanceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             db, repo, _, update, context = acceptance.fixture(binary, Path(directory) / "run", buried=True)
             self.assertNotIn(update, context)
+            self.assertNotIn(acceptance.LATE_UPDATE, context)
+            original = acceptance.run_sqnic(binary, db, ["read", json.loads(context.split("\n", 1)[1])["task"], "38"])[0]
+            self.assertIn(acceptance.LATE_UPDATE, original["text"])
             self.assertTrue(json.loads(context.split("\n", 1)[1])["requests_omitted"])
             self.assertIn(update, acceptance.retrieval(binary, db, Path(repo))["output"])
 
     def test_only_real_sqnic_invocations_count(self):
-        binary = Path("/bin/sqnic")
+        binary = PurePosixPath("/bin/sqnic")
         self.assertTrue(acceptance.invokes_sqnic("/bin/zsh -lc '/bin/sqnic --db db read-many task 1'", binary))
         self.assertFalse(acceptance.invokes_sqnic("echo '/bin/sqnic read-many task 1'", binary))
         self.assertFalse(acceptance.invokes_sqnic("cat /bin/sqnic", binary))
         self.assertFalse(acceptance.invokes_sqnic("printf '%s' /bin/sqnic read-many", binary))
+
+    def test_multiline_shell_retrieval_does_not_count_quoted_text_or_heredocs(self):
+        binary = PurePosixPath("/bin/sqnic")
+        self.assertTrue(acceptance.invokes_sqnic('/bin/zsh -lc "sed -n 1,2p notes\n/bin/sqnic history task"', binary))
+        self.assertTrue(acceptance.invokes_sqnic("echo done # comment\n/bin/sqnic history task", binary))
+        self.assertTrue(acceptance.invokes_sqnic("/bin/sqnic \\\n history task", binary))
+        self.assertFalse(acceptance.invokes_sqnic("echo 'notes\n/bin/sqnic history task'", binary))
+        self.assertFalse(acceptance.invokes_sqnic("cat <<EOF\n/bin/sqnic history task\nEOF", binary))
+        self.assertFalse(acceptance.invokes_sqnic("echo done # ; /bin/sqnic history task", binary))
 
     def test_saved_release_gate_rejects_stale_partial_and_failed_evidence(self):
         report = {"source_sha256": acceptance.source_digest(), "live": True, "buried_update": True, "direct_spec_control": False, "repeats": 3, "binaries": {}}
