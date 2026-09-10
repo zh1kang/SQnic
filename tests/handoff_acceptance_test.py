@@ -106,6 +106,9 @@ class HandoffAcceptanceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             db, repo, _, update, context = acceptance.fixture(binary, Path(directory) / "run", buried=True)
             self.assertNotIn(update, context)
+            self.assertNotIn(acceptance.LATE_UPDATE, context)
+            original = acceptance.run_sqnic(binary, db, ["read", json.loads(context.split("\n", 1)[1])["task"], "38"])[0]
+            self.assertIn(acceptance.LATE_UPDATE, original["text"])
             self.assertTrue(json.loads(context.split("\n", 1)[1])["requests_omitted"])
             self.assertIn(update, acceptance.retrieval(binary, db, Path(repo))["output"])
 
@@ -115,6 +118,15 @@ class HandoffAcceptanceTest(unittest.TestCase):
         self.assertFalse(acceptance.invokes_sqnic("echo '/bin/sqnic read-many task 1'", binary))
         self.assertFalse(acceptance.invokes_sqnic("cat /bin/sqnic", binary))
         self.assertFalse(acceptance.invokes_sqnic("printf '%s' /bin/sqnic read-many", binary))
+
+    def test_multiline_shell_retrieval_does_not_count_quoted_text_or_heredocs(self):
+        binary = PurePosixPath("/bin/sqnic")
+        self.assertTrue(acceptance.invokes_sqnic('/bin/zsh -lc "sed -n 1,2p notes\n/bin/sqnic history task"', binary))
+        self.assertTrue(acceptance.invokes_sqnic("echo done # comment\n/bin/sqnic history task", binary))
+        self.assertTrue(acceptance.invokes_sqnic("/bin/sqnic \\\n history task", binary))
+        self.assertFalse(acceptance.invokes_sqnic("echo 'notes\n/bin/sqnic history task'", binary))
+        self.assertFalse(acceptance.invokes_sqnic("cat <<EOF\n/bin/sqnic history task\nEOF", binary))
+        self.assertFalse(acceptance.invokes_sqnic("echo done # ; /bin/sqnic history task", binary))
 
     def test_saved_release_gate_rejects_stale_partial_and_failed_evidence(self):
         report = {"source_sha256": acceptance.source_digest(), "live": True, "buried_update": True, "direct_spec_control": False, "repeats": 3, "binaries": {}}

@@ -1,19 +1,22 @@
 {
-  "source_sha256": "28d14df528a44750f93bf7600fe8b657ea53f472e2aa41dd92b9a4c4f9aa2f44",
+  "source_sha256": "d9d430e613cecb527aaf8c602712a7ead7bc317653f398db63f0653f139ac9f4",
   "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
   "live": true,
   "direct_spec_control": false,
   "buried_update": true,
   "repeats": 3,
-  "fixture_errors": 0,
+  "cohorts": {
+    "claude": "all three Opus runs from live-capped",
+    "codex": "all three Luna runs from live-capped-luna-repeat; one earlier task-ID typo remains in the attempt report"
+  },
   "binaries": {
     "candidate-run-1": {
-      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 33.482,
+          "elapsed_seconds": 35.427,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -23,10 +26,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 67603,
-            "cached_input_tokens_reported": 55731,
-            "cache_creation_input_tokens_reported": 11838,
-            "uncached_input_tokens_reported": 11872
+            "aggregate_input_tokens_reported": 124608,
+            "cached_input_tokens_reported": 106640,
+            "cache_creation_input_tokens_reported": 17918,
+            "uncached_input_tokens_reported": 17968
           },
           "failures": [],
           "malformed_lines": 0,
@@ -283,26 +286,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-b3cf119366f8db54",
-            "output_bytes": 16724,
-            "first_success_seconds": 0.006437708158046007,
-            "startup_bytes": 6694,
-            "startup_estimated_tokens_bytes_div_4": 1673.5,
+            "task": "auto-bf2b20249095e328",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005080875009298325,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 10581,
-            "first_successful_retrieval_seconds": 8.558375290827826
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 6.233290000120178
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 32.223,
+          "elapsed_seconds": 31.423,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -312,10 +315,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 221119,
-            "cached_input_tokens_reported": 191869,
+            "aggregate_input_tokens_reported": 224950,
+            "cached_input_tokens_reported": 196628,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 29250
+            "uncached_input_tokens_reported": 28322
           },
           "failures": [],
           "malformed_lines": 0,
@@ -572,31 +575,31 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-c7794feaefa6d6e7",
-            "output_bytes": 16723,
-            "first_success_seconds": 0.005647541955113411,
-            "startup_bytes": 6691,
-            "startup_estimated_tokens_bytes_div_4": 1672.75,
+            "task": "auto-ec6735a3e26baf40",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.004801125032827258,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 4,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
             "successful_retrieval_count": 3,
-            "retrieval_output_bytes": 26466,
-            "first_successful_retrieval_seconds": 4.052470500115305
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 5.2130587918218225
           }
         }
       ]
     },
     "candidate-run-2": {
-      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 17.833,
+          "elapsed_seconds": 45.681,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -606,10 +609,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 48950,
-            "cached_input_tokens_reported": 37740,
-            "cache_creation_input_tokens_reported": 11184,
-            "uncached_input_tokens_reported": 11210
+            "aggregate_input_tokens_reported": 100096,
+            "cached_input_tokens_reported": 82637,
+            "cache_creation_input_tokens_reported": 17417,
+            "uncached_input_tokens_reported": 17459
           },
           "failures": [],
           "malformed_lines": 0,
@@ -866,26 +869,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-f82d619f922a1fec",
-            "output_bytes": 16724,
-            "first_success_seconds": 0.005453999852761626,
-            "startup_bytes": 6694,
-            "startup_estimated_tokens_bytes_div_4": 1673.5,
+            "task": "auto-352f00e8b5ecff73",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005298207979649305,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 10581,
-            "first_successful_retrieval_seconds": 6.306051000021398
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 6.6460081248078495
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 29.441,
+          "elapsed_seconds": 20.145,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -895,10 +898,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 265235,
-            "cached_input_tokens_reported": 238493,
+            "aggregate_input_tokens_reported": 213251,
+            "cached_input_tokens_reported": 186673,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 26742
+            "uncached_input_tokens_reported": 26578
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1155,31 +1158,31 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-11044da08d23e801",
-            "output_bytes": 16723,
-            "first_success_seconds": 0.005553749855607748,
-            "startup_bytes": 6691,
-            "startup_estimated_tokens_bytes_div_4": 1672.75,
+            "task": "auto-80e19c14ea61674f",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.0047336670104414225,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 4,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
             "successful_retrieval_count": 3,
-            "retrieval_output_bytes": 26466,
-            "first_successful_retrieval_seconds": 4.1316888749133795
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 3.0013833339326084
           }
         }
       ]
     },
     "candidate-run-3": {
-      "binary_sha256": "d3ece0ec0692849cd1e682cb576af9e6d30280d2e4c5a411728dedec646a32b5",
+      "binary_sha256": "e2bac1f35b53a1bd10ba7efba359466d103c9de0608087f80eaca13b87204738",
       "runs": [
         {
           "harness": "claude",
           "model": "claude-opus-4-5-20251101",
-          "elapsed_seconds": 26.126,
+          "elapsed_seconds": 52.3,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -1189,10 +1192,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 48958,
-            "cached_input_tokens_reported": 37724,
-            "cache_creation_input_tokens_reported": 11208,
-            "uncached_input_tokens_reported": 11234
+            "aggregate_input_tokens_reported": 124704,
+            "cached_input_tokens_reported": 106604,
+            "cache_creation_input_tokens_reported": 18050,
+            "uncached_input_tokens_reported": 18100
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1449,26 +1452,26 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-bacf651769d21215",
-            "output_bytes": 16724,
-            "first_success_seconds": 0.006284625036641955,
-            "startup_bytes": 6694,
-            "startup_estimated_tokens_bytes_div_4": 1673.5,
+            "task": "auto-b4864689a589a15b",
+            "output_bytes": 16728,
+            "first_success_seconds": 0.005890834145247936,
+            "startup_bytes": 6916,
+            "startup_estimated_tokens_bytes_div_4": 1729.0,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 1,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
-            "successful_retrieval_count": 1,
-            "retrieval_output_bytes": 10581,
-            "first_successful_retrieval_seconds": 8.444708582945168
+            "successful_retrieval_count": 3,
+            "retrieval_output_bytes": 26581,
+            "first_successful_retrieval_seconds": 8.146055500023067
           }
         },
         {
           "harness": "codex",
           "model": "gpt-5.6-luna",
-          "elapsed_seconds": 43.312,
+          "elapsed_seconds": 21.84,
           "exit_code": 0,
           "timed_out": false,
           "first_pass_correct": true,
@@ -1478,10 +1481,10 @@
           "usage": {
             "available": true,
             "report_count": 1,
-            "aggregate_input_tokens_reported": 306908,
-            "cached_input_tokens_reported": 277224,
+            "aggregate_input_tokens_reported": 192664,
+            "cached_input_tokens_reported": 165632,
             "cache_creation_input_tokens_reported": 0,
-            "uncached_input_tokens_reported": 29684
+            "uncached_input_tokens_reported": 27032
           },
           "failures": [],
           "malformed_lines": 0,
@@ -1738,20 +1741,20 @@
             "case_count": 27
           },
           "parent_preflight": {
-            "task": "auto-551db6bf5c37a504",
-            "output_bytes": 16723,
-            "first_success_seconds": 0.006084040971472859,
-            "startup_bytes": 6691,
-            "startup_estimated_tokens_bytes_div_4": 1672.75,
+            "task": "auto-0184d6a9c471c1ca",
+            "output_bytes": 16727,
+            "first_success_seconds": 0.005178540945053101,
+            "startup_bytes": 6913,
+            "startup_estimated_tokens_bytes_div_4": 1728.25,
             "direct_control": false
           },
           "retrieval": {
-            "command_count": 4,
+            "command_count": 3,
             "failed_command_count": 0,
             "retrieval_error_count": 0,
             "successful_retrieval_count": 3,
-            "retrieval_output_bytes": 26466,
-            "first_successful_retrieval_seconds": 4.248935707844794
+            "retrieval_output_bytes": 26580,
+            "first_successful_retrieval_seconds": 4.12386625004001
           }
         }
       ]

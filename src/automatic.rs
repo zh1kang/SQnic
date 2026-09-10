@@ -637,7 +637,7 @@ pub fn hook(
                 format!("{command} --read-only read-many {task} {refs} --max-bytes 20000")
             };
             let traversal = if paged {
-                "The request list is incomplete. Use the supplied history command to read pages in ascending order, from the initial request through all updates. Each page returns originals directly. Finish every partial or budget_exhausted item, including all next_offset text pages, with read-many before advancing --after to next_after. Preserve --before and --scope; stop when items is empty."
+                "The request list is incomplete. Use the supplied history command to read pages in ascending order, from the initial request through all updates. Each page returns originals directly. Finish every partial or budget_exhausted item, including all next_offset text pages, with read-many before advancing --after to next_after. Preserve --before, --scope and the supplied --limit 20; requests-only pages accept at most 32 originals. When has_more is true, more requests remain and you must fetch the next page before editing. page_complete refers only to text in the current page, not the complete history."
             } else {
                 "Read every ID in the supplied batch; do not shorten the list. Finish every budget_exhausted reference and next_offset text page."
             };

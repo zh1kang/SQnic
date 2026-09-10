@@ -183,7 +183,7 @@ impl Store {
             "history cursors must be non-negative"
         );
         let mut q=self.conn.prepare("SELECT e.id,e.kind,substr(e.body,1,600),s.path,e.line,length(e.raw) FROM events e LEFT JOIN sources s ON s.id=e.source WHERE e.task=? AND e.id>? AND e.id<? AND (? IS NULL OR EXISTS(SELECT 1 FROM event_meta m WHERE m.event=e.id AND m.scope IN ('',?))) AND (?=0 OR (EXISTS(SELECT 1 FROM event_meta m WHERE m.event=e.id AND m.role='user') AND NOT EXISTS(SELECT 1 FROM tool_refs t WHERE t.event=e.id AND t.direction='result'))) ORDER BY e.id LIMIT ?")?;
-        let rows = q
+        let mut rows = q
             .query_map(
                 params![
                     task,
@@ -192,18 +192,21 @@ impl Store {
                     scope,
                     scope,
                     requests_only,
-                    limit as i64
+                    (limit + usize::from(requests_only)) as i64
                 ],
                 event_row,
             )?
             .collect::<rusqlite::Result<Vec<_>>>()?;
         if requests_only {
+            let has_more = rows.len() > limit;
+            rows.truncate(limit);
             let refs: Vec<String> = rows.iter().map(|row| row["id"].to_string()).collect();
             let mut out = if refs.is_empty() {
                 json!({"historical_data":true,"omitted":false,"items":[]})
             } else {
                 crate::evidence::read_many(self, task, &refs, 19800, None)?
             };
+            out["has_more"] = json!(has_more);
             out["next_after"] = rows.last().map_or(Value::Null, |row| row["id"].clone());
             out["page_complete"] = json!(
                 out["items"]
